@@ -1,0 +1,12 @@
+{
+  "name": "aikai-mobile",
+  "displayName": "aikai-mobile",
+  "expo": {
+    "name": "aikai-mobile",
+    "slug": "aikai-mobile",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
