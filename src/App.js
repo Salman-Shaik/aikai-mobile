@@ -1,12 +1,21 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
 import { HomePage } from "./Components/Homepage";
+import { InitialPage } from "./Components/InitialPage";
 
 export default function App() {
+  let [showLogo, setShowLogo] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowLogo(false);
+    }, 3000);
+  }, []);
+
   return (
     <View style={styles.container}>
-      <HomePage />
+      {showLogo ? <InitialPage /> : <HomePage />}
       <StatusBar style="auto" />
     </View>
   );
@@ -17,6 +26,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#222222",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-around",
   },
 });

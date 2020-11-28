@@ -1,23 +1,33 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, {useState} from "react";
+import {Dimensions, Image, StyleSheet, View} from "react-native";
+import {NavigationMenu} from "./NavigationMenu";
 
 export const Header = () => {
+  const [selectedItem, setSelectedItem] = useState("");
+
   return (
     <View style={styles.header}>
-      <Text style={styles.logoText}>A.I.K.A.I</Text>
+      <Image style={styles.logo} source={require("../../public/logo.png")} onPress={() => setSelectedItem("")}/>
+      <NavigationMenu selectedItem={selectedItem} setSelectedItem={setSelectedItem}/>
     </View>
   );
 };
+const deviceWidth = Dimensions.get("window").width;
+const deviceHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
   header: {
+    width: deviceWidth,
+    height: (deviceHeight * 10) / 100,
     display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
     alignItems: "center",
-    justifyContent: "flex-start",
-    marginTop: 2,
+    marginTop: 22
   },
-  logoText: {
-    color: "#EF3D43",
-    fontSize: 30,
+  logo: {
+    height: 120,
+    width: 120,
+    alignSelf: "center"
   },
 });
