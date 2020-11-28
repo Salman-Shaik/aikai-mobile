@@ -49,6 +49,6 @@ const styles = StyleSheet.create({
   },
   iconText:{
     fontSize:10,
-    color:"white"
+    color:"#f8f8ff"
   }
 });
