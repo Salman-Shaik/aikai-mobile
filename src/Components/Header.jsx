@@ -1,12 +1,26 @@
 import React from "react";
-import {Dimensions, Image, StyleSheet, View} from "react-native";
-import {NavigationMenu} from "./NavigationMenu";
+import { Dimensions, Image, StyleSheet, View,Pressable } from "react-native";
+import { NavigationMenu } from "./NavigationMenu";
 
-export const Header = ({selectedHeaderItem, setSelectedHeaderItem,onLogoPress,clearFooterItem}) => {
+export const Header = ({
+  selectedHeaderItem,
+  setSelectedHeaderItem,
+  onLogoPress,
+  clearFooterItem,
+}) => {
   return (
     <View style={styles.header}>
-      <Image style={styles.logo} source={require("../../public/logo.png")} onPress={onLogoPress}/>
-      <NavigationMenu selectedItem={selectedHeaderItem} setSelectedItem={setSelectedHeaderItem} clearFooterItem={clearFooterItem}/>
+      <Pressable onPress={onLogoPress}>
+      <Image
+        style={styles.logo}
+        source={require("../../public/logo.png")}
+      />
+      </Pressable>
+      <NavigationMenu
+        selectedItem={selectedHeaderItem}
+        setSelectedItem={setSelectedHeaderItem}
+        clearFooterItem={clearFooterItem}
+      />
     </View>
   );
 };
@@ -24,11 +38,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 24,
     backgroundColor: "rgba(29,29,29,0.3)",
-    marginLeft: -15
+    marginLeft: -15,
   },
   logo: {
     height: 110,
     width: 110,
-    alignSelf: "center"
+    alignSelf: "center",
   },
 });

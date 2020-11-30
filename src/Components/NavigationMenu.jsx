@@ -1,8 +1,12 @@
-import {Picker} from "@react-native-picker/picker";
-import React, {useState} from "react";
-import {Dimensions, StyleSheet, Text, View} from "react-native";
+import { Picker } from "@react-native-picker/picker";
+import React, { useState } from "react";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 
-export const NavigationMenu = ({selectedItem, setSelectedItem, clearFooterItem}) => {
+export const NavigationMenu = ({
+  selectedItem,
+  setSelectedItem,
+  clearFooterItem,
+}) => {
   const [showSuggestionType, setShowSuggestionType] = useState("Random");
 
   const onTv = () => {
@@ -24,22 +28,13 @@ export const NavigationMenu = ({selectedItem, setSelectedItem, clearFooterItem})
     <View style={styles.navigationMenuSection}>
       {selectedItem === "" && (
         <View style={styles.navigationMenu}>
-          <Text
-            style={styles.menuItem}
-            onPress={onTv}
-          >
+          <Text style={styles.menuItem} onPress={onTv}>
             TV Shows
           </Text>
-          <Text
-            style={styles.menuItem}
-            onPress={onMovie}
-          >
+          <Text style={styles.menuItem} onPress={onMovie}>
             Movies
           </Text>
-          <Text
-            style={styles.menuItem}
-            onPress={Favorites}
-          >
+          <Text style={styles.menuItem} onPress={Favorites}>
             Favorites
           </Text>
         </View>
@@ -52,8 +47,8 @@ export const NavigationMenu = ({selectedItem, setSelectedItem, clearFooterItem})
             onValueChange={(value) => setShowSuggestionType(value)}
             style={styles.picker}
           >
-            <Picker.Item label="Random" value="Random"/>
-            <Picker.Item label="Top Rated" value="Top"/>
+            <Picker.Item label="Random" value="Random" />
+            <Picker.Item label="Top Rated" value="Top" />
           </Picker>
         </View>
       )}
@@ -65,8 +60,8 @@ export const NavigationMenu = ({selectedItem, setSelectedItem, clearFooterItem})
             onValueChange={(value) => setShowSuggestionType(value)}
             style={styles.picker}
           >
-            <Picker.Item label="Random" value="Random"/>
-            <Picker.Item label="Top Rated" value="Top"/>
+            <Picker.Item label="Random" value="Random" />
+            <Picker.Item label="Top Rated" value="Top" />
           </Picker>
         </View>
       )}
@@ -107,7 +102,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    marginLeft:10
+    marginLeft: 34,
   },
   selectedMenuItem: {
     fontSize: 17,
