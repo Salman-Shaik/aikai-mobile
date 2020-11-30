@@ -2,8 +2,23 @@ import {Picker} from "@react-native-picker/picker";
 import React, {useState} from "react";
 import {Dimensions, StyleSheet, Text, View} from "react-native";
 
-export const NavigationMenu = ({selectedItem, setSelectedItem}) => {
+export const NavigationMenu = ({selectedItem, setSelectedItem, clearFooterItem}) => {
   const [showSuggestionType, setShowSuggestionType] = useState("Random");
+
+  const onTv = () => {
+    clearFooterItem();
+    setSelectedItem("TV Shows");
+  };
+
+  const onMovie = () => {
+    clearFooterItem();
+    setSelectedItem("Movies");
+  };
+
+  const Favorites = () => {
+    clearFooterItem();
+    setSelectedItem("Favorites");
+  };
 
   return (
     <View style={styles.navigationMenuSection}>
@@ -11,27 +26,27 @@ export const NavigationMenu = ({selectedItem, setSelectedItem}) => {
         <View style={styles.navigationMenu}>
           <Text
             style={styles.menuItem}
-            onPress={() => setSelectedItem("TV Shows")}
+            onPress={onTv}
           >
             TV Shows
           </Text>
           <Text
             style={styles.menuItem}
-            onPress={() => setSelectedItem("Movies")}
+            onPress={onMovie}
           >
             Movies
           </Text>
           <Text
             style={styles.menuItem}
-            onPress={() => setSelectedItem("Favorites")}
+            onPress={Favorites}
           >
             Favorites
           </Text>
         </View>
       )}
-      {selectedItem === "TV Shows" && (
+      {selectedItem === "Movies" && (
         <View style={styles.postSelectedMenu}>
-          <Text style={styles.selectedMenuItem}>TV Shows</Text>
+          <Text style={styles.selectedMenuItem}>Movies >> </Text>
           <Picker
             selectedValue={showSuggestionType}
             onValueChange={(value) => setShowSuggestionType(value)}
@@ -42,9 +57,9 @@ export const NavigationMenu = ({selectedItem, setSelectedItem}) => {
           </Picker>
         </View>
       )}
-      {selectedItem === "Movies" && (
+      {selectedItem === "TV Shows" && (
         <View style={styles.postSelectedMenu}>
-          <Text style={styles.selectedMenuItem}>Movies</Text>
+          <Text style={styles.selectedMenuItem}>TV Shows >> </Text>
           <Picker
             selectedValue={showSuggestionType}
             onValueChange={(value) => setShowSuggestionType(value)}
@@ -57,7 +72,7 @@ export const NavigationMenu = ({selectedItem, setSelectedItem}) => {
       )}
       {selectedItem === "Favorites" && (
         <View style={styles.postSelectedMenu}>
-          <Text style={styles.selectedMenuItem}>TV Shows</Text>
+          <Text style={styles.selectedMenuItem}>Favorites</Text>
         </View>
       )}
     </View>
@@ -80,25 +95,31 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
   },
   menuItem: {
-    fontSize: 18,
+    fontSize: 17,
     color: "#ffefd5",
   },
   postSelectedMenu: {
+    width: deviceWidth * (80 / 100),
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
+    marginLeft:10
   },
   selectedMenuItem: {
-    fontSize: 18,
+    fontSize: 17,
     color: "#ffefd5",
     fontWeight: "bold",
   },
   picker: {
-    width: 40,
-    height: 10,
+    width: 150,
+    height: 40,
+    color: "#ffefd5",
+    borderStyle: "solid",
+    borderWidth: 4,
+    borderColor: "#ff0000",
   },
 });

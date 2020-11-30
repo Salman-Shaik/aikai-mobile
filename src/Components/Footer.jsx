@@ -1,10 +1,9 @@
 import {faBars, faBookmark, faHome, faSearch, faTicketAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import React, {useState} from "react";
+import React from "react";
 import {Dimensions, StyleSheet, Text, View} from "react-native";
 
-export const Footer = () => {
-  const [selectedFooterItem, setSelectedFooterItem] = useState("HOME");
+export const Footer = ({selectedFooterItem, setSelectedFooterItem, goToHome}) => {
 
   const isHome = selectedFooterItem === "HOME";
   const isSearch = selectedFooterItem === "SEARCH";
@@ -12,32 +11,41 @@ export const Footer = () => {
   const isWatchList = selectedFooterItem === "WATCHLIST";
   const isMore = selectedFooterItem === "MORE";
 
+  const onHome = () => {
+    goToHome();
+    setSelectedFooterItem("HOME");
+  };
+
   return <View style={styles.footer}>
     <View style={styles.iconView}>
       <FontAwesomeIcon icon={faHome} size={27} color={isHome ? "gray" : "#ffefd5"}
-                       onPress={() => setSelectedFooterItem("HOME")}/>
+                       onPress={onHome}/>
       <Text style={isHome ? styles.selectedIconText : styles.iconText}
-            onPress={() => setSelectedFooterItem("HOME")}>Home</Text>
+            onPress={onHome}>Home</Text>
     </View>
     <View style={styles.iconView}>
       <FontAwesomeIcon icon={faSearch} size={25} color={isSearch ? "gray" : "white"}
                        onPress={() => setSelectedFooterItem("SEARCH")}/>
-      <Text style={isSearch ? styles.selectedIconText : styles.iconText} onPress={() => setSelectedFooterItem("SEARCH")}>Search</Text>
+      <Text style={isSearch ? styles.selectedIconText : styles.iconText}
+            onPress={() => setSelectedFooterItem("SEARCH")}>Search</Text>
     </View>
     <View style={styles.iconView}>
       <FontAwesomeIcon icon={faTicketAlt} size={27} color={isNowPlaying ? "gray" : "#e56363"}
                        onPress={() => setSelectedFooterItem("PLAYING")}/>
-      <Text style={isNowPlaying ? styles.selectedIconText : styles.iconText} onPress={() => setSelectedFooterItem("PLAYING")}>Now Playing</Text>
+      <Text style={isNowPlaying ? styles.selectedIconText : styles.iconText}
+            onPress={() => setSelectedFooterItem("PLAYING")}>Now Playing</Text>
     </View>
     <View style={styles.iconView}>
       <FontAwesomeIcon icon={faBookmark} size={25} color={isWatchList ? "gray" : "#7cfc00"}
                        onPress={() => setSelectedFooterItem("WATCHLIST")}/>
-      <Text style={isWatchList ? styles.selectedIconText : styles.iconText} onPress={() => setSelectedFooterItem("WATCHLIST")}>Watchlist</Text>
+      <Text style={isWatchList ? styles.selectedIconText : styles.iconText}
+            onPress={() => setSelectedFooterItem("WATCHLIST")}>Watchlist</Text>
     </View>
     <View style={styles.iconView}>
       <FontAwesomeIcon icon={faBars} size={26} color={isMore ? "gray" : "#ffefd5"}
                        onPress={() => setSelectedFooterItem("MORE")}/>
-      <Text style={isMore ? styles.selectedIconText : styles.iconText} onPress={() => setSelectedFooterItem("MORE")}>More</Text>
+      <Text style={isMore ? styles.selectedIconText : styles.iconText}
+            onPress={() => setSelectedFooterItem("MORE")}>More</Text>
     </View>
   </View>
 }

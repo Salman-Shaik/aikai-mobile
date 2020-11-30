@@ -1,15 +1,25 @@
-import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import React, {useState} from "react";
+import {Dimensions, StyleSheet, View} from "react-native";
 import {Footer} from "./Footer";
-import { Header } from "./Header";
+import {Header} from "./Header";
 import {Suggestions} from "./Suggestions";
 
 export const HomePage = () => {
+  const [selectedFooterItem, setSelectedFooterItem] = useState("HOME");
+  const [selectedHeaderItem, setSelectedHeaderItem] = useState("");
+
+  const clearFooterItem = () => {
+    setSelectedFooterItem("");
+  }
+  const goToHome = () => {
+    clearFooterItem();
+    setSelectedHeaderItem("");
+  }
   return (
     <View style={styles.homepage}>
-      <Header />
+      <Header selectedHeaderItem={selectedHeaderItem} setSelectedHeaderItem={setSelectedHeaderItem} onLogoPress={goToHome} clearFooterItem={clearFooterItem}/>
       <Suggestions/>
-      <Footer />
+      <Footer selectedFooterItem={selectedFooterItem} setSelectedFooterItem={setSelectedFooterItem} goToHome={goToHome}/>
     </View>
   );
 };
