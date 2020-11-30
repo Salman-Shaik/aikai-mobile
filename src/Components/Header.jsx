@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    marginTop: 22
+    marginTop: 24,
+    backgroundColor: "rgba(29,29,29,0.2)"
   },
   logo: {
     height: 120,
