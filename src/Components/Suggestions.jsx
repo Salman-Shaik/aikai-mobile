@@ -12,7 +12,7 @@ const wait = (timeout) => {
 };
 
 const createSectionedPosters = (imagePaths) => {
-  const postersMap = imagePaths.map(ip => <Poster key={ip} posterPath={ip}/>);
+  const postersMap = _.shuffle(imagePaths).map(ip => <Poster key={ip} posterPath={ip}/>);
   return postersMap.map((p, i) => {
     if (i === 1 || i === 3) {
       return <View key={i} style={styles.imageSection}>
@@ -23,9 +23,9 @@ const createSectionedPosters = (imagePaths) => {
 }
 
 export const Suggestions = () => {
-  const getFourFromList = (list) => {
-    const shuffleList = _.shuffle(list);
-    return shuffleList.slice(0, 4);
+
+  const getFromList = (list) => {
+    return _.shuffle(_.shuffle(list)).slice(0,10);
   };
   const [imagePaths, setImagePaths] = useState([]);
   const [refreshing, setRefreshing] = useState(true);
@@ -37,7 +37,7 @@ export const Suggestions = () => {
   };
 
   const updateSuggestions = () => {
-    const suggestions = getFourFromList(list);
+    const suggestions = getFromList(list);
     const infoMap = suggestions.map(({id, type}) => ({id, type}));
     infoMap.forEach(({id, type}, index) => {
       fetchShow(id, type, index, appendImagePath, setRefreshing);

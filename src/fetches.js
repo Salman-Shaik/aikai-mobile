@@ -9,14 +9,14 @@ export const fetchShow = (id, type, index, setImages, setRefreshing) => {
     .then((rj) => {
       const posterPath = rj["poster_path"];
       setImages(posterPath);
-      if (index === 3) {
+      if (index === 9) {
         setRefreshing(false);
       }
     })
     .catch((e) => new TypeError(e));
 };
 
-export const searchShow = (setResults, query, type, setRefreshing) => {
+export const searchShow = (setResults, query, type) => {
   const url = `${API_HOST}/search/${type}?api_key=${TMDB_API_KEY}&query=${query}`;
   fetch(url)
     .then((r) => r.text())
@@ -24,9 +24,6 @@ export const searchShow = (setResults, query, type, setRefreshing) => {
     .then((res) => res.filter((r) => !!r["poster_path"]).slice(0, 6))
     .then((sr) => {
       setResults(sr);
-      if (!!setRefreshing) {
-        setRefreshing(false);
-      }
     })
     .catch((e) => new TypeError(e));
 };
