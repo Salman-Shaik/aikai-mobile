@@ -1,16 +1,9 @@
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
-import {
-  Dimensions,
-  RefreshControl,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import { list } from "../data/editorsChoice.json";
-import { fetchShow } from "../fetches";
-import { Poster } from "./Poster";
+import React, {useEffect, useState} from "react";
+import {Dimensions, RefreshControl, StyleSheet, Text, View,} from "react-native";
+import {list} from "../data/editorsChoice.json";
+import {fetchShow} from "../fetches";
+import {Poster} from "./Poster";
 
 const wait = (timeout) => {
   return new Promise((resolve) => {
@@ -18,10 +11,21 @@ const wait = (timeout) => {
   });
 };
 
+const createSectionedPosters = (imagePaths) => {
+  const postersMap = imagePaths.map(ip => <Poster key={ip} posterPath={ip}/>);
+  return postersMap.map((p, i) => {
+    if (i === 1 || i === 3) {
+      return <View key={i} style={styles.imageSection}>
+        {postersMap.slice(i - 1, i + 1)}
+      </View>
+    }
+  })
+}
+
 export const Suggestions = () => {
-  const getFiveFromList = (list) => {
+  const getFourFromList = (list) => {
     const shuffleList = _.shuffle(list);
-    return shuffleList.slice(0, 5);
+    return shuffleList.slice(0, 4);
   };
   const [imagePaths, setImagePaths] = useState([]);
   const [refreshing, setRefreshing] = useState(true);
@@ -30,15 +34,12 @@ export const Suggestions = () => {
     const paths = imagePaths;
     paths.push(path);
     setImagePaths(paths);
-    if (imagePaths.length > 9) {
-      setImagePaths(paths.slice(0, 8));
-    }
   };
 
   const updateSuggestions = () => {
-    const suggestions = getFiveFromList(list);
-    const infoMap = suggestions.map(({ id, type }) => ({ id, type }));
-    infoMap.forEach(({ id, type }, index) => {
+    const suggestions = getFourFromList(list);
+    const infoMap = suggestions.map(({id, type}) => ({id, type}));
+    infoMap.forEach(({id, type}, index) => {
       fetchShow(id, type, index, appendImagePath, setRefreshing);
     });
   };
@@ -52,6 +53,7 @@ export const Suggestions = () => {
   }, []);
 
   useEffect(() => {
+    setImagePaths([]);
     updateSuggestions();
   }, []);
 
@@ -59,20 +61,13 @@ export const Suggestions = () => {
     <View
       style={styles.suggestions}
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
       }
     >
       <Text style={styles.header}>Suggestions</Text>
       {!refreshing && (
         <View style={styles.suggestedShows}>
-          <View style={styles.imageSection}>
-            <Poster posterPath={imagePaths[0]} />
-            <Poster posterPath={imagePaths[1]} />
-          </View>
-          <View style={styles.imageSection}>
-            <Poster posterPath={imagePaths[3]} />
-            <Poster posterPath={imagePaths[4]} />
-          </View>
+          {createSectionedPosters(imagePaths)}
         </View>
       )}
     </View>
@@ -96,7 +91,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     color: "#ffefd5",
-    marginTop: 20,
+    marginTop: 10,
   },
   suggestedShows: {
     display: "flex",

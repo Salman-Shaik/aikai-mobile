@@ -9,7 +9,7 @@ export const fetchShow = (id, type, index, setImages, setRefreshing) => {
     .then((rj) => {
       const posterPath = rj["poster_path"];
       setImages(posterPath);
-      if (index === 4) {
+      if (index === 3) {
         setRefreshing(false);
       }
     })
