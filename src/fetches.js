@@ -14,4 +14,19 @@ export const fetchShow = (id, type, index, setImages, setRefreshing) => {
       }
     })
     .catch((e) => new TypeError(e));
-}
+};
+
+export const searchShow = (setResults, query, type, setRefreshing) => {
+  const url = `${API_HOST}/search/${type}?api_key=${TMDB_API_KEY}&query=${query}`;
+  fetch(url)
+    .then((r) => r.text())
+    .then((d) => JSON.parse(d).results)
+    .then((res) => res.filter((r) => !!r["poster_path"]).slice(0, 6))
+    .then((sr) => {
+      setResults(sr);
+      if (!!setRefreshing) {
+        setRefreshing(false);
+      }
+    })
+    .catch((e) => new TypeError(e));
+};

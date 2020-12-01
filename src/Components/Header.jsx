@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, Image, StyleSheet, View,Pressable } from "react-native";
+import { Dimensions, Image, StyleSheet, View, Pressable } from "react-native";
 import { NavigationMenu } from "./NavigationMenu";
 
 export const Header = ({
@@ -11,10 +11,7 @@ export const Header = ({
   return (
     <View style={styles.header}>
       <Pressable onPress={onLogoPress}>
-      <Image
-        style={styles.logo}
-        source={require("../../public/logo.png")}
-      />
+        <Image style={styles.logo} source={require("../../public/logo.png")} />
       </Pressable>
       <NavigationMenu
         selectedItem={selectedHeaderItem}

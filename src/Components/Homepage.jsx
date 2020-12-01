@@ -1,7 +1,9 @@
+import _ from "lodash";
 import React, { useState } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, ScrollView } from "react-native";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
+import { SearchPage } from "./SearchPage";
 import { Suggestions } from "./Suggestions";
 
 export const HomePage = () => {
@@ -9,27 +11,30 @@ export const HomePage = () => {
   const [selectedHeaderItem, setSelectedHeaderItem] = useState("");
 
   const clearFooterItem = () => {
-    setSelectedFooterItem("HOME");
+    setSelectedFooterItem("");
   };
   const goToHome = () => {
-    clearFooterItem();
+    setSelectedFooterItem("HOME");
     setSelectedHeaderItem("");
   };
   return (
-    <View style={styles.homepage}>
-      <Header
-        selectedHeaderItem={selectedHeaderItem}
-        setSelectedHeaderItem={setSelectedHeaderItem}
-        onLogoPress={goToHome}
-        clearFooterItem={clearFooterItem}
-      />
-      <Suggestions />
+    <ScrollView contentContainerStyle={styles.homepage}>
+      {_.isEqual(selectedFooterItem, "HOME") && (
+        <Header
+          selectedHeaderItem={selectedHeaderItem}
+          setSelectedHeaderItem={setSelectedHeaderItem}
+          onLogoPress={goToHome}
+          clearFooterItem={clearFooterItem}
+        />
+      )}
+      {_.isEqual(selectedFooterItem, "HOME") && <Suggestions />}
+      {_.isEqual(selectedFooterItem, "SEARCH") && <SearchPage />}
       <Footer
         selectedFooterItem={selectedFooterItem}
         setSelectedFooterItem={setSelectedFooterItem}
         goToHome={goToHome}
       />
-    </View>
+    </ScrollView>
   );
 };
 
