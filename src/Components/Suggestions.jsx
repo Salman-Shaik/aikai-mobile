@@ -1,9 +1,15 @@
 import _ from "lodash";
-import React, {useEffect, useState} from "react";
-import {Dimensions, RefreshControl, StyleSheet, Text, View,} from "react-native";
-import {list} from "../data/editorsChoice.json";
-import {fetchShow} from "../fetches";
-import {Poster} from "./Poster";
+import React, { useEffect, useState } from "react";
+import {
+  Dimensions,
+  RefreshControl,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { list } from "../data/editorsChoice.json";
+import { fetchShow } from "../fetches";
+import { Poster } from "./Poster";
 
 const wait = (timeout) => {
   return new Promise((resolve) => {
@@ -12,20 +18,23 @@ const wait = (timeout) => {
 };
 
 const createSectionedPosters = (imagePaths) => {
-  const postersMap = _.shuffle(imagePaths).map(ip => <Poster key={ip} posterPath={ip}/>);
+  const postersMap = _.shuffle(imagePaths).map((ip) => (
+    <Poster key={ip} posterPath={ip} />
+  ));
   return postersMap.map((p, i) => {
     if (i === 1 || i === 3) {
-      return <View key={i} style={styles.imageSection}>
-        {postersMap.slice(i - 1, i + 1)}
-      </View>
+      return (
+        <View key={i} style={styles.imageSection}>
+          {postersMap.slice(i - 1, i + 1)}
+        </View>
+      );
     }
-  })
-}
+  });
+};
 
 export const Suggestions = () => {
-
   const getFromList = (list) => {
-    return _.shuffle(_.shuffle(list)).slice(0,10);
+    return _.shuffle(_.shuffle(list)).slice(0, 10);
   };
   const [imagePaths, setImagePaths] = useState([]);
   const [refreshing, setRefreshing] = useState(true);
@@ -38,8 +47,8 @@ export const Suggestions = () => {
 
   const updateSuggestions = () => {
     const suggestions = getFromList(list);
-    const infoMap = suggestions.map(({id, type}) => ({id, type}));
-    infoMap.forEach(({id, type}, index) => {
+    const infoMap = suggestions.map(({ id, type }) => ({ id, type }));
+    infoMap.forEach(({ id, type }, index) => {
       fetchShow(id, type, index, appendImagePath, setRefreshing);
     });
   };
@@ -61,7 +70,7 @@ export const Suggestions = () => {
     <View
       style={styles.suggestions}
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
       <Text style={styles.header}>Suggestions</Text>

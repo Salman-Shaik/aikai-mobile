@@ -1,8 +1,15 @@
-import {faSearch} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import React, {useState} from "react";
-import {Dimensions, Image, KeyboardAvoidingView, StyleSheet, TextInput, View,} from "react-native";
-import {searchShow} from "../fetches";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import React, { useState } from "react";
+import {
+  Dimensions,
+  Image,
+  KeyboardAvoidingView,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
+import { searchShow } from "../fetches";
 
 const createSectionedPosters = (results) => {
   const mapOfImages = results.map((r) => {
@@ -10,7 +17,7 @@ const createSectionedPosters = (results) => {
     return (
       <Image
         key={imagePath}
-        source={{uri: `https://image.tmdb.org/t/p/original${imagePath}`}}
+        source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
         style={styles.image}
       />
     );
@@ -50,13 +57,17 @@ export const SearchPage = () => {
   const results = movieResults.concat(tvResults).sort((a, b) => {
     const aTitle = a.name || a.title;
     const bTitle = b.name || b.title;
-    return aTitle > bTitle ? 1 : -1;
+    return aTitle === searchQuery
+      ? -1
+      : bTitle === searchQuery
+      ? 1
+      : aTitle > bTitle
+      ? -1
+      : 1;
   });
 
   return (
-    <KeyboardAvoidingView
-      style={styles.searchPage}
-      behavior={"padding"}>
+    <KeyboardAvoidingView style={styles.searchPage} behavior={"padding"}>
       <View style={styles.searchBar}>
         <FontAwesomeIcon
           icon={faSearch}
