@@ -15,8 +15,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {showLogo ? <InitialPage /> : <HomePage />}
       <StatusBar style="auto" />
+      {showLogo ? <InitialPage /> : <HomePage />}
     </View>
   );
 }

@@ -101,7 +101,7 @@ const deviceHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
   searchPage: {
     width: deviceWidth,
-    height: (deviceHeight * 96) / 100,
+    height: (deviceHeight * 95.5) / 100,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

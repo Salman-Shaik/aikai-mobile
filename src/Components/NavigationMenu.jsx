@@ -1,20 +1,27 @@
 import { Picker } from "@react-native-picker/picker";
-import React, { useState } from "react";
+import _ from "lodash";
+import React from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 
 export const NavigationMenu = ({
   selectedItem,
   setSelectedItem,
+  showSuggestionType,
+  setShowSuggestionType,
+  setRandomId,
+  setTopId,
   clearFooterItem,
 }) => {
-  const [showSuggestionType, setShowSuggestionType] = useState("Random");
-
   const onTv = () => {
+    setRandomId(_.random(1, 60));
+    setTopId(_.random(1, 22));
     clearFooterItem();
     setSelectedItem("TV Shows");
   };
 
   const onMovie = () => {
+    setRandomId(_.random(1, 389));
+    setTopId(_.random(1, 22));
     clearFooterItem();
     setSelectedItem("Movies");
   };
@@ -44,7 +51,14 @@ export const NavigationMenu = ({
           <Text style={styles.selectedMenuItem}>Movies >> </Text>
           <Picker
             selectedValue={showSuggestionType}
-            onValueChange={(value) => setShowSuggestionType(value)}
+            onValueChange={(value) => {
+              if (_.isEqual(value, "Random")) {
+                setRandomId(_.random(1, 389));
+              } else {
+                setTopId(_.random(1, 22));
+              }
+              setShowSuggestionType(value);
+            }}
             style={styles.picker}
           >
             <Picker.Item label="Random" value="Random" />
@@ -57,7 +71,14 @@ export const NavigationMenu = ({
           <Text style={styles.selectedMenuItem}>TV Shows >> </Text>
           <Picker
             selectedValue={showSuggestionType}
-            onValueChange={(value) => setShowSuggestionType(value)}
+            onValueChange={(value) => {
+              if (_.isEqual(value, "Random")) {
+                setRandomId(_.random(1, 60));
+              } else {
+                setTopId(_.random(1, 22));
+              }
+              setShowSuggestionType(value);
+            }}
             style={styles.picker}
           >
             <Picker.Item label="Random" value="Random" />
@@ -113,8 +134,6 @@ const styles = StyleSheet.create({
     width: 150,
     height: 40,
     color: "#ffefd5",
-    borderStyle: "solid",
-    borderWidth: 4,
-    borderColor: "#ff0000",
+    backgroundColor: "#262626",
   },
 });

@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import { list } from "../data/editorsChoice.json";
-import { fetchShow } from "../fetches";
+import { fetchImageFromShow } from "../fetches";
 import { Poster } from "./Poster";
 
 const wait = (timeout) => {
@@ -49,7 +49,7 @@ export const Suggestions = () => {
     const suggestions = getFromList(list);
     const infoMap = suggestions.map(({ id, type }) => ({ id, type }));
     infoMap.forEach(({ id, type }, index) => {
-      fetchShow(id, type, index, appendImagePath, setRefreshing);
+      fetchImageFromShow(id, type, index, appendImagePath, setRefreshing);
     });
   };
 

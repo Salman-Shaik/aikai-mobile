@@ -5,6 +5,10 @@ import { NavigationMenu } from "./NavigationMenu";
 export const Header = ({
   selectedHeaderItem,
   setSelectedHeaderItem,
+  showSuggestionType,
+  setShowSuggestionType,
+  setRandomId,
+  setTopId,
   onLogoPress,
   clearFooterItem,
 }) => {
@@ -16,6 +20,10 @@ export const Header = ({
       <NavigationMenu
         selectedItem={selectedHeaderItem}
         setSelectedItem={setSelectedHeaderItem}
+        showSuggestionType={showSuggestionType}
+        setShowSuggestionType={setShowSuggestionType}
+        setRandomId={setRandomId}
+        setTopId={setTopId}
         clearFooterItem={clearFooterItem}
       />
     </View>
