@@ -1,22 +1,37 @@
-import {faSearch} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import React, {useState} from "react";
-import {Dimensions, Image, KeyboardAvoidingView, Pressable, StyleSheet, TextInput, View} from "react-native";
-import {searchShow} from "../fetches";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import React, { useState } from "react";
+import {
+  Dimensions,
+  Image,
+  KeyboardAvoidingView,
+  Pressable,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
+import { searchShow } from "../fetches";
 
-const createSectionedPosters = (results, setCurrentShowId, setSelectedFooterItem) => {
+const createSectionedPosters = (
+  results,
+  setCurrentShowId,
+  setSelectedFooterItem
+) => {
   const mapOfImages = results.map((r) => {
     const id = r.id;
     const imagePath = r["poster_path"];
     return (
-      <Pressable key={imagePath} onPress={() => {
-        setCurrentShowId(id);
-        r.setCurrentShowType();
-        setSelectedFooterItem(" ");
-      }}>
+      <Pressable
+        key={imagePath}
+        onPress={() => {
+          setCurrentShowId(id);
+          r.setCurrentShowType();
+          setSelectedFooterItem(" ");
+        }}
+      >
         <Image
           key={imagePath}
-          source={{uri: `https://image.tmdb.org/t/p/original${imagePath}`}}
+          source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
           style={styles.image}
         />
       </Pressable>
@@ -33,7 +48,11 @@ const createSectionedPosters = (results, setCurrentShowId, setSelectedFooterItem
   });
 };
 
-export const SearchPage = ({setCurrentShowId, setCurrentShowType, setSelectedFooterItem}) => {
+export const SearchPage = ({
+  setCurrentShowId,
+  setCurrentShowType,
+  setSelectedFooterItem,
+}) => {
   const [searchQuery, setSearchQuery] = useState("Search...");
   const [movieResults, setMovieResults] = useState([]);
   const [tvResults, setTvResults] = useState([]);
@@ -60,10 +79,10 @@ export const SearchPage = ({setCurrentShowId, setCurrentShowType, setSelectedFoo
     return aTitle === searchQuery
       ? -1
       : bTitle === searchQuery
-        ? 1
-        : aTitle > bTitle
-          ? -1
-          : 1;
+      ? 1
+      : aTitle > bTitle
+      ? -1
+      : 1;
   });
 
   return (
@@ -89,7 +108,11 @@ export const SearchPage = ({setCurrentShowId, setCurrentShowType, setSelectedFoo
         />
       </View>
       <View style={styles.searchResults}>
-        {createSectionedPosters(results, setCurrentShowId, setSelectedFooterItem)}
+        {createSectionedPosters(
+          results,
+          setCurrentShowId,
+          setSelectedFooterItem
+        )}
       </View>
     </KeyboardAvoidingView>
   );

@@ -1,9 +1,15 @@
 import _ from "lodash";
-import React, {useEffect, useState} from "react";
-import {Dimensions, RefreshControl, StyleSheet, Text, View,} from "react-native";
-import {list} from "../data/editorsChoice.json";
-import {fetchImageFromShow} from "../fetches";
-import {Poster} from "./Poster";
+import React, { useEffect, useState } from "react";
+import {
+  Dimensions,
+  RefreshControl,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { list } from "../data/editorsChoice.json";
+import { fetchImageFromShow } from "../fetches";
+import { Poster } from "./Poster";
 
 const wait = (timeout) => {
   return new Promise((resolve) => {
@@ -11,13 +17,22 @@ const wait = (timeout) => {
   });
 };
 
-const createSectionedPosters = (shows, setCurrentShowId, setCurrentShowType, setSelectedFooterItem) => {
-  const postersMap = _.shuffle(shows).map(({posterPath, id, type}) => (
-    <Poster key={posterPath} posterPath={posterPath} onClick={() => {
-      setCurrentShowId(id);
-      setCurrentShowType(type);
-      setSelectedFooterItem(" ");
-    }}/>
+const createSectionedPosters = (
+  shows,
+  setCurrentShowId,
+  setCurrentShowType,
+  setSelectedFooterItem
+) => {
+  const postersMap = _.shuffle(shows).map(({ posterPath, id, type }) => (
+    <Poster
+      key={posterPath}
+      posterPath={posterPath}
+      onClick={() => {
+        setCurrentShowId(id);
+        setCurrentShowType(type);
+        setSelectedFooterItem(" ");
+      }}
+    />
   ));
   return postersMap.map((p, i) => {
     if (i === 1 || i === 3) {
@@ -30,7 +45,11 @@ const createSectionedPosters = (shows, setCurrentShowId, setCurrentShowType, set
   });
 };
 
-export const Suggestions = ({setCurrentShowId, setCurrentShowType, setSelectedFooterItem}) => {
+export const Suggestions = ({
+  setCurrentShowId,
+  setCurrentShowType,
+  setSelectedFooterItem,
+}) => {
   const getFromList = (list) => {
     return _.shuffle(_.shuffle(list)).slice(0, 10);
   };
@@ -45,8 +64,8 @@ export const Suggestions = ({setCurrentShowId, setCurrentShowType, setSelectedFo
 
   const updateSuggestions = () => {
     const suggestions = getFromList(list);
-    const infoMap = suggestions.map(({id, type}) => ({id, type}));
-    infoMap.forEach(({id, type}, index) => {
+    const infoMap = suggestions.map(({ id, type }) => ({ id, type }));
+    infoMap.forEach(({ id, type }, index) => {
       fetchImageFromShow(id, type, index, appendShows, setRefreshing);
     });
   };
@@ -68,13 +87,18 @@ export const Suggestions = ({setCurrentShowId, setCurrentShowType, setSelectedFo
     <View
       style={styles.suggestions}
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
       <Text style={styles.header}>Suggestions</Text>
       {!refreshing && (
         <View style={styles.suggestedShows}>
-          {createSectionedPosters(shows, setCurrentShowId, setCurrentShowType, setSelectedFooterItem)}
+          {createSectionedPosters(
+            shows,
+            setCurrentShowId,
+            setCurrentShowType,
+            setSelectedFooterItem
+          )}
         </View>
       )}
     </View>

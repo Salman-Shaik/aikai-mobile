@@ -1,8 +1,16 @@
 import _ from "lodash";
-import React, {useEffect, useState} from "react";
-import {Dimensions, Image, Pressable, ScrollView, StyleSheet, Text, View,} from "react-native";
-import {genres} from "../data/genres.json";
-import {fetchOtherShow} from "../fetches";
+import React, { useEffect, useState } from "react";
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { genres } from "../data/genres.json";
+import { fetchOtherShow } from "../fetches";
 import AnimatedCircularProgress from "./Misc/AnimatedCircularProgress";
 
 export const getGenreNames = (info, showType) => {
@@ -11,40 +19,60 @@ export const getGenreNames = (info, showType) => {
   if (!_.isEmpty(genre)) return genre.join(", ");
   if (_.isEmpty(ids)) return "";
   const showGenres = genres[showType];
-  return ids.map((id) => showGenres.find((sg) => sg.id === id).name).slice(0, 3).join(", ");
+  return ids
+    .map((id) => showGenres.find((sg) => sg.id === id).name)
+    .slice(0, 3)
+    .join(", ");
 };
 
-const createExtras = (extras, setCurrentShowId, setCurrentShowType, setSelectedFooterItem, type) => {
-  return extras.map(e => {
+const createExtras = (
+  extras,
+  setCurrentShowId,
+  setCurrentShowType,
+  setSelectedFooterItem,
+  type
+) => {
+  return extras.map((e) => {
     const id = e.id;
     const imagePath = e["poster_path"];
-    return <Pressable key={imagePath} onPress={() => {
-      setCurrentShowId(0);
-      setCurrentShowType("")
-      setSelectedFooterItem("Home");
-      setTimeout(() => {
-        setCurrentShowId(id);
-        setCurrentShowType(type)
-        setSelectedFooterItem(" ");
-      }, 1);
-    }}>
-      <Image
+    return (
+      <Pressable
         key={imagePath}
-        source={{uri: `https://image.tmdb.org/t/p/original${imagePath}`}}
-        style={styles.image}
-      />
-    </Pressable>
-  })
+        onPress={() => {
+          setCurrentShowId(0);
+          setCurrentShowType("");
+          setSelectedFooterItem("Home");
+          setTimeout(() => {
+            setCurrentShowId(id);
+            setCurrentShowType(type);
+            setSelectedFooterItem(" ");
+          }, 1);
+        }}
+      >
+        <Image
+          key={imagePath}
+          source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
+          style={styles.image}
+        />
+      </Pressable>
+    );
+  });
 };
 
-export const ShowDetails = ({show, type, setCurrentShowId, setCurrentShowType, setSelectedFooterItem}) => {
+export const ShowDetails = ({
+  show,
+  type,
+  setCurrentShowId,
+  setCurrentShowType,
+  setSelectedFooterItem,
+}) => {
   const id = show.id;
   const title = show.name || show.title;
   const genre = getGenreNames(show, type);
   const rating = show["vote_average"];
   const description = show.overview;
   const releaseDate = show["first_air_date"] || show["release_date"];
-  const year = releaseDate.split('-')[0];
+  const year = releaseDate.split("-")[0];
   const imagePath = show["poster_path"];
   const language = show["original_language"];
   const homepage = show["homepage"];
@@ -53,15 +81,15 @@ export const ShowDetails = ({show, type, setCurrentShowId, setCurrentShowType, s
   const [similar, setSimilar] = useState([]);
 
   useEffect(() => {
-    fetchOtherShow(type, id, 'recommendations', setRecommendations);
-    fetchOtherShow(type, id, 'similar', setSimilar);
+    fetchOtherShow(type, id, "recommendations", setRecommendations);
+    fetchOtherShow(type, id, "similar", setSimilar);
   }, []);
 
   return (
     <ScrollView contentContainerStyle={styles.showDetails}>
       <View style={styles.firstBlock}>
         <Image
-          source={{uri: `https://image.tmdb.org/t/p/original${imagePath}`}}
+          source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
           key={id}
           style={styles.poster}
         />
@@ -82,7 +110,9 @@ export const ShowDetails = ({show, type, setCurrentShowId, setCurrentShowType, s
           {() => <Text style={styles.rating}>{`${rating * 10}%`}</Text>}
         </AnimatedCircularProgress>
         <View style={styles.languageAndGenre}>
-          <Text style={styles.language}>{`Language :  ${language.toUpperCase()}`}</Text>
+          <Text
+            style={styles.language}
+          >{`Language :  ${language.toUpperCase()}`}</Text>
           <Text style={styles.genre}>{genre}</Text>
         </View>
       </View>
@@ -92,13 +122,27 @@ export const ShowDetails = ({show, type, setCurrentShowId, setCurrentShowType, s
         <View style={styles.extras}>
           <Text style={styles.overviewHeader}>Recommendations</Text>
           <View style={styles.recommendations}>
-            {!_.isEmpty(recommendations) && createExtras(recommendations, setCurrentShowId, setCurrentShowType, setSelectedFooterItem, type)}
+            {!_.isEmpty(recommendations) &&
+              createExtras(
+                recommendations,
+                setCurrentShowId,
+                setCurrentShowType,
+                setSelectedFooterItem,
+                type
+              )}
           </View>
         </View>
         <View style={styles.extras}>
           <Text style={styles.overviewHeader}>Similar</Text>
           <View style={styles.similar}>
-            {!_.isEmpty(similar) && createExtras(similar, setCurrentShowId, setCurrentShowType, setSelectedFooterItem, type)}
+            {!_.isEmpty(similar) &&
+              createExtras(
+                similar,
+                setCurrentShowId,
+                setCurrentShowType,
+                setSelectedFooterItem,
+                type
+              )}
           </View>
         </View>
       </View>
@@ -153,18 +197,18 @@ const styles = StyleSheet.create({
   genre: {
     marginTop: 8,
     fontSize: 13,
-    color: "#ffefd5"
+    color: "#ffefd5",
   },
   language: {
     fontSize: 18,
-    color: "#ffefd5"
+    color: "#ffefd5",
   },
   description: {
     width: (deviceWidth * 96) / 100,
     marginTop: 10,
     fontSize: 15,
     color: "#ffefd5",
-    textAlign: "left"
+    textAlign: "left",
   },
   secondBlock: {
     width: (deviceWidth * 96) / 100,
@@ -192,7 +236,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "flex-start",
     justifyContent: "space-evenly",
-    marginTop: 10
+    marginTop: 10,
   },
   recommendations: {
     marginTop: 10,
@@ -200,7 +244,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   similar: {
     marginTop: 10,
@@ -209,11 +253,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   image: {
     borderRadius: 5,
     width: 120,
     height: 180,
-  }
+  },
 });

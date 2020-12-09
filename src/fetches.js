@@ -11,9 +11,8 @@ const fetchShow = (id, type) => {
 };
 
 export const fetchShowWith = (id, type, setter) => {
-  fetchShow(id, type)
-    .then(show => setter(show));
-}
+  fetchShow(id, type).then((show) => setter(show));
+};
 
 const getRandomItem = (list) => {
   const shuffledArr = _.shuffle(list);
@@ -30,17 +29,11 @@ export const fetchShowAnd = (setter, pageNumber, type) => {
     .catch((e) => new TypeError(e));
 };
 
-export const fetchImageFromShow = (
-  id,
-  type,
-  index,
-  setShow,
-  setRefreshing
-) => {
+export const fetchImageFromShow = (id, type, index, setShow, setRefreshing) => {
   fetchShow(id, type)
     .then((rj) => {
       const posterPath = rj["poster_path"];
-      setShow({id, type, posterPath});
+      setShow({ id, type, posterPath });
       if (index === 9) {
         setRefreshing(false);
       }
@@ -55,8 +48,8 @@ export const searchShow = (setResults, query, type, setCurrentShowType) => {
     .then((d) => JSON.parse(d).results)
     .then((res) => res.filter((r) => !!r["poster_path"]).slice(0, 6))
     .then((sr) => {
-      const temp = sr.map(r => {
-        const t=r;
+      const temp = sr.map((r) => {
+        const t = r;
         t.setCurrentShowType = () => setCurrentShowType(type);
         return t;
       });
@@ -69,7 +62,7 @@ export const fetchOtherShow = (
   currentShowType,
   showId,
   keyword,
-  setOtherShows,
+  setOtherShows
 ) => {
   const url = `${API_HOST}/${currentShowType}/${showId}/${keyword}?api_key=${TMDB_API_KEY}&language=en-IN&page=1`;
   fetch(url)
@@ -79,7 +72,7 @@ export const fetchOtherShow = (
     .then((d) => {
       return JSON.parse(d).results;
     })
-    .then((res) => res.slice(0,3))
+    .then((res) => res.slice(0, 3))
     .then((ff) => {
       setOtherShows(ff);
     })

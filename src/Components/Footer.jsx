@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     color: "grey",
     marginTop: 3,
     fontWeight: "bold",
-    backgroundColor: "#222222"
+    backgroundColor: "#222222",
   },
   iconText: {
     fontSize: 10,
