@@ -1,25 +1,25 @@
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import React, { useState } from "react";
-import {
-  Dimensions,
-  Image,
-  KeyboardAvoidingView,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
-import { searchShow } from "../fetches";
+import {faSearch} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
+import React, {useState} from "react";
+import {Dimensions, Image, KeyboardAvoidingView, Pressable, StyleSheet, TextInput, View} from "react-native";
+import {searchShow} from "../fetches";
 
-const createSectionedPosters = (results) => {
+const createSectionedPosters = (results, setCurrentShowId, setSelectedFooterItem) => {
   const mapOfImages = results.map((r) => {
+    const id = r.id;
     const imagePath = r["poster_path"];
     return (
-      <Image
-        key={imagePath}
-        source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
-        style={styles.image}
-      />
+      <Pressable key={imagePath} onPress={() => {
+        setCurrentShowId(id);
+        r.setCurrentShowType();
+        setSelectedFooterItem(" ");
+      }}>
+        <Image
+          key={imagePath}
+          source={{uri: `https://image.tmdb.org/t/p/original${imagePath}`}}
+          style={styles.image}
+        />
+      </Pressable>
     );
   });
   return mapOfImages.map((m, i) => {
@@ -33,7 +33,7 @@ const createSectionedPosters = (results) => {
   });
 };
 
-export const SearchPage = () => {
+export const SearchPage = ({setCurrentShowId, setCurrentShowType, setSelectedFooterItem}) => {
   const [searchQuery, setSearchQuery] = useState("Search...");
   const [movieResults, setMovieResults] = useState([]);
   const [tvResults, setTvResults] = useState([]);
@@ -49,8 +49,8 @@ export const SearchPage = () => {
 
   const onSearch = () => {
     if (!searchQuery.includes("Search...")) {
-      searchShow(setMovieResults, searchQuery, "movie");
-      searchShow(setTvResults, searchQuery, "tv");
+      searchShow(setMovieResults, searchQuery, "movie", setCurrentShowType);
+      searchShow(setTvResults, searchQuery, "tv", setCurrentShowType);
     }
   };
 
@@ -60,10 +60,10 @@ export const SearchPage = () => {
     return aTitle === searchQuery
       ? -1
       : bTitle === searchQuery
-      ? 1
-      : aTitle > bTitle
-      ? -1
-      : 1;
+        ? 1
+        : aTitle > bTitle
+          ? -1
+          : 1;
   });
 
   return (
@@ -89,7 +89,7 @@ export const SearchPage = () => {
         />
       </View>
       <View style={styles.searchResults}>
-        {createSectionedPosters(results)}
+        {createSectionedPosters(results, setCurrentShowId, setSelectedFooterItem)}
       </View>
     </KeyboardAvoidingView>
   );

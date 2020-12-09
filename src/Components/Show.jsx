@@ -1,39 +1,28 @@
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
-import { fetchShowAnd } from "../fetches";
-import { ShowDetails } from "./ShowDetails";
+import React, {useEffect, useState} from "react";
+import {Dimensions, StyleSheet, View} from "react-native";
+import {fetchShowWith} from "../fetches";
+import {ShowDetails} from "./ShowDetails";
 
-export const Show = ({ id, type }) => {
+export const Show = ({id, type,setCurrentShowId,setCurrentShowType,setSelectedFooterItem}) => {
   const [show, setShow] = useState({});
   useEffect(() => {
-    if (id !== 0) {
-      fetchShowAnd(setShow, id, type);
-    }
+    fetchShowWith(id, type, setShow);
   }, []);
 
   return (
     <View style={styles.show}>
-      {!_.isEmpty(show) && <ShowDetails show={show} type={type} />}
-      <View
-        style={{
-          borderBottomColor: "#222222",
-          borderBottomWidth: 1,
-          marginLeft: 5,
-          marginRight: 5,
-        }}
-      />
+      {!_.isEmpty(show) && <ShowDetails show={show} type={type} setCurrentShowId={setCurrentShowId} setCurrentShowType={setCurrentShowType} setSelectedFooterItem={setSelectedFooterItem}/>}
     </View>
   );
 };
 
 const deviceWidth = Dimensions.get("window").width;
-const deviceHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
   show: {
+    flex: 1,
     width: deviceWidth,
-    height: (deviceHeight * 82) / 100,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

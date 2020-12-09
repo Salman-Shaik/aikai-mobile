@@ -1,15 +1,9 @@
 import _ from "lodash";
-import React from "react";
-import {
-  Dimensions,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import { AnimatedCircularProgress } from "react-native-circular-progress";
-import { genres } from "../data/genres.json";
+import React, {useEffect, useState} from "react";
+import {Dimensions, Image, Pressable, ScrollView, StyleSheet, Text, View,} from "react-native";
+import {genres} from "../data/genres.json";
+import {fetchOtherShow} from "../fetches";
+import AnimatedCircularProgress from "./Misc/AnimatedCircularProgress";
 
 export const getGenreNames = (info, showType) => {
   const genre = !!info.genres && info.genres.map((g) => g.name);
@@ -17,12 +11,33 @@ export const getGenreNames = (info, showType) => {
   if (!_.isEmpty(genre)) return genre.join(", ");
   if (_.isEmpty(ids)) return "";
   const showGenres = genres[showType];
-  console.log(ids);
-  console.log(showGenres);
-  return ids.map((id) => showGenres.find((sg) => sg.id === id).name).slice(0,3).join(", ");
+  return ids.map((id) => showGenres.find((sg) => sg.id === id).name).slice(0, 3).join(", ");
 };
 
-export const ShowDetails = ({ show, type }) => {
+const createExtras = (extras, setCurrentShowId, setCurrentShowType, setSelectedFooterItem, type) => {
+  return extras.map(e => {
+    const id = e.id;
+    const imagePath = e["poster_path"];
+    return <Pressable key={imagePath} onPress={() => {
+      setCurrentShowId(0);
+      setCurrentShowType("")
+      setSelectedFooterItem("Home");
+      setTimeout(() => {
+        setCurrentShowId(id);
+        setCurrentShowType(type)
+        setSelectedFooterItem(" ");
+      }, 1);
+    }}>
+      <Image
+        key={imagePath}
+        source={{uri: `https://image.tmdb.org/t/p/original${imagePath}`}}
+        style={styles.image}
+      />
+    </Pressable>
+  })
+};
+
+export const ShowDetails = ({show, type, setCurrentShowId, setCurrentShowType, setSelectedFooterItem}) => {
   const id = show.id;
   const title = show.name || show.title;
   const genre = getGenreNames(show, type);
@@ -33,11 +48,20 @@ export const ShowDetails = ({ show, type }) => {
   const imagePath = show["poster_path"];
   const language = show["original_language"];
   const homepage = show["homepage"];
+
+  const [recommendations, setRecommendations] = useState([]);
+  const [similar, setSimilar] = useState([]);
+
+  useEffect(() => {
+    fetchOtherShow(type, id, 'recommendations', setRecommendations);
+    fetchOtherShow(type, id, 'similar', setSimilar);
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={styles.showDetails}>
       <View style={styles.firstBlock}>
         <Image
-          source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
+          source={{uri: `https://image.tmdb.org/t/p/original${imagePath}`}}
           key={id}
           style={styles.poster}
         />
@@ -65,16 +89,28 @@ export const ShowDetails = ({ show, type }) => {
       <View style={styles.secondBlock}>
         <Text style={styles.overviewHeader}>Overview</Text>
         <Text style={styles.description}>{description}</Text>
+        <View style={styles.extras}>
+          <Text style={styles.overviewHeader}>Recommendations</Text>
+          <View style={styles.recommendations}>
+            {!_.isEmpty(recommendations) && createExtras(recommendations, setCurrentShowId, setCurrentShowType, setSelectedFooterItem, type)}
+          </View>
+        </View>
+        <View style={styles.extras}>
+          <Text style={styles.overviewHeader}>Similar</Text>
+          <View style={styles.similar}>
+            {!_.isEmpty(similar) && createExtras(similar, setCurrentShowId, setCurrentShowType, setSelectedFooterItem, type)}
+          </View>
+        </View>
       </View>
     </ScrollView>
   );
 };
 
 const deviceWidth = Dimensions.get("window").width;
-const deviceHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
   showDetails: {
+    flexGrow: 1,
     width: deviceWidth,
     display: "flex",
     flexDirection: "column",
@@ -83,7 +119,6 @@ const styles = StyleSheet.create({
   },
   firstBlock: {
     width: (deviceWidth * 98) / 100,
-    height: (deviceHeight * 43) / 100,
     display: "flex",
     flexDirection: "row",
     alignItems: "flex-start",
@@ -96,8 +131,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     backgroundColor: "#151515",
     padding: 5,
-    marginTop:15,
-    marginBottom:8,
+    marginTop: 15,
+    marginBottom: 8,
   },
   poster: {
     width: 230,
@@ -108,26 +143,27 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 18,
   },
-  title:{
+  title: {
     fontSize: 27,
     fontWeight: "bold",
     color: "#e3eeff",
-    textAlign: "center"
+    textAlign: "center",
+    marginTop: 8,
   },
   genre: {
     marginTop: 8,
     fontSize: 13,
-    color:"#ffefd5"
+    color: "#ffefd5"
   },
   language: {
     fontSize: 18,
-    color:"#ffefd5"
+    color: "#ffefd5"
   },
   description: {
     width: (deviceWidth * 96) / 100,
     marginTop: 10,
     fontSize: 15,
-    color:"#ffefd5",
+    color: "#ffefd5",
     textAlign: "left"
   },
   secondBlock: {
@@ -138,16 +174,46 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "flex-start",
   },
-  languageAndGenre : {
+  languageAndGenre: {
     width: (deviceWidth * 70) / 100,
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
     justifyContent: "space-between",
   },
-  overviewHeader : {
+  overviewHeader: {
     fontWeight: "bold",
     fontSize: 20,
-    color:"#ffefd5",
+    color: "#ffefd5",
+  },
+  extras: {
+    width: (deviceWidth * 96) / 100,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    justifyContent: "space-evenly",
+    marginTop: 10
+  },
+  recommendations: {
+    marginTop: 10,
+    width: (deviceWidth * 96) / 100,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  similar: {
+    marginTop: 10,
+    width: (deviceWidth * 96) / 100,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingBottom: 10
+  },
+  image: {
+    borderRadius: 5,
+    width: 120,
+    height: 180,
   }
 });

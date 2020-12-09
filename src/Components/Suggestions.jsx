@@ -1,15 +1,9 @@
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
-import {
-  Dimensions,
-  RefreshControl,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import { list } from "../data/editorsChoice.json";
-import { fetchImageFromShow } from "../fetches";
-import { Poster } from "./Poster";
+import React, {useEffect, useState} from "react";
+import {Dimensions, RefreshControl, StyleSheet, Text, View,} from "react-native";
+import {list} from "../data/editorsChoice.json";
+import {fetchImageFromShow} from "../fetches";
+import {Poster} from "./Poster";
 
 const wait = (timeout) => {
   return new Promise((resolve) => {
@@ -17,9 +11,13 @@ const wait = (timeout) => {
   });
 };
 
-const createSectionedPosters = (imagePaths) => {
-  const postersMap = _.shuffle(imagePaths).map((ip) => (
-    <Poster key={ip} posterPath={ip} />
+const createSectionedPosters = (shows, setCurrentShowId, setCurrentShowType, setSelectedFooterItem) => {
+  const postersMap = _.shuffle(shows).map(({posterPath, id, type}) => (
+    <Poster key={posterPath} posterPath={posterPath} onClick={() => {
+      setCurrentShowId(id);
+      setCurrentShowType(type);
+      setSelectedFooterItem(" ");
+    }}/>
   ));
   return postersMap.map((p, i) => {
     if (i === 1 || i === 3) {
@@ -32,37 +30,37 @@ const createSectionedPosters = (imagePaths) => {
   });
 };
 
-export const Suggestions = () => {
+export const Suggestions = ({setCurrentShowId, setCurrentShowType, setSelectedFooterItem}) => {
   const getFromList = (list) => {
     return _.shuffle(_.shuffle(list)).slice(0, 10);
   };
-  const [imagePaths, setImagePaths] = useState([]);
+  const [shows, setShows] = useState([]);
   const [refreshing, setRefreshing] = useState(true);
 
-  const appendImagePath = (path) => {
-    const paths = imagePaths;
-    paths.push(path);
-    setImagePaths(paths);
+  const appendShows = (show) => {
+    const paths = shows;
+    paths.push(show);
+    setShows(paths);
   };
 
   const updateSuggestions = () => {
     const suggestions = getFromList(list);
-    const infoMap = suggestions.map(({ id, type }) => ({ id, type }));
-    infoMap.forEach(({ id, type }, index) => {
-      fetchImageFromShow(id, type, index, appendImagePath, setRefreshing);
+    const infoMap = suggestions.map(({id, type}) => ({id, type}));
+    infoMap.forEach(({id, type}, index) => {
+      fetchImageFromShow(id, type, index, appendShows, setRefreshing);
     });
   };
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     wait(2000).then(() => {
-      setImagePaths([]);
+      setShows([]);
       updateSuggestions();
     });
   }, []);
 
   useEffect(() => {
-    setImagePaths([]);
+    setShows([]);
     updateSuggestions();
   }, []);
 
@@ -70,13 +68,13 @@ export const Suggestions = () => {
     <View
       style={styles.suggestions}
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
       }
     >
       <Text style={styles.header}>Suggestions</Text>
       {!refreshing && (
         <View style={styles.suggestedShows}>
-          {createSectionedPosters(imagePaths)}
+          {createSectionedPosters(shows, setCurrentShowId, setCurrentShowType, setSelectedFooterItem)}
         </View>
       )}
     </View>
@@ -89,7 +87,7 @@ const deviceHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
   suggestions: {
     width: deviceWidth,
-    height: (deviceHeight * 82) / 100,
+    height: (deviceHeight * 83) / 100,
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",

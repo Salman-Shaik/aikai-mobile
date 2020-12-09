@@ -107,7 +107,7 @@ const deviceHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
   footer: {
     width: deviceWidth,
-    height: (deviceHeight * 7.5) / 100,
+    height: (deviceHeight * 7.7) / 100,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
     color: "grey",
     marginTop: 3,
     fontWeight: "bold",
+    backgroundColor: "#222222"
   },
   iconText: {
     fontSize: 10,
