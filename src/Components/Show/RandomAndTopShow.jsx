@@ -1,10 +1,17 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
-import { fetchShowAnd } from "../fetches";
+import { fetchShowAnd } from "../../fetches";
 import { ShowDetails } from "./ShowDetails";
 
-export const RandomAndTopShow = ({ id, type }) => {
+export const RandomAndTopShow = ({
+  id,
+  type,
+  setCurrentShowId,
+  setCurrentShowType,
+  setSelectedFooterItem,
+  setSelectedHeaderItem,
+}) => {
   const [show, setShow] = useState({});
   useEffect(() => {
     if (id !== 0) {
@@ -14,7 +21,16 @@ export const RandomAndTopShow = ({ id, type }) => {
 
   return (
     <View style={styles.show}>
-      {!_.isEmpty(show) && <ShowDetails show={show} type={type} />}
+      {!_.isEmpty(show) && (
+        <ShowDetails
+          show={show}
+          type={type}
+          setCurrentShowId={setCurrentShowId}
+          setCurrentShowType={setCurrentShowType}
+          setSelectedFooterItem={setSelectedFooterItem}
+          setSelectedHeaderItem={setSelectedHeaderItem}
+        />
+      )}
     </View>
   );
 };

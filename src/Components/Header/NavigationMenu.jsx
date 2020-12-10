@@ -10,11 +10,15 @@ export const NavigationMenu = ({
   setShowSuggestionType,
   setRandomId,
   setTopId,
+  setCurrentShowId,
+  setCurrentShowType,
   clearFooterItem,
 }) => {
   const onTv = () => {
     setRandomId(_.random(1, 60));
     setTopId(_.random(1, 22));
+    setCurrentShowId(0);
+    setCurrentShowType("");
     clearFooterItem();
     setSelectedItem("TV Shows");
   };
@@ -22,12 +26,16 @@ export const NavigationMenu = ({
   const onMovie = () => {
     setRandomId(_.random(1, 389));
     setTopId(_.random(1, 22));
+    setCurrentShowId(0);
+    setCurrentShowType("");
     clearFooterItem();
     setSelectedItem("Movies");
   };
 
   const Favorites = () => {
     clearFooterItem();
+    setCurrentShowId(0);
+    setCurrentShowType("");
     setSelectedItem("Favorites");
   };
 

@@ -1,17 +1,10 @@
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
-import {
-  Dimensions,
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import { genres } from "../data/genres.json";
-import { fetchOtherShow } from "../fetches";
-import AnimatedCircularProgress from "./Misc/AnimatedCircularProgress";
+import React, {useEffect, useState} from "react";
+import {Dimensions, Image, Linking, Pressable, ScrollView, StyleSheet, Text, View} from "react-native";
+import {genres} from "../../data/genres.json";
+import {fetchOtherShow} from "../../fetches";
+import AnimatedCircularProgress from "../Misc/AnimatedCircularProgress";
+import {StreamingOn} from "./StreamingOn";
 
 export const getGenreNames = (info, showType) => {
   const genre = !!info.genres && info.genres.map((g) => g.name);
@@ -30,6 +23,7 @@ const createExtras = (
   setCurrentShowId,
   setCurrentShowType,
   setSelectedFooterItem,
+  setSelectedHeaderItem,
   type
 ) => {
   return extras.map((e) => {
@@ -42,16 +36,18 @@ const createExtras = (
           setCurrentShowId(0);
           setCurrentShowType("");
           setSelectedFooterItem("Home");
+          setSelectedHeaderItem("");
           setTimeout(() => {
             setCurrentShowId(id);
             setCurrentShowType(type);
             setSelectedFooterItem(" ");
+            setSelectedHeaderItem("");
           }, 1);
         }}
       >
         <Image
           key={imagePath}
-          source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
+          source={{uri: `https://image.tmdb.org/t/p/original${imagePath}`}}
           style={styles.image}
         />
       </Pressable>
@@ -60,19 +56,20 @@ const createExtras = (
 };
 
 export const ShowDetails = ({
-  show,
-  type,
-  setCurrentShowId,
-  setCurrentShowType,
-  setSelectedFooterItem,
-}) => {
+                              show,
+                              type,
+                              setCurrentShowId,
+                              setCurrentShowType,
+                              setSelectedFooterItem,
+                              setSelectedHeaderItem,
+                            }) => {
   const id = show.id;
   const title = show.name || show.title;
   const genre = getGenreNames(show, type);
   const rating = show["vote_average"];
   const description = show.overview;
   const releaseDate = show["first_air_date"] || show["release_date"];
-  const year = releaseDate.split("-")[0];
+  const year = releaseDate.split("-")[0] || "Y.T.A";
   const imagePath = show["poster_path"];
   const language = show["original_language"];
   const homepage = show["homepage"];
@@ -85,11 +82,26 @@ export const ShowDetails = ({
     fetchOtherShow(type, id, "similar", setSimilar);
   }, []);
 
+  const isNetflix = () => homepage.includes("netflix");
+  const isDisneyPlus = () => homepage.includes("disney");
+  const isPrimeVideo = () =>
+    homepage.includes("amazon") || homepage.includes("primevideo");
+
+  const gotoHomepage = () => {
+    Linking.canOpenURL(homepage).then(supported => {
+      if (supported) {
+        Linking.openURL(homepage);
+      } else {
+        console.log("Don't know how to open URI: " + this.props.url);
+      }
+    });
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.showDetails}>
       <View style={styles.firstBlock}>
         <Image
-          source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
+          source={{uri: `https://image.tmdb.org/t/p/original${imagePath}`}}
           key={id}
           style={styles.poster}
         />
@@ -119,30 +131,36 @@ export const ShowDetails = ({
       <View style={styles.secondBlock}>
         <Text style={styles.overviewHeader}>Overview</Text>
         <Text style={styles.description}>{description}</Text>
+        {(isNetflix() || isPrimeVideo() || isDisneyPlus()) &&
+        <StreamingOn isNetflix={isNetflix} isDisneyPlus={isDisneyPlus} isPrimeVideo={isPrimeVideo}
+                     gotoHomepage={gotoHomepage}/>
+        }
         <View style={styles.extras}>
           <Text style={styles.overviewHeader}>Recommendations</Text>
           <View style={styles.recommendations}>
             {!_.isEmpty(recommendations) &&
-              createExtras(
-                recommendations,
-                setCurrentShowId,
-                setCurrentShowType,
-                setSelectedFooterItem,
-                type
-              )}
+            createExtras(
+              recommendations,
+              setCurrentShowId,
+              setCurrentShowType,
+              setSelectedFooterItem,
+              setSelectedHeaderItem,
+              type
+            )}
           </View>
         </View>
         <View style={styles.extras}>
           <Text style={styles.overviewHeader}>Similar</Text>
           <View style={styles.similar}>
             {!_.isEmpty(similar) &&
-              createExtras(
-                similar,
-                setCurrentShowId,
-                setCurrentShowType,
-                setSelectedFooterItem,
-                type
-              )}
+            createExtras(
+              similar,
+              setCurrentShowId,
+              setCurrentShowType,
+              setSelectedFooterItem,
+              setSelectedHeaderItem,
+              type
+            )}
           </View>
         </View>
       </View>
@@ -259,5 +277,5 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: 120,
     height: 180,
-  },
+  }
 });

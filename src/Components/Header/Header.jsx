@@ -9,13 +9,18 @@ export const Header = ({
   setShowSuggestionType,
   setRandomId,
   setTopId,
+  setCurrentShowId,
+  setCurrentShowType,
   onLogoPress,
   clearFooterItem,
 }) => {
   return (
     <View style={styles.header}>
       <Pressable onPress={onLogoPress}>
-        <Image style={styles.logo} source={require("../../public/logo.png")} />
+        <Image
+          style={styles.logo}
+          source={require("../../../public/logo.png")}
+        />
       </Pressable>
       <NavigationMenu
         selectedItem={selectedHeaderItem}
@@ -24,6 +29,8 @@ export const Header = ({
         setShowSuggestionType={setShowSuggestionType}
         setRandomId={setRandomId}
         setTopId={setTopId}
+        setCurrentShowId={setCurrentShowId}
+        setCurrentShowType={setCurrentShowType}
         clearFooterItem={clearFooterItem}
       />
     </View>

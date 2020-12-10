@@ -58,7 +58,7 @@ export const Footer = ({
       <View style={styles.iconView}>
         <FontAwesomeIcon
           icon={faTicketAlt}
-          size={27}
+          size={30}
           color={isNowPlaying ? "gray" : "#e56363"}
           onPress={() => setSelectedFooterItem("PLAYING")}
         />

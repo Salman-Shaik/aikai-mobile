@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
-import { fetchShowWith } from "../fetches";
+import { fetchShowWith } from "../../fetches";
 import { ShowDetails } from "./ShowDetails";
 
 export const Show = ({
@@ -10,6 +10,7 @@ export const Show = ({
   setCurrentShowId,
   setCurrentShowType,
   setSelectedFooterItem,
+  setSelectedHeaderItem,
 }) => {
   const [show, setShow] = useState({});
   useEffect(() => {
@@ -25,6 +26,7 @@ export const Show = ({
           setCurrentShowId={setCurrentShowId}
           setCurrentShowType={setCurrentShowType}
           setSelectedFooterItem={setSelectedFooterItem}
+          setSelectedHeaderItem={setSelectedHeaderItem}
         />
       )}
     </View>
