@@ -82,10 +82,9 @@ export const ShowDetails = ({
     fetchOtherShow(type, id, "similar", setSimilar);
   }, []);
 
-  const isNetflix = () => homepage.includes("netflix");
-  const isDisneyPlus = () => homepage.includes("disney");
-  const isPrimeVideo = () =>
-    homepage.includes("amazon") || homepage.includes("primevideo");
+  const isNetflix = () => !_.isUndefined(homepage) ? homepage.includes("netflix") : false;
+  const isDisneyPlus = () => !_.isUndefined(homepage) ? homepage.includes("disney") : false;
+  const isPrimeVideo = () => !_.isUndefined(homepage) ? homepage.includes("amazon") || homepage.includes("primevideo") : false;
 
   const gotoHomepage = () => {
     Linking.canOpenURL(homepage).then(supported => {

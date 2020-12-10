@@ -25,7 +25,10 @@ export const fetchShowAnd = (setter, pageNumber, type) => {
     .then((res) => res.text())
     .then((data) => JSON.parse(data).results)
     .then((res) => getRandomItem(res))
-    .then((i) => setter(i))
+    .then((i) => {
+      console.log(i)
+      return setter(i);
+    })
     .catch((e) => new TypeError(e));
 };
 
