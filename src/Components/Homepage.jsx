@@ -1,12 +1,15 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, ScrollView, StyleSheet } from "react-native";
+import { Favorites } from "./Favorites";
 import { Footer } from "./Footer";
 import { Header } from "./Header/Header";
 import { SearchPage } from "./SearchPage";
 import { RandomAndTopShow } from "./Show/RandomAndTopShow";
 import { Show } from "./Show/Show";
 import { Suggestions } from "./Suggestions";
+import { LoginPage } from "./User/LoginPage";
 
 export const Homepage = () => {
   const [selectedFooterItem, setSelectedFooterItem] = useState("HOME");
@@ -16,6 +19,14 @@ export const Homepage = () => {
   const [topId, setTopId] = useState(0);
   const [currentShowId, setCurrentShowId] = useState(0);
   const [currentShowType, setCurrentShowType] = useState("");
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [goToLoginPage, setGoToLoginPage] = useState(false);
+
+  useEffect(() => {
+    AsyncStorage.getItem("user-key").then((value) => {
+      setIsUserLoggedIn(!!value || false);
+    });
+  }, []);
 
   const clearFooterItem = () => setSelectedFooterItem(" ");
 
@@ -45,92 +56,104 @@ export const Homepage = () => {
   const isMovieTop =
     _.isEqual(selectedHeaderItem, "Movies") &&
     _.isEqual(showSuggestionType, "Top");
+  const isFavorites = _.isEqual(selectedHeaderItem, "Favorites");
 
   return (
     <ScrollView contentContainerStyle={styles.homepage}>
-      {isHeaderCondition && (
-        <Header
-          selectedHeaderItem={selectedHeaderItem}
-          setSelectedHeaderItem={setSelectedHeaderItem}
-          showSuggestionType={showSuggestionType}
-          setShowSuggestionType={setShowSuggestionType}
-          setRandomId={setRandomId}
-          setCurrentShowId={setCurrentShowId}
-          setCurrentShowType={setCurrentShowType}
-          setTopId={setTopId}
-          onLogoPress={goToHome}
-          clearFooterItem={clearFooterItem}
+      {!!goToLoginPage ? (
+        <LoginPage
+          setIsUserLoggedIn={setIsUserLoggedIn}
+          setGotoLoginPage={setGoToLoginPage}
         />
-      )}
-      {isShowConditionTrue && (
-        <Show
-          id={currentShowId}
-          type={currentShowType}
-          setCurrentShowId={setCurrentShowId}
-          setCurrentShowType={setCurrentShowType}
-          setSelectedFooterItem={setSelectedFooterItem}
-          setSelectedHeaderItem={setSelectedHeaderItem}
-        />
-      )}
-      {isHome && (
-        <Suggestions
-          setCurrentShowId={setCurrentShowId}
-          setCurrentShowType={setCurrentShowType}
-          setSelectedFooterItem={setSelectedFooterItem}
-        />
-      )}
-      {isSearch && (
-        <ScrollView>
-          <SearchPage
-            setCurrentShowId={setCurrentShowId}
-            setCurrentShowType={setCurrentShowType}
-            setSelectedFooterItem={setSelectedFooterItem}
-          />
-        </ScrollView>
-      )}
-
-      {isTvRandom && (
-        <RandomAndTopShow
-          id={randomId}
-          type={"tv"}
-          setCurrentShowId={setCurrentShowId}
-          setCurrentShowType={setCurrentShowType}
-          setSelectedFooterItem={setSelectedFooterItem}
-          setSelectedHeaderItem={setSelectedHeaderItem}
-        />
-      )}
-
-      {isTvTop && (
-        <RandomAndTopShow
-          id={topId}
-          type={"tv"}
-          setCurrentShowId={setCurrentShowId}
-          setCurrentShowType={setCurrentShowType}
-          setSelectedFooterItem={setSelectedFooterItem}
-          setSelectedHeaderItem={setSelectedHeaderItem}
-        />
-      )}
-
-      {isMovieRandom && (
-        <RandomAndTopShow
-          id={randomId}
-          type={"movie"}
-          setCurrentShowId={setCurrentShowId}
-          setCurrentShowType={setCurrentShowType}
-          setSelectedFooterItem={setSelectedFooterItem}
-          setSelectedHeaderItem={setSelectedHeaderItem}
-        />
-      )}
-
-      {isMovieTop && (
-        <RandomAndTopShow
-          id={topId}
-          type={"movie"}
-          setCurrentShowId={setCurrentShowId}
-          setCurrentShowType={setCurrentShowType}
-          setSelectedFooterItem={setSelectedFooterItem}
-          setSelectedHeaderItem={setSelectedHeaderItem}
-        />
+      ) : (
+        <>
+          {isHeaderCondition && (
+            <Header
+              selectedHeaderItem={selectedHeaderItem}
+              setSelectedHeaderItem={setSelectedHeaderItem}
+              showSuggestionType={showSuggestionType}
+              setShowSuggestionType={setShowSuggestionType}
+              setRandomId={setRandomId}
+              setCurrentShowId={setCurrentShowId}
+              setCurrentShowType={setCurrentShowType}
+              setTopId={setTopId}
+              onLogoPress={goToHome}
+              clearFooterItem={clearFooterItem}
+            />
+          )}
+          {isShowConditionTrue && (
+            <Show
+              id={currentShowId}
+              type={currentShowType}
+              setCurrentShowId={setCurrentShowId}
+              setCurrentShowType={setCurrentShowType}
+              setSelectedFooterItem={setSelectedFooterItem}
+              setSelectedHeaderItem={setSelectedHeaderItem}
+            />
+          )}
+          {isHome && (
+            <Suggestions
+              setCurrentShowId={setCurrentShowId}
+              setCurrentShowType={setCurrentShowType}
+              setSelectedFooterItem={setSelectedFooterItem}
+            />
+          )}
+          {isSearch && (
+            <ScrollView>
+              <SearchPage
+                setCurrentShowId={setCurrentShowId}
+                setCurrentShowType={setCurrentShowType}
+                setSelectedFooterItem={setSelectedFooterItem}
+              />
+            </ScrollView>
+          )}
+          {isTvRandom && (
+            <RandomAndTopShow
+              id={randomId}
+              type={"tv"}
+              setCurrentShowId={setCurrentShowId}
+              setCurrentShowType={setCurrentShowType}
+              setSelectedFooterItem={setSelectedFooterItem}
+              setSelectedHeaderItem={setSelectedHeaderItem}
+            />
+          )}
+          {isTvTop && (
+            <RandomAndTopShow
+              id={topId}
+              type={"tv"}
+              setCurrentShowId={setCurrentShowId}
+              setCurrentShowType={setCurrentShowType}
+              setSelectedFooterItem={setSelectedFooterItem}
+              setSelectedHeaderItem={setSelectedHeaderItem}
+            />
+          )}
+          {isMovieRandom && (
+            <RandomAndTopShow
+              id={randomId}
+              type={"movie"}
+              setCurrentShowId={setCurrentShowId}
+              setCurrentShowType={setCurrentShowType}
+              setSelectedFooterItem={setSelectedFooterItem}
+              setSelectedHeaderItem={setSelectedHeaderItem}
+            />
+          )}
+          {isMovieTop && (
+            <RandomAndTopShow
+              id={topId}
+              type={"movie"}
+              setCurrentShowId={setCurrentShowId}
+              setCurrentShowType={setCurrentShowType}
+              setSelectedFooterItem={setSelectedFooterItem}
+              setSelectedHeaderItem={setSelectedHeaderItem}
+            />
+          )}
+          {isFavorites && (
+            <Favorites
+              setGotoLoginPage={setGoToLoginPage}
+              isUserLoggedIn={isUserLoggedIn}
+            />
+          )}
+        </>
       )}
 
       <Footer

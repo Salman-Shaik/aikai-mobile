@@ -1,36 +1,49 @@
 import React from "react";
-import {Image, Pressable, Text, View, StyleSheet, Dimensions} from "react-native";
+import {
+  Image,
+  Pressable,
+  Text,
+  View,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
 
-export const StreamingOn = ({isNetflix, gotoHomepage, isDisneyPlus, isPrimeVideo}) => {
-  return <View style={styles.streaming}>
-    <Text style={styles.header}>Streaming On : </Text>
-    {isNetflix() && (
-      <Pressable onPress={gotoHomepage}>
-        <Image
-          source={require("../../../public/Netflix.png")}
-          style={styles.netflix}
-        />
-      </Pressable>
-    )}
-    {isDisneyPlus() && (
-      <Pressable onPress={gotoHomepage}>
-        <Image
-          source={require("../../../public/Disney.jpg")}
-          style={styles.disney}
-        />
-      </Pressable>
-    )}
-    {isPrimeVideo() && (
-      <Pressable onPress={gotoHomepage}>
-        <Image
-          source={require("../../../public/Prime.png")}
-          style={styles.prime}
-        />
-      </Pressable>
-    )}
-  </View>;
-}
-;
+export const StreamingOn = ({
+  isNetflix,
+  gotoHomepage,
+  isDisneyPlus,
+  isPrimeVideo,
+}) => {
+  return (
+    <View style={styles.streaming}>
+      <Text style={styles.header}>Streaming On : </Text>
+      {isNetflix() && (
+        <Pressable onPress={gotoHomepage}>
+          <Image
+            source={require("../../../public/Netflix.png")}
+            style={styles.netflix}
+          />
+        </Pressable>
+      )}
+      {isDisneyPlus() && (
+        <Pressable onPress={gotoHomepage}>
+          <Image
+            source={require("../../../public/Disney.jpg")}
+            style={styles.disney}
+          />
+        </Pressable>
+      )}
+      {isPrimeVideo() && (
+        <Pressable onPress={gotoHomepage}>
+          <Image
+            source={require("../../../public/Prime.png")}
+            style={styles.prime}
+          />
+        </Pressable>
+      )}
+    </View>
+  );
+};
 const deviceWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
@@ -58,13 +71,13 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     width: 42,
     height: 40,
-    borderRadius:50
+    borderRadius: 50,
   },
   prime: {
     marginTop: 10,
     marginLeft: 10,
     width: 42,
     height: 40,
-    borderRadius:50
+    borderRadius: 50,
   },
 });

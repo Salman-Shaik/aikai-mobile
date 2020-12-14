@@ -1,10 +1,19 @@
 import _ from "lodash";
-import React, {useEffect, useState} from "react";
-import {Dimensions, Image, Linking, Pressable, ScrollView, StyleSheet, Text, View} from "react-native";
-import {genres} from "../../data/genres.json";
-import {fetchOtherShow} from "../../fetches";
+import React, { useEffect, useState } from "react";
+import {
+  Dimensions,
+  Image,
+  Linking,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { genres } from "../../data/genres.json";
+import { fetchOtherShow } from "../../fetches";
 import AnimatedCircularProgress from "../Misc/AnimatedCircularProgress";
-import {StreamingOn} from "./StreamingOn";
+import { StreamingOn } from "./StreamingOn";
 
 export const getGenreNames = (info, showType) => {
   const genre = !!info.genres && info.genres.map((g) => g.name);
@@ -47,7 +56,7 @@ const createExtras = (
       >
         <Image
           key={imagePath}
-          source={{uri: `https://image.tmdb.org/t/p/original${imagePath}`}}
+          source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
           style={styles.image}
         />
       </Pressable>
@@ -56,13 +65,13 @@ const createExtras = (
 };
 
 export const ShowDetails = ({
-                              show,
-                              type,
-                              setCurrentShowId,
-                              setCurrentShowType,
-                              setSelectedFooterItem,
-                              setSelectedHeaderItem,
-                            }) => {
+  show,
+  type,
+  setCurrentShowId,
+  setCurrentShowType,
+  setSelectedFooterItem,
+  setSelectedHeaderItem,
+}) => {
   const id = show.id;
   const title = show.name || show.title;
   const genre = getGenreNames(show, type);
@@ -82,12 +91,17 @@ export const ShowDetails = ({
     fetchOtherShow(type, id, "similar", setSimilar);
   }, []);
 
-  const isNetflix = () => !_.isUndefined(homepage) ? homepage.includes("netflix") : false;
-  const isDisneyPlus = () => !_.isUndefined(homepage) ? homepage.includes("disney") : false;
-  const isPrimeVideo = () => !_.isUndefined(homepage) ? homepage.includes("amazon") || homepage.includes("primevideo") : false;
+  const isNetflix = () =>
+    !_.isUndefined(homepage) ? homepage.includes("netflix") : false;
+  const isDisneyPlus = () =>
+    !_.isUndefined(homepage) ? homepage.includes("disney") : false;
+  const isPrimeVideo = () =>
+    !_.isUndefined(homepage)
+      ? homepage.includes("amazon") || homepage.includes("primevideo")
+      : false;
 
   const gotoHomepage = () => {
-    Linking.canOpenURL(homepage).then(supported => {
+    Linking.canOpenURL(homepage).then((supported) => {
       if (supported) {
         Linking.openURL(homepage);
       } else {
@@ -100,7 +114,7 @@ export const ShowDetails = ({
     <ScrollView contentContainerStyle={styles.showDetails}>
       <View style={styles.firstBlock}>
         <Image
-          source={{uri: `https://image.tmdb.org/t/p/original${imagePath}`}}
+          source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
           key={id}
           style={styles.poster}
         />
@@ -130,36 +144,40 @@ export const ShowDetails = ({
       <View style={styles.secondBlock}>
         <Text style={styles.overviewHeader}>Overview</Text>
         <Text style={styles.description}>{description}</Text>
-        {(isNetflix() || isPrimeVideo() || isDisneyPlus()) &&
-        <StreamingOn isNetflix={isNetflix} isDisneyPlus={isDisneyPlus} isPrimeVideo={isPrimeVideo}
-                     gotoHomepage={gotoHomepage}/>
-        }
+        {(isNetflix() || isPrimeVideo() || isDisneyPlus()) && (
+          <StreamingOn
+            isNetflix={isNetflix}
+            isDisneyPlus={isDisneyPlus}
+            isPrimeVideo={isPrimeVideo}
+            gotoHomepage={gotoHomepage}
+          />
+        )}
         <View style={styles.extras}>
           <Text style={styles.overviewHeader}>Recommendations</Text>
           <View style={styles.recommendations}>
             {!_.isEmpty(recommendations) &&
-            createExtras(
-              recommendations,
-              setCurrentShowId,
-              setCurrentShowType,
-              setSelectedFooterItem,
-              setSelectedHeaderItem,
-              type
-            )}
+              createExtras(
+                recommendations,
+                setCurrentShowId,
+                setCurrentShowType,
+                setSelectedFooterItem,
+                setSelectedHeaderItem,
+                type
+              )}
           </View>
         </View>
         <View style={styles.extras}>
           <Text style={styles.overviewHeader}>Similar</Text>
           <View style={styles.similar}>
             {!_.isEmpty(similar) &&
-            createExtras(
-              similar,
-              setCurrentShowId,
-              setCurrentShowType,
-              setSelectedFooterItem,
-              setSelectedHeaderItem,
-              type
-            )}
+              createExtras(
+                similar,
+                setCurrentShowId,
+                setCurrentShowType,
+                setSelectedFooterItem,
+                setSelectedHeaderItem,
+                type
+              )}
           </View>
         </View>
       </View>
@@ -276,5 +294,5 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: 120,
     height: 180,
-  }
+  },
 });
