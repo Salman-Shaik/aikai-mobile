@@ -10,6 +10,7 @@ import { RandomAndTopShow } from "./Show/RandomAndTopShow";
 import { Show } from "./Show/Show";
 import { Suggestions } from "./Suggestions";
 import { LoginPage } from "./User/LoginPage";
+import {WatchList} from "./WatchList";
 
 export const Homepage = () => {
   const [selectedFooterItem, setSelectedFooterItem] = useState("HOME");
@@ -57,6 +58,7 @@ export const Homepage = () => {
     _.isEqual(selectedHeaderItem, "Movies") &&
     _.isEqual(showSuggestionType, "Top");
   const isFavorites = _.isEqual(selectedHeaderItem, "Favorites");
+  const isWatchList = _.isEqual(selectedFooterItem, "WATCHLIST");
 
   return (
     <ScrollView contentContainerStyle={styles.homepage}>
@@ -153,12 +155,19 @@ export const Homepage = () => {
               isUserLoggedIn={isUserLoggedIn}
             />
           )}
+          {isWatchList && (
+            <WatchList
+              setGotoLoginPage={setGoToLoginPage}
+              isUserLoggedIn={isUserLoggedIn}
+            />
+          )}
         </>
       )}
 
       <Footer
         selectedFooterItem={selectedFooterItem}
         setSelectedFooterItem={setSelectedFooterItem}
+        setSelectedHeaderItem={setSelectedHeaderItem}
         goToHome={goToHome}
       />
     </ScrollView>

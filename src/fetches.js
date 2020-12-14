@@ -133,10 +133,54 @@ export const fetchFavorites = (setFavorites) => {
   });
 };
 
+export const fetchWatchList = (setWatchList) => {
+  AsyncStorage.getItem("user-key").then((value) => {
+    fetch(`${USER_API}/watchlist?user=${value}`)
+      .then((res) => res.text())
+      .then((data) => JSON.parse(data))
+      .then((w) => w.filter(s=>!s.watched))
+      .then((w) => {
+        setWatchList(w);
+      });
+  });
+};
+
 export const removeFavorite = (id, callback) => {
   AsyncStorage.getItem("user-key").then((value) => {
     fetch(`${USER_API}/favorite?user=${value}`, {
       method: "delete",
+      body: JSON.stringify({id}),
+      headers: {"Content-Type": "application/json"},
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          callback();
+        }
+      })
+      .catch((e) => new TypeError(e));
+  });
+};
+
+export const removeFromWatchList = (id, callback) => {
+  AsyncStorage.getItem("user-key").then((value) => {
+    fetch(`${USER_API}/watch?user=${value}`, {
+      method: "delete",
+      body: JSON.stringify({ id }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          callback()
+        }
+      })
+      .catch((e) => new TypeError(e));
+  });
+};
+
+export const setWatched = (id, callback) => {
+  AsyncStorage.getItem("user-key").then((value) => {
+    fetch(`${USER_API}/watched?user=${value}`, {
+      method: "put",
       body: JSON.stringify({id}),
       headers: {"Content-Type": "application/json"},
     })

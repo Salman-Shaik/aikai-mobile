@@ -12,6 +12,7 @@ import { Dimensions, StyleSheet, Text, View } from "react-native";
 export const Footer = ({
   selectedFooterItem,
   setSelectedFooterItem,
+  setSelectedHeaderItem,
   goToHome,
 }) => {
   const isHome = selectedFooterItem === "HOME";
@@ -46,11 +47,17 @@ export const Footer = ({
           icon={faSearch}
           size={25}
           color={isSearch ? "gray" : "white"}
-          onPress={() => setSelectedFooterItem("SEARCH")}
+          onPress={() => {
+            setSelectedHeaderItem("");
+            setSelectedFooterItem("SEARCH");
+          }}
         />
         <Text
           style={isSearch ? styles.selectedIconText : styles.iconText}
-          onPress={() => setSelectedFooterItem("SEARCH")}
+          onPress={() => {
+            setSelectedHeaderItem("");
+            setSelectedFooterItem("SEARCH");
+          }}
         >
           Search
         </Text>
@@ -60,11 +67,17 @@ export const Footer = ({
           icon={faTicketAlt}
           size={30}
           color={isNowPlaying ? "gray" : "#e56363"}
-          onPress={() => setSelectedFooterItem("PLAYING")}
+          onPress={() => {
+            setSelectedHeaderItem("");
+            setSelectedFooterItem("PLAYING");
+          }}
         />
         <Text
           style={isNowPlaying ? styles.selectedIconText : styles.iconText}
-          onPress={() => setSelectedFooterItem("PLAYING")}
+          onPress={() => {
+            setSelectedHeaderItem("");
+            setSelectedFooterItem("PLAYING");
+          }}
         >
           Now Playing
         </Text>
@@ -74,11 +87,17 @@ export const Footer = ({
           icon={faBookmark}
           size={25}
           color={isWatchList ? "gray" : "#7cfc00"}
-          onPress={() => setSelectedFooterItem("WATCHLIST")}
+          onPress={() => {
+            setSelectedHeaderItem("");
+            setSelectedFooterItem("WATCHLIST");
+          }}
         />
         <Text
           style={isWatchList ? styles.selectedIconText : styles.iconText}
-          onPress={() => setSelectedFooterItem("WATCHLIST")}
+          onPress={() => {
+            setSelectedHeaderItem("");
+            setSelectedFooterItem("WATCHLIST");
+          }}
         >
           Watchlist
         </Text>
@@ -88,11 +107,17 @@ export const Footer = ({
           icon={faBars}
           size={26}
           color={isMore ? "gray" : "#ffefd5"}
-          onPress={() => setSelectedFooterItem("MORE")}
+          onPress={() => {
+            setSelectedHeaderItem("");
+            setSelectedFooterItem("MORE");
+          }}
         />
         <Text
           style={isMore ? styles.selectedIconText : styles.iconText}
-          onPress={() => setSelectedFooterItem("MORE")}
+          onPress={() => {
+            setSelectedHeaderItem("");
+            setSelectedFooterItem("MORE");
+          }}
         >
           More
         </Text>
