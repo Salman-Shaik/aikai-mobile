@@ -60,7 +60,6 @@ export const UserShowActions = ({ id, title, posterPath }) => {
           <FontAwesomeIcon icon={faUnSaved} color={"#7cfc00"} size={25} />
         </Pressable>
       )}
-      <FontAwesomeIcon icon={faShareAlt} color={"#ffefef"} size={25} />
     </View>
   );
 };
