@@ -1,45 +1,75 @@
-import {faBookmark,faCheckCircle} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import React, {useEffect, useState} from "react";
-import {Dimensions, ImageBackground, Text, ScrollView, StyleSheet, View} from "react-native";
-import {fetchWatchList, removeFromWatchList, setWatched} from "../fetches";
+import { faBookmark, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import React, { useEffect, useState } from "react";
+import {
+  Dimensions,
+  ImageBackground,
+  Text,
+  ScrollView,
+  StyleSheet,
+  View,
+  Pressable,
+} from "react-native";
+import { fetchWatchList, removeFromWatchList, setWatched } from "../fetches";
 
-const Poster = ({id, imagePath, onRemove, onWatched}) => {
+const Poster = ({ id, imagePath, onRemove, onWatched }) => {
   return (
     <View style={styles.posterContainer} key={id}>
-      <ImageBackground source={{uri: `https://image.tmdb.org/t/p/original${imagePath}`}} style={styles.background}>
+      <ImageBackground
+        source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
+        style={styles.background}
+      >
         <View style={styles.iconContainer}>
-          <FontAwesomeIcon icon={faBookmark} color={"#7cfc00"} size={25} secondaryColor={"#222222"} secondaryOpacity={0.4} onPress={onRemove}/>
-          <FontAwesomeIcon icon={faCheckCircle} color={"#7cfc00"} size={25} secondaryColor={"#222222"} secondaryOpacity={0.4} onPress={onWatched}/>
+          <Pressable onPress={onRemove}>
+            <FontAwesomeIcon
+              icon={faBookmark}
+              color={"#7cfc00"}
+              size={25}
+              secondaryColor={"#222222"}
+              secondaryOpacity={0.4}
+            />
+          </Pressable>
+          <Pressable onPress={onWatched}>
+            <FontAwesomeIcon
+              icon={faCheckCircle}
+              color={"#7cfc00"}
+              size={25}
+              secondaryColor={"#222222"}
+              secondaryOpacity={0.4}
+            />
+          </Pressable>
         </View>
       </ImageBackground>
     </View>
   );
 };
 
-export const WatchList = ({
-                            setGotoLoginPage,
-                            isUserLoggedIn,
-                          }) => {
+export const WatchList = ({ setGotoLoginPage, isUserLoggedIn }) => {
   const [watchList, setWatchList] = useState([]);
 
-  const onRemove = id => {
+  const onRemove = (id) => {
     setWatchList([]);
-    removeFromWatchList(id,()=>fetchWatchList(setWatchList));
+    removeFromWatchList(id, () => fetchWatchList(setWatchList));
   };
 
-  const onWatched = id => {
+  const onWatched = (id) => {
     setWatchList([]);
-    setWatched(id,()=>fetchWatchList(setWatchList));
+    setWatched(id, () => fetchWatchList(setWatchList));
   };
 
-  const createSectionedPosters = (
-    results
-  ) => {
+  const createSectionedPosters = (results) => {
     const mapOfImages = results.map((r) => {
       const id = r.id;
       const imagePath = r.posterPath;
-      return <Poster key={id} id={id} imagePath={imagePath} onRemove={()=>onRemove(id)} onWatched={()=>onWatched(id)}/>
+      return (
+        <Poster
+          key={id}
+          id={id}
+          imagePath={imagePath}
+          onRemove={() => onRemove(id)}
+          onWatched={() => onWatched(id)}
+        />
+      );
     });
     return mapOfImages.map((m, i) => {
       if (i === 0 || i % 3 === 0) {
@@ -64,9 +94,7 @@ export const WatchList = ({
     <View style={styles.watchlist}>
       <Text style={styles.header}>WatchList</Text>
       <ScrollView contentContainerStyle={styles.watchlistSections}>
-        {createSectionedPosters(
-          watchList
-        )}
+        {createSectionedPosters(watchList)}
       </ScrollView>
     </View>
   );
@@ -76,14 +104,14 @@ const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
-  watchlist:{
+  watchlist: {
     width: deviceWidth,
-    height: deviceHeight * 95.5 /100,
+    height: (deviceHeight * 95.5) / 100,
   },
   header: {
     marginTop: 35,
     marginLeft: 15,
-    height: deviceHeight * 6 /100,
+    height: (deviceHeight * 6) / 100,
     backgroundColor: "rgba(29,29,29,0.3)",
     fontSize: 22,
     color: "#ffefd5",
@@ -108,12 +136,12 @@ const styles = StyleSheet.create({
     height: 70,
     display: "flex",
     flexDirection: "column",
-    alignItems:"flex-start",
-    justifyContent:"space-between",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
     alignSelf: "flex-end",
     backgroundColor: "rgba(34,34,34,0.1)",
-    borderTopLeftRadius:6,
-    borderBottomLeftRadius:6,
+    borderTopLeftRadius: 6,
+    borderBottomLeftRadius: 6,
     paddingTop: 6,
     paddingBottom: 6,
     paddingLeft: 2,
@@ -131,5 +159,5 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     width: 120,
     height: 180,
-  }
+  },
 });

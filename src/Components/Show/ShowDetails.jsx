@@ -14,6 +14,7 @@ import { genres } from "../../data/genres.json";
 import { fetchOtherShow } from "../../fetches";
 import AnimatedCircularProgress from "../Misc/AnimatedCircularProgress";
 import { StreamingOn } from "./StreamingOn";
+import { UserShowActions } from "./UserShowActions";
 
 export const getGenreNames = (info, showType) => {
   const genre = !!info.genres && info.genres.map((g) => g.name);
@@ -120,6 +121,7 @@ export const ShowDetails = ({
         />
       </View>
       <Text style={styles.title}>{`${title} (${year})`}</Text>
+      <UserShowActions id={id} title={title} posterPath={imagePath} />
       <View style={styles.ratingAndMisc}>
         <AnimatedCircularProgress
           size={70}
@@ -294,5 +296,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: 120,
     height: 180,
+  },
+  userActions: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+    width: (deviceWidth * 74) / 100,
+    padding: 5,
   },
 });

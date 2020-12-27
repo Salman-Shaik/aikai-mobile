@@ -10,7 +10,7 @@ import { RandomAndTopShow } from "./Show/RandomAndTopShow";
 import { Show } from "./Show/Show";
 import { Suggestions } from "./Suggestions";
 import { LoginPage } from "./User/LoginPage";
-import {WatchList} from "./WatchList";
+import { WatchList } from "./WatchList";
 
 export const Homepage = () => {
   const [selectedFooterItem, setSelectedFooterItem] = useState("HOME");

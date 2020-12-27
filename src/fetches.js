@@ -38,7 +38,7 @@ export const fetchImageFromShow = (id, type, index, setShow, setRefreshing) => {
   fetchShow(id, type)
     .then((rj) => {
       const posterPath = rj["poster_path"];
-      setShow({id, type, posterPath});
+      setShow({ id, type, posterPath });
       if (index === 9) {
         setRefreshing(false);
       }
@@ -93,7 +93,7 @@ export const login = (
   setGotoLoginPage,
   storeData
 ) => {
-  const body = {username, password};
+  const body = { username, password };
   const loginHandler = (token) => {
     if (!token) {
       setSuccess(false);
@@ -138,7 +138,7 @@ export const fetchWatchList = (setWatchList) => {
     fetch(`${USER_API}/watchlist?user=${value}`)
       .then((res) => res.text())
       .then((data) => JSON.parse(data))
-      .then((w) => w.filter(s=>!s.watched))
+      .then((w) => w.filter((s) => !s.watched))
       .then((w) => {
         setWatchList(w);
       });
@@ -149,8 +149,8 @@ export const removeFavorite = (id, callback) => {
   AsyncStorage.getItem("user-key").then((value) => {
     fetch(`${USER_API}/favorite?user=${value}`, {
       method: "delete",
-      body: JSON.stringify({id}),
-      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ id }),
+      headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
         if (res.status === 200) {
@@ -170,7 +170,7 @@ export const removeFromWatchList = (id, callback) => {
     })
       .then((res) => {
         if (res.status === 200) {
-          callback()
+          callback();
         }
       })
       .catch((e) => new TypeError(e));
@@ -181,14 +181,68 @@ export const setWatched = (id, callback) => {
   AsyncStorage.getItem("user-key").then((value) => {
     fetch(`${USER_API}/watched?user=${value}`, {
       method: "put",
-      body: JSON.stringify({id}),
-      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ id }),
+      headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
         if (res.status === 200) {
           callback();
         }
       })
+      .catch((e) => new TypeError(e));
+  });
+};
+
+export const addToWatchlist = (id, title, posterPath, setIsSaved) => {
+  AsyncStorage.getItem("user-key").then((value) => {
+    fetch(`${USER_API}/watch?user=${value}`, {
+      method: "put",
+      body: JSON.stringify({ id, title, posterPath }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          setIsSaved(true);
+        }
+      })
+      .catch((e) => new TypeError(e));
+  });
+};
+
+export const addToFavorites = (id, title, posterPath, setIsFavorite) => {
+  AsyncStorage.getItem("user-key").then((value) => {
+    fetch(`${USER_API}/favorite?user=${value}`, {
+      method: "put",
+      body: JSON.stringify({ id, title, posterPath }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          setIsFavorite(true);
+        }
+      })
+      .catch((e) => new TypeError(e));
+  });
+};
+
+export const checkIsFavorite = (id, setIsFavorite) => {
+  AsyncStorage.getItem("user-key").then((value) => {
+    fetch(`${USER_API}/favorites?user=${value}`)
+      .then((res) => res.text())
+      .then((data) => JSON.parse(data))
+      .then((d) => d.find((e) => e.id === id))
+      .then((result) => setIsFavorite(!!result))
+      .catch((e) => new TypeError(e));
+  });
+};
+
+export const checkIsSaved = (id, setIsSaved) => {
+  AsyncStorage.getItem("user-key").then((value) => {
+    fetch(`${USER_API}/watchlist?user=${value}`)
+      .then((res) => res.text())
+      .then((data) => JSON.parse(data))
+      .then((d) => d.find((e) => e.id === id))
+      .then((result) => setIsSaved(!!result))
       .catch((e) => new TypeError(e));
   });
 };
