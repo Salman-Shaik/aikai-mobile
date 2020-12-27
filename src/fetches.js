@@ -246,3 +246,37 @@ export const checkIsSaved = (id, setIsSaved) => {
       .catch((e) => new TypeError(e));
   });
 };
+
+const playingMoviesFilter = (json, setPlayingMovies) => {
+  let results = _.shuffle(json.results);
+  results = results
+    .filter((value, index) => results.indexOf(value) === index)
+    .slice(0, 2);
+  setPlayingMovies(results);
+};
+
+const airingShowsFilter = (json, setAiringTvShows) => {
+  let results = _.shuffle(json.results);
+  results = results
+    .filter((value, index) => results.indexOf(value) === index)
+    .slice(0, 2);
+  setAiringTvShows(results);
+};
+
+export const fetchPlayingMovies = (setPlayingMovies) => {
+  const url = `${API_HOST}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-IN&region=IN`;
+  fetch(url)
+    .then((r) => r.text())
+    .then((data) => JSON.parse(data))
+    .then((json) => playingMoviesFilter(json, setPlayingMovies))
+    .catch((e) => new TypeError(e));
+};
+
+export const fetchAiringTVShows = (setAiringTvShows) => {
+  const tvUrl = `${API_HOST}/tv/on_the_air?api_key=${TMDB_API_KEY}&language=en-IN`;
+  fetch(tvUrl)
+    .then((r) => r.text())
+    .then((data) => JSON.parse(data))
+    .then((json) => airingShowsFilter(json, setAiringTvShows))
+    .catch((e) => new TypeError(e));
+};

@@ -5,6 +5,7 @@ import { Dimensions, ScrollView, StyleSheet } from "react-native";
 import { Favorites } from "./Favorites";
 import { Footer } from "./Footer";
 import { Header } from "./Header/Header";
+import { NowPlaying } from "./NowPlaying";
 import { SearchPage } from "./SearchPage";
 import { RandomAndTopShow } from "./Show/RandomAndTopShow";
 import { Show } from "./Show/Show";
@@ -59,6 +60,7 @@ export const Homepage = () => {
     _.isEqual(showSuggestionType, "Top");
   const isFavorites = _.isEqual(selectedHeaderItem, "Favorites");
   const isWatchList = _.isEqual(selectedFooterItem, "WATCHLIST");
+  const isNowPlaying = _.isEqual(selectedFooterItem, "PLAYING");
 
   return (
     <ScrollView contentContainerStyle={styles.homepage}>
@@ -159,6 +161,13 @@ export const Homepage = () => {
             <WatchList
               setGotoLoginPage={setGoToLoginPage}
               isUserLoggedIn={isUserLoggedIn}
+            />
+          )}
+          {isNowPlaying && (
+            <NowPlaying
+              setCurrentShowId={setCurrentShowId}
+              setCurrentShowType={setCurrentShowType}
+              setSelectedFooterItem={setSelectedFooterItem}
             />
           )}
         </>
