@@ -31,6 +31,7 @@ const createSectionedPosters = (
       >
         <Image
           key={imagePath}
+          defaultSource={require("../../public/fallback.jpg")}
           source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
           style={styles.image}
         />

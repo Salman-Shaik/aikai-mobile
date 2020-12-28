@@ -57,6 +57,7 @@ const createExtras = (
       >
         <Image
           key={imagePath}
+          defaultSource={require("../../../public/fallback.jpg")}
           source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
           style={styles.image}
         />
@@ -79,7 +80,7 @@ export const ShowDetails = ({
   const rating = show["vote_average"];
   const description = show.overview;
   const releaseDate = show["first_air_date"] || show["release_date"];
-  const year = releaseDate.split("-")[0] || "Y.T.A";
+  const year = (!!releaseDate && releaseDate.split("-")[0]) || "Y.T.A";
   const imagePath = show["poster_path"];
   const language = show["original_language"];
   const homepage = show["homepage"];
@@ -115,6 +116,7 @@ export const ShowDetails = ({
     <ScrollView contentContainerStyle={styles.showDetails}>
       <View style={styles.firstBlock}>
         <Image
+          defaultSource={require("../../../public/fallback.jpg")}
           source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
           key={id}
           style={styles.poster}

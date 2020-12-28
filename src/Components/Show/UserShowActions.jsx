@@ -27,20 +27,9 @@ export const UserShowActions = ({ id, title, posterPath }) => {
     checkIsSaved(id, setIsSaved);
   }, []);
 
-  const onDislike = () => {
-    console.log("NotLikey");
-    removeFavorite(id, () => setIsFavorite(false));
-  };
-
-  const onLike = () => {
-    console.log("Likey");
-    addToFavorites(id, title, posterPath, setIsFavorite);
-  };
-
-  const onSaved = () => {
-    console.log("save");
-    addToWatchlist(id, title, posterPath, setIsSaved);
-  };
+  const onDislike = () => removeFavorite(id, () => setIsFavorite(false));
+  const onLike = () => addToFavorites(id, title, posterPath, setIsFavorite);
+  const onSaved = () => addToWatchlist(id, title, posterPath, setIsSaved);
 
   return (
     <View style={styles.userActions}>
