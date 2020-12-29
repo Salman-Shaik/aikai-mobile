@@ -91,6 +91,7 @@ export const login = (
   setSuccess,
   setIsUserLoggedIn,
   setGotoLoginPage,
+  goToHome,
   storeData
 ) => {
   const body = { username, password };
@@ -104,6 +105,7 @@ export const login = (
       storeData("user-key", token).then(() => {
         setIsUserLoggedIn(true);
         setGotoLoginPage(false);
+        goToHome();
       });
     }
   };
@@ -243,6 +245,16 @@ export const checkIsSaved = (id, setIsSaved) => {
       .then((data) => JSON.parse(data))
       .then((d) => d.find((e) => e.id === id))
       .then((result) => setIsSaved(!!result))
+      .catch((e) => new TypeError(e));
+  });
+};
+
+export const fetchUserFullName = (setFullName) => {
+  AsyncStorage.getItem("user-key").then((value) => {
+    fetch(`${USER_API}/name?user=${value}`)
+      .then((res) => res.text())
+      .then((data) => JSON.parse(data))
+      .then((result) => setFullName(result.name))
       .catch((e) => new TypeError(e));
   });
 };

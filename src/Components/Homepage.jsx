@@ -5,6 +5,7 @@ import { Dimensions, ScrollView, StyleSheet } from "react-native";
 import { Favorites } from "./Favorites";
 import { Footer } from "./Footer";
 import { Header } from "./Header/Header";
+import { Menu } from "./Menu";
 import { NowPlaying } from "./NowPlaying";
 import { SearchPage } from "./SearchPage";
 import { RandomAndTopShow } from "./Show/RandomAndTopShow";
@@ -28,7 +29,7 @@ export const Homepage = () => {
     AsyncStorage.getItem("user-key").then((value) => {
       setIsUserLoggedIn(!!value || false);
     });
-  }, []);
+  }, [setIsUserLoggedIn]);
 
   const clearFooterItem = () => setSelectedFooterItem(" ");
 
@@ -37,6 +38,9 @@ export const Homepage = () => {
     setSelectedHeaderItem("");
     setCurrentShowId(0);
     setCurrentShowType("");
+    AsyncStorage.getItem("user-key").then((value) => {
+      setIsUserLoggedIn(!!value || false);
+    });
   };
 
   const isHome = _.isEqual(selectedFooterItem, "HOME");
@@ -61,6 +65,7 @@ export const Homepage = () => {
   const isFavorites = _.isEqual(selectedHeaderItem, "Favorites");
   const isWatchList = _.isEqual(selectedFooterItem, "WATCHLIST");
   const isNowPlaying = _.isEqual(selectedFooterItem, "PLAYING");
+  const isMenu = _.isEqual(selectedFooterItem, "MORE");
 
   return (
     <ScrollView contentContainerStyle={styles.homepage}>
@@ -68,6 +73,7 @@ export const Homepage = () => {
         <LoginPage
           setIsUserLoggedIn={setIsUserLoggedIn}
           setGotoLoginPage={setGoToLoginPage}
+          goToHome={goToHome}
         />
       ) : (
         <>
@@ -170,6 +176,14 @@ export const Homepage = () => {
               setSelectedFooterItem={setSelectedFooterItem}
             />
           )}
+          {isMenu && (
+            <Menu
+              isUserLoggedIn={isUserLoggedIn}
+              goToHome={goToHome}
+              setGoToLoginPage={setGoToLoginPage}
+              setSelectedFooterItem={setSelectedFooterItem}
+            />
+          )}
         </>
       )}
 
@@ -177,6 +191,7 @@ export const Homepage = () => {
         selectedFooterItem={selectedFooterItem}
         setSelectedFooterItem={setSelectedFooterItem}
         setSelectedHeaderItem={setSelectedHeaderItem}
+        setGoToLoginPage={setGoToLoginPage}
         goToHome={goToHome}
       />
     </ScrollView>

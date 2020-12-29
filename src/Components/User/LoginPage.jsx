@@ -1,6 +1,6 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import _ from "lodash";
 import React, { useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import {
   Dimensions,
@@ -9,15 +9,17 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  View,
 } from "react-native";
 import { login } from "../../fetches";
 
-export const LoginPage = ({ setIsUserLoggedIn, setGotoLoginPage }) => {
-  const usernamePlaceholder = "Username/Email";
-  const passwordPlaceholder = "Password";
-
-  const [username, setUsername] = useState(usernamePlaceholder);
-  const [password, setPassword] = useState(passwordPlaceholder);
+export const LoginPage = ({
+  setIsUserLoggedIn,
+  setGotoLoginPage,
+  goToHome,
+}) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -26,9 +28,7 @@ export const LoginPage = ({ setIsUserLoggedIn, setGotoLoginPage }) => {
       !_.isUndefined(username) &&
       !_.isUndefined(password) &&
       !_.isEmpty(username) &&
-      !_.isEmpty(password) &&
-      !_.isEqual(username, usernamePlaceholder) &&
-      !_.isEqual(password, passwordPlaceholder)
+      !_.isEmpty(password)
     );
   };
 
@@ -41,6 +41,7 @@ export const LoginPage = ({ setIsUserLoggedIn, setGotoLoginPage }) => {
         setSuccess,
         setIsUserLoggedIn,
         setGotoLoginPage,
+        goToHome,
         AsyncStorage.setItem
       );
     } else {
@@ -49,46 +50,62 @@ export const LoginPage = ({ setIsUserLoggedIn, setGotoLoginPage }) => {
   };
 
   const onUsernameChange = (text) => {
-    if (text.includes(usernamePlaceholder)) {
-      setUsername(text.replace(usernamePlaceholder, ""));
+    if (_.isEmpty(text)) {
+      setError(true);
     } else {
-      setUsername(text);
+      setError(false);
     }
-    setError(false);
+    setUsername(text);
   };
 
   const onPasswordChange = (text) => {
-    if (text.includes(passwordPlaceholder)) {
-      setPassword(text.replace(passwordPlaceholder, ""));
+    if (_.isEmpty(text)) {
+      setError(true);
     } else {
-      setPassword(text);
+      setError(false);
     }
-    setError(false);
+    setPassword(text);
   };
 
   return (
     <KeyboardAvoidingView style={styles.loginPage}>
       <Text style={styles.header}>Welcome Back</Text>
-      <TextInput
-        value={username}
-        style={
-          !error
-            ? !success
-              ? styles.credentials
-              : styles.successCredentials
-            : styles.errorCredentials
-        }
-        onChangeText={onUsernameChange}
-        autoFocus
-        blurOnSubmit
-      />
-      <TextInput
-        value={password}
-        secureTextEntry={true}
-        style={!error ? styles.credentials : styles.errorCredentials}
-        onChangeText={onPasswordChange}
-        blurOnSubmit
-      />
+      <View style={styles.userInput}>
+        <Text style={!error ? styles.label : styles.errorLabel}>
+          Username/Email
+        </Text>
+        <TextInput
+          label="Username/Email"
+          value={username}
+          style={
+            !error
+              ? !success
+                ? styles.credentials
+                : styles.successCredentials
+              : styles.errorCredentials
+          }
+          onChangeText={onUsernameChange}
+          autoFocus
+          blurOnSubmit
+        />
+      </View>
+      <View style={styles.userInput}>
+        <Text style={!error ? styles.label : styles.errorLabel}>Password</Text>
+        <TextInput
+          label="Password"
+          value={password}
+          secureTextEntry={true}
+          style={
+            !error
+              ? !success
+                ? styles.credentials
+                : styles.successCredentials
+              : styles.errorCredentials
+          }
+          onChangeText={onPasswordChange}
+          blurOnSubmit
+        />
+      </View>
       <TouchableOpacity onPress={onLogin} style={styles.loginButton}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
@@ -121,7 +138,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     backgroundColor: "#4a4949",
-    marginTop: 40,
+    marginTop: 5,
   },
   loginButton: {
     width: (deviceWidth * 90) / 100,
@@ -143,7 +160,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     color: "#ff0000",
     backgroundColor: "#fadbdb",
-    marginTop: 40,
+    marginTop: 5,
+  },
+  errorLabel: {
+    width: (deviceWidth * 90) / 100,
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fd7f7f",
   },
   successCredentials: {
     width: (deviceWidth * 90) / 100,
@@ -152,6 +175,16 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     color: "#32cd32",
     backgroundColor: "#defade",
+    marginTop: 5,
+  },
+  label: {
+    width: (deviceWidth * 90) / 100,
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#e3eeff",
+  },
+  userInput: {
+    width: (deviceWidth * 90) / 100,
     marginTop: 40,
   },
 });

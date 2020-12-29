@@ -14,6 +14,7 @@ export const Footer = ({
   setSelectedFooterItem,
   setSelectedHeaderItem,
   goToHome,
+  setGoToLoginPage,
 }) => {
   const isHome = selectedFooterItem === "HOME";
   const isSearch = selectedFooterItem === "SEARCH";
@@ -23,6 +24,7 @@ export const Footer = ({
 
   const onHome = () => {
     goToHome();
+    setGoToLoginPage(false);
     setSelectedFooterItem("HOME");
   };
 
@@ -50,6 +52,7 @@ export const Footer = ({
           onPress={() => {
             setSelectedHeaderItem("");
             setSelectedFooterItem("SEARCH");
+            setGoToLoginPage(false);
           }}
         />
         <Text
@@ -57,6 +60,7 @@ export const Footer = ({
           onPress={() => {
             setSelectedHeaderItem("");
             setSelectedFooterItem("SEARCH");
+            setGoToLoginPage(false);
           }}
         >
           Search
@@ -70,6 +74,7 @@ export const Footer = ({
           onPress={() => {
             setSelectedHeaderItem("");
             setSelectedFooterItem("PLAYING");
+            setGoToLoginPage(false);
           }}
         />
         <Text
@@ -77,6 +82,7 @@ export const Footer = ({
           onPress={() => {
             setSelectedHeaderItem("");
             setSelectedFooterItem("PLAYING");
+            setGoToLoginPage(false);
           }}
         >
           Now Playing
@@ -90,6 +96,7 @@ export const Footer = ({
           onPress={() => {
             setSelectedHeaderItem("");
             setSelectedFooterItem("WATCHLIST");
+            setGoToLoginPage(false);
           }}
         />
         <Text
@@ -97,6 +104,7 @@ export const Footer = ({
           onPress={() => {
             setSelectedHeaderItem("");
             setSelectedFooterItem("WATCHLIST");
+            setGoToLoginPage(false);
           }}
         >
           Watchlist
@@ -110,6 +118,7 @@ export const Footer = ({
           onPress={() => {
             setSelectedHeaderItem("");
             setSelectedFooterItem("MORE");
+            setGoToLoginPage(false);
           }}
         />
         <Text
@@ -117,6 +126,7 @@ export const Footer = ({
           onPress={() => {
             setSelectedHeaderItem("");
             setSelectedFooterItem("MORE");
+            setGoToLoginPage(false);
           }}
         >
           More

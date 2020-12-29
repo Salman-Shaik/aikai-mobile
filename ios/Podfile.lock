@@ -333,7 +333,7 @@ PODS:
     - React-jsi (= 0.63.4)
   - RNCAsyncStorage (1.13.2):
     - React
-  - RNCPicker (1.9.4):
+  - RNCPicker (1.9.8):
     - React-Core
   - RNGestureHandler (1.7.0):
     - React
@@ -625,7 +625,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
   RNCAsyncStorage: bc2f81cc1df90c267ce9ed30bb2dbc93b945a8ee
-  RNCPicker: 2c31098349f499e7ab4da6c1ce26f7537d271062
+  RNCPicker: cdeab10edac8f14ed6839fdf922a789f80c72ec1
   RNGestureHandler: b6b359bb800ae399a9c8b27032bdbf7c18f08a08
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
   RNScreens: b748efec66e095134c7166ca333b628cd7e6f3e2
