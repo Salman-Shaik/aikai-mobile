@@ -9,14 +9,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { fetchUserFullName } from "../fetches";
+import { fetchUserFullName } from "../lib/fetches";
 
-export const Menu = ({
-  isUserLoggedIn,
-  goToHome,
-  setGoToLoginPage,
-  setSelectedFooterItem,
-}) => {
+export const Menu = ({ isUserLoggedIn, updateLocation, setIsUserLoggedIn }) => {
   const [fullName, setFullName] = useState("?");
 
   useEffect(() => {
@@ -26,12 +21,12 @@ export const Menu = ({
 
   const onLogout = async () => {
     await AsyncStorage.removeItem("user-key");
-    goToHome();
+    setIsUserLoggedIn(false);
+    updateLocation("Suggestions");
   };
 
   const onLogin = () => {
-    setSelectedFooterItem(" ");
-    setGoToLoginPage(true);
+    updateLocation("Login");
   };
 
   return (

@@ -16,7 +16,7 @@ import {
   checkIsFavorite,
   checkIsSaved,
   removeFavorite,
-} from "../../fetches";
+} from "../../lib/fetches";
 
 export const UserShowActions = ({ id, title, posterPath }) => {
   const [isFavorite, setIsFavorite] = useState(false);

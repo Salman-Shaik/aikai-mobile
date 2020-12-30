@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
-import { fetchShowWith } from "../../fetches";
+import { fetchShowWith } from "../../lib/fetches";
 import { ShowDetails } from "./ShowDetails";
 
 export const Show = ({
@@ -9,8 +9,7 @@ export const Show = ({
   type,
   setCurrentShowId,
   setCurrentShowType,
-  setSelectedFooterItem,
-  setSelectedHeaderItem,
+  updateLocation,
 }) => {
   const [show, setShow] = useState({});
   useEffect(() => {
@@ -25,8 +24,7 @@ export const Show = ({
           type={type}
           setCurrentShowId={setCurrentShowId}
           setCurrentShowType={setCurrentShowType}
-          setSelectedFooterItem={setSelectedFooterItem}
-          setSelectedHeaderItem={setSelectedHeaderItem}
+          updateLocation={updateLocation}
         />
       )}
     </View>
@@ -43,5 +41,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-start",
+    marginTop: 50,
   },
 });

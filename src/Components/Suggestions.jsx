@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import { list } from "../data/editorsChoice.json";
-import { fetchImageFromShow } from "../fetches";
+import { fetchImageFromShow } from "../lib/fetches";
 import { Poster } from "./Poster";
 
 const wait = (timeout) => {
@@ -21,7 +21,7 @@ const createSectionedPosters = (
   shows,
   setCurrentShowId,
   setCurrentShowType,
-  setSelectedFooterItem
+  updateLocation
 ) => {
   const postersMap = _.shuffle(shows).map(({ posterPath, id, type }) => (
     <Poster
@@ -30,7 +30,7 @@ const createSectionedPosters = (
       onClick={() => {
         setCurrentShowId(id);
         setCurrentShowType(type);
-        setSelectedFooterItem(" ");
+        updateLocation("Show");
       }}
     />
   ));
@@ -48,7 +48,7 @@ const createSectionedPosters = (
 export const Suggestions = ({
   setCurrentShowId,
   setCurrentShowType,
-  setSelectedFooterItem,
+  updateLocation,
 }) => {
   const getFromList = (list) => {
     return _.shuffle(_.shuffle(list)).slice(0, 10);
@@ -97,7 +97,7 @@ export const Suggestions = ({
             shows,
             setCurrentShowId,
             setCurrentShowType,
-            setSelectedFooterItem
+            updateLocation
           )}
         </View>
       )}

@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
-import { fetchShowAnd } from "../../fetches";
+import { fetchShowAnd } from "../../lib/fetches";
 import { ShowDetails } from "./ShowDetails";
 
 export const RandomAndTopShow = ({
@@ -9,8 +9,7 @@ export const RandomAndTopShow = ({
   type,
   setCurrentShowId,
   setCurrentShowType,
-  setSelectedFooterItem,
-  setSelectedHeaderItem,
+  updateLocation,
 }) => {
   const [show, setShow] = useState({});
   useEffect(() => {
@@ -27,8 +26,7 @@ export const RandomAndTopShow = ({
           type={type}
           setCurrentShowId={setCurrentShowId}
           setCurrentShowType={setCurrentShowType}
-          setSelectedFooterItem={setSelectedFooterItem}
-          setSelectedHeaderItem={setSelectedHeaderItem}
+          updateLocation={updateLocation}
         />
       )}
     </View>

@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import {
+  Dimensions,
   Image,
   Pressable,
   ScrollView,
-  View,
-  Text,
   StyleSheet,
-  Dimensions,
+  Text,
+  View,
 } from "react-native";
-import { fetchAiringTVShows, fetchPlayingMovies } from "../fetches";
+import { fetchAiringTVShows, fetchPlayingMovies } from "../lib/fetches";
 
 const createPosters = (
   shows,
   type,
   setCurrentShowId,
   setCurrentShowType,
-  setSelectedFooterItem
+  updateLocation
 ) => {
   return shows.map((s) => {
     const title = s.name || s.title;
@@ -27,7 +27,7 @@ const createPosters = (
         onPress={() => {
           setCurrentShowId(s.id);
           setCurrentShowType(type);
-          setSelectedFooterItem(" ");
+          updateLocation("Show");
         }}
       >
         <Image
@@ -47,7 +47,7 @@ const CurrentShows = ({
   type,
   setCurrentShowId,
   setCurrentShowType,
-  setSelectedFooterItem,
+  updateLocation,
 }) => {
   return (
     <ScrollView contentContainerStyle={styles.nowPlayingShowBlock} horizontal>
@@ -56,7 +56,7 @@ const CurrentShows = ({
         type,
         setCurrentShowId,
         setCurrentShowType,
-        setSelectedFooterItem
+        updateLocation
       )}
     </ScrollView>
   );
@@ -65,7 +65,7 @@ const CurrentShows = ({
 export const NowPlaying = ({
   setCurrentShowId,
   setCurrentShowType,
-  setSelectedFooterItem,
+  updateLocation,
 }) => {
   const [playingMovies, setPlayingMovies] = useState([]);
   const [airingShows, setAiringShows] = useState([]);
@@ -84,7 +84,7 @@ export const NowPlaying = ({
           type="movie"
           setCurrentShowId={setCurrentShowId}
           setCurrentShowType={setCurrentShowType}
-          setSelectedFooterItem={setSelectedFooterItem}
+          updateLocation={updateLocation}
         />
       </>
       <>
@@ -94,7 +94,7 @@ export const NowPlaying = ({
           type="tv"
           setCurrentShowId={setCurrentShowId}
           setCurrentShowType={setCurrentShowType}
-          setSelectedFooterItem={setSelectedFooterItem}
+          updateLocation={updateLocation}
         />
       </>
     </View>

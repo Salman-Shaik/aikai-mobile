@@ -1,198 +1,72 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Dimensions, ScrollView, StyleSheet } from "react-native";
 import { Favorites } from "./Favorites";
 import { Footer } from "./Footer";
 import { Header } from "./Header/Header";
-import { Menu } from "./Menu";
-import { NowPlaying } from "./NowPlaying";
-import { SearchPage } from "./SearchPage";
-import { RandomAndTopShow } from "./Show/RandomAndTopShow";
-import { Show } from "./Show/Show";
+import { Main } from "./Main";
 import { Suggestions } from "./Suggestions";
-import { LoginPage } from "./User/LoginPage";
-import { WatchList } from "./WatchList";
+import _ from "lodash";
 
 export const Homepage = () => {
-  const [selectedFooterItem, setSelectedFooterItem] = useState("HOME");
-  const [selectedHeaderItem, setSelectedHeaderItem] = useState("");
   const [showSuggestionType, setShowSuggestionType] = useState("Random");
   const [randomId, setRandomId] = useState(0);
   const [topId, setTopId] = useState(0);
   const [currentShowId, setCurrentShowId] = useState(0);
   const [currentShowType, setCurrentShowType] = useState("");
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const [goToLoginPage, setGoToLoginPage] = useState(false);
+  const [screenHistory, setScreenHistory] = useState([]);
+  const [currentScreen, setCurrentScreen] = useState("Suggestions");
 
-  useEffect(() => {
-    AsyncStorage.getItem("user-key").then((value) => {
-      setIsUserLoggedIn(!!value || false);
-    });
-  }, [setIsUserLoggedIn]);
-
-  const clearFooterItem = () => setSelectedFooterItem(" ");
-
-  const goToHome = () => {
-    setSelectedFooterItem("HOME");
-    setSelectedHeaderItem("");
-    setCurrentShowId(0);
-    setCurrentShowType("");
-    AsyncStorage.getItem("user-key").then((value) => {
-      setIsUserLoggedIn(!!value || false);
-    });
+  const updateLocation = (route) => {
+    const history = screenHistory;
+    if (history.includes(route)) {
+      const index = history.indexOf(route);
+      history.splice(index, 1);
+    }
+    history.push(route);
+    setScreenHistory(history);
+    setCurrentScreen(route);
   };
 
-  const isHome = _.isEqual(selectedFooterItem, "HOME");
-  const isHeaderCondition = isHome || _.isEqual(selectedFooterItem, " ");
-  const isShowConditionTrue =
-    _.isEqual(selectedFooterItem, " ") &&
-    !_.isEqual(currentShowId, 0) &&
-    !_.isEqual(currentShowType, "");
-  const isSearch = _.isEqual(selectedFooterItem, "SEARCH");
-  const isTvRandom =
-    _.isEqual(selectedHeaderItem, "TV Shows") &&
-    _.isEqual(showSuggestionType, "Random");
-  const isTvTop =
-    _.isEqual(selectedHeaderItem, "TV Shows") &&
-    _.isEqual(showSuggestionType, "Top");
-  const isMovieRandom =
-    _.isEqual(selectedHeaderItem, "Movies") &&
-    _.isEqual(showSuggestionType, "Random");
-  const isMovieTop =
-    _.isEqual(selectedHeaderItem, "Movies") &&
-    _.isEqual(showSuggestionType, "Top");
-  const isFavorites = _.isEqual(selectedHeaderItem, "Favorites");
-  const isWatchList = _.isEqual(selectedFooterItem, "WATCHLIST");
-  const isNowPlaying = _.isEqual(selectedFooterItem, "PLAYING");
-  const isMenu = _.isEqual(selectedFooterItem, "MORE");
+  const isCurrentScreen = (route) => _.isEqual(currentScreen, route);
+
+  const isCurrentScreenAny = (routes) => routes.some(isCurrentScreen);
+
+  const isHeaderCondition = isCurrentScreenAny([
+    "Suggestions",
+    "TvRandom",
+    "MovieRandom",
+    "TvTop",
+    "MovieTop",
+    "Favorites",
+  ]);
 
   return (
     <ScrollView contentContainerStyle={styles.homepage}>
-      {!!goToLoginPage ? (
-        <LoginPage
-          setIsUserLoggedIn={setIsUserLoggedIn}
-          setGotoLoginPage={setGoToLoginPage}
-          goToHome={goToHome}
+      {isHeaderCondition && (
+        <Header
+          showSuggestionType={showSuggestionType}
+          setShowSuggestionType={setShowSuggestionType}
+          setRandomId={setRandomId}
+          setCurrentShowId={setCurrentShowId}
+          setCurrentShowType={setCurrentShowType}
+          setTopId={setTopId}
+          isCurrentScreen={isCurrentScreen}
+          updateLocation={updateLocation}
         />
-      ) : (
-        <>
-          {isHeaderCondition && (
-            <Header
-              selectedHeaderItem={selectedHeaderItem}
-              setSelectedHeaderItem={setSelectedHeaderItem}
-              showSuggestionType={showSuggestionType}
-              setShowSuggestionType={setShowSuggestionType}
-              setRandomId={setRandomId}
-              setCurrentShowId={setCurrentShowId}
-              setCurrentShowType={setCurrentShowType}
-              setTopId={setTopId}
-              onLogoPress={goToHome}
-              clearFooterItem={clearFooterItem}
-            />
-          )}
-          {isShowConditionTrue && (
-            <Show
-              id={currentShowId}
-              type={currentShowType}
-              setCurrentShowId={setCurrentShowId}
-              setCurrentShowType={setCurrentShowType}
-              setSelectedFooterItem={setSelectedFooterItem}
-              setSelectedHeaderItem={setSelectedHeaderItem}
-            />
-          )}
-          {isHome && (
-            <Suggestions
-              setCurrentShowId={setCurrentShowId}
-              setCurrentShowType={setCurrentShowType}
-              setSelectedFooterItem={setSelectedFooterItem}
-            />
-          )}
-          {isSearch && (
-            <ScrollView>
-              <SearchPage
-                setCurrentShowId={setCurrentShowId}
-                setCurrentShowType={setCurrentShowType}
-                setSelectedFooterItem={setSelectedFooterItem}
-              />
-            </ScrollView>
-          )}
-          {isTvRandom && (
-            <RandomAndTopShow
-              id={randomId}
-              type={"tv"}
-              setCurrentShowId={setCurrentShowId}
-              setCurrentShowType={setCurrentShowType}
-              setSelectedFooterItem={setSelectedFooterItem}
-              setSelectedHeaderItem={setSelectedHeaderItem}
-            />
-          )}
-          {isTvTop && (
-            <RandomAndTopShow
-              id={topId}
-              type={"tv"}
-              setCurrentShowId={setCurrentShowId}
-              setCurrentShowType={setCurrentShowType}
-              setSelectedFooterItem={setSelectedFooterItem}
-              setSelectedHeaderItem={setSelectedHeaderItem}
-            />
-          )}
-          {isMovieRandom && (
-            <RandomAndTopShow
-              id={randomId}
-              type={"movie"}
-              setCurrentShowId={setCurrentShowId}
-              setCurrentShowType={setCurrentShowType}
-              setSelectedFooterItem={setSelectedFooterItem}
-              setSelectedHeaderItem={setSelectedHeaderItem}
-            />
-          )}
-          {isMovieTop && (
-            <RandomAndTopShow
-              id={topId}
-              type={"movie"}
-              setCurrentShowId={setCurrentShowId}
-              setCurrentShowType={setCurrentShowType}
-              setSelectedFooterItem={setSelectedFooterItem}
-              setSelectedHeaderItem={setSelectedHeaderItem}
-            />
-          )}
-          {isFavorites && (
-            <Favorites
-              setGotoLoginPage={setGoToLoginPage}
-              isUserLoggedIn={isUserLoggedIn}
-            />
-          )}
-          {isWatchList && (
-            <WatchList
-              setGotoLoginPage={setGoToLoginPage}
-              isUserLoggedIn={isUserLoggedIn}
-            />
-          )}
-          {isNowPlaying && (
-            <NowPlaying
-              setCurrentShowId={setCurrentShowId}
-              setCurrentShowType={setCurrentShowType}
-              setSelectedFooterItem={setSelectedFooterItem}
-            />
-          )}
-          {isMenu && (
-            <Menu
-              isUserLoggedIn={isUserLoggedIn}
-              goToHome={goToHome}
-              setGoToLoginPage={setGoToLoginPage}
-              setSelectedFooterItem={setSelectedFooterItem}
-            />
-          )}
-        </>
       )}
-
+      <Main
+        topId={topId}
+        randomId={randomId}
+        currentShowId={currentShowId}
+        updateLocation={updateLocation}
+        isCurrentScreen={isCurrentScreen}
+        currentShowType={currentShowType}
+        setCurrentShowId={setCurrentShowId}
+        setCurrentShowType={setCurrentShowType}
+      />
       <Footer
-        selectedFooterItem={selectedFooterItem}
-        setSelectedFooterItem={setSelectedFooterItem}
-        setSelectedHeaderItem={setSelectedHeaderItem}
-        setGoToLoginPage={setGoToLoginPage}
-        goToHome={goToHome}
+        isCurrentScreen={isCurrentScreen}
+        updateLocation={updateLocation}
       />
     </ScrollView>
   );
@@ -200,6 +74,7 @@ export const Homepage = () => {
 
 const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
+
 const styles = StyleSheet.create({
   homepage: {
     flex: 1,

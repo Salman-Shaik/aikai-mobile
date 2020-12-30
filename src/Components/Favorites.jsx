@@ -9,7 +9,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { fetchFavorites, removeFavorite } from "../fetches";
+import { fetchFavorites, removeFavorite } from "../lib/fetches";
 
 const Poster = ({ id, imagePath, onDislike }) => {
   return (
@@ -26,7 +26,7 @@ const Poster = ({ id, imagePath, onDislike }) => {
   );
 };
 
-export const Favorites = ({ setGotoLoginPage, isUserLoggedIn }) => {
+export const Favorites = ({ updateLocation, isUserLoggedIn }) => {
   const [favorites, setFavorites] = useState([]);
 
   const onDislike = (id) => {
@@ -62,7 +62,7 @@ export const Favorites = ({ setGotoLoginPage, isUserLoggedIn }) => {
     if (isUserLoggedIn) {
       fetchFavorites(setFavorites);
     } else {
-      setGotoLoginPage(true);
+      updateLocation("Login");
     }
   }, []);
 

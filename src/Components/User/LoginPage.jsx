@@ -11,13 +11,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { login } from "../../fetches";
+import { login } from "../../lib/fetches";
 
-export const LoginPage = ({
-  setIsUserLoggedIn,
-  setGotoLoginPage,
-  goToHome,
-}) => {
+export const LoginPage = ({ setIsUserLoggedIn, updateLocation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -40,8 +36,7 @@ export const LoginPage = ({
         setError,
         setSuccess,
         setIsUserLoggedIn,
-        setGotoLoginPage,
-        goToHome,
+        updateLocation,
         AsyncStorage.setItem
       );
     } else {

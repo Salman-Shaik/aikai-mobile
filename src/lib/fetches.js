@@ -90,8 +90,7 @@ export const login = (
   setError,
   setSuccess,
   setIsUserLoggedIn,
-  setGotoLoginPage,
-  goToHome,
+  updateLocation,
   storeData
 ) => {
   const body = { username, password };
@@ -104,8 +103,7 @@ export const login = (
       setSuccess(true);
       storeData("user-key", token).then(() => {
         setIsUserLoggedIn(true);
-        setGotoLoginPage(false);
-        goToHome();
+        updateLocation("Suggestions");
       });
     }
   };

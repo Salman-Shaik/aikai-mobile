@@ -11,7 +11,7 @@ import {
   View,
 } from "react-native";
 import { genres } from "../../data/genres.json";
-import { fetchOtherShow } from "../../fetches";
+import { fetchOtherShow } from "../../lib/fetches";
 import AnimatedCircularProgress from "../Misc/AnimatedCircularProgress";
 import { StreamingOn } from "./StreamingOn";
 import { UserShowActions } from "./UserShowActions";
@@ -32,8 +32,7 @@ const createExtras = (
   extras,
   setCurrentShowId,
   setCurrentShowType,
-  setSelectedFooterItem,
-  setSelectedHeaderItem,
+  updateLocation,
   type
 ) => {
   return extras.map((e) => {
@@ -45,13 +44,11 @@ const createExtras = (
         onPress={() => {
           setCurrentShowId(0);
           setCurrentShowType("");
-          setSelectedFooterItem("Home");
-          setSelectedHeaderItem("");
+          updateLocation("Suggestions");
           setTimeout(() => {
             setCurrentShowId(id);
             setCurrentShowType(type);
-            setSelectedFooterItem(" ");
-            setSelectedHeaderItem("");
+            updateLocation("Show");
           }, 1);
         }}
       >
@@ -71,8 +68,7 @@ export const ShowDetails = ({
   type,
   setCurrentShowId,
   setCurrentShowType,
-  setSelectedFooterItem,
-  setSelectedHeaderItem,
+  updateLocation,
 }) => {
   const id = show.id;
   const title = show.name || show.title;
@@ -164,8 +160,7 @@ export const ShowDetails = ({
                 recommendations,
                 setCurrentShowId,
                 setCurrentShowType,
-                setSelectedFooterItem,
-                setSelectedHeaderItem,
+                updateLocation,
                 type
               )}
           </View>
@@ -178,8 +173,7 @@ export const ShowDetails = ({
                 similar,
                 setCurrentShowId,
                 setCurrentShowType,
-                setSelectedFooterItem,
-                setSelectedHeaderItem,
+                updateLocation,
                 type
               )}
           </View>

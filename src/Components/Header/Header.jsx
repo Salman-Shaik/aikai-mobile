@@ -3,35 +3,32 @@ import { Dimensions, Image, StyleSheet, View, Pressable } from "react-native";
 import { NavigationMenu } from "./NavigationMenu";
 
 export const Header = ({
-  selectedHeaderItem,
-  setSelectedHeaderItem,
   showSuggestionType,
   setShowSuggestionType,
   setRandomId,
   setTopId,
   setCurrentShowId,
   setCurrentShowType,
-  onLogoPress,
-  clearFooterItem,
+  isCurrentScreen,
+  updateLocation,
 }) => {
   return (
     <View style={styles.header}>
-      <Pressable onPress={onLogoPress}>
+      <Pressable onPress={() => updateLocation("Suggestions")}>
         <Image
           style={styles.logo}
           source={require("../../../public/logo.png")}
         />
       </Pressable>
       <NavigationMenu
-        selectedItem={selectedHeaderItem}
-        setSelectedItem={setSelectedHeaderItem}
         showSuggestionType={showSuggestionType}
         setShowSuggestionType={setShowSuggestionType}
         setRandomId={setRandomId}
         setTopId={setTopId}
         setCurrentShowId={setCurrentShowId}
         setCurrentShowType={setCurrentShowType}
-        clearFooterItem={clearFooterItem}
+        isCurrentScreen={isCurrentScreen}
+        updateLocation={updateLocation}
       />
     </View>
   );

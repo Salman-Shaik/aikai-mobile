@@ -4,13 +4,17 @@ import React, { useEffect, useState } from "react";
 import {
   Dimensions,
   ImageBackground,
-  Text,
+  Pressable,
   ScrollView,
   StyleSheet,
+  Text,
   View,
-  Pressable,
 } from "react-native";
-import { fetchWatchList, removeFromWatchList, setWatched } from "../fetches";
+import {
+  fetchWatchList,
+  removeFromWatchList,
+  setWatched,
+} from "../lib/fetches";
 
 const Poster = ({ id, imagePath, onRemove, onWatched }) => {
   return (
@@ -44,7 +48,7 @@ const Poster = ({ id, imagePath, onRemove, onWatched }) => {
   );
 };
 
-export const WatchList = ({ setGotoLoginPage, isUserLoggedIn }) => {
+export const WatchList = ({ updateLocation, isUserLoggedIn }) => {
   const [watchList, setWatchList] = useState([]);
 
   const onRemove = (id) => {
@@ -86,7 +90,7 @@ export const WatchList = ({ setGotoLoginPage, isUserLoggedIn }) => {
     if (isUserLoggedIn) {
       fetchWatchList(setWatchList);
     } else {
-      setGotoLoginPage(true);
+      updateLocation("Login");
     }
   }, []);
 

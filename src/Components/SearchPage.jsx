@@ -10,13 +10,9 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { searchShow } from "../fetches";
+import { searchShow } from "../lib/fetches";
 
-const createSectionedPosters = (
-  results,
-  setCurrentShowId,
-  setSelectedFooterItem
-) => {
+const createSectionedPosters = (results, setCurrentShowId, updateLocation) => {
   const mapOfImages = results.map((r) => {
     const id = r.id;
     const imagePath = r["poster_path"];
@@ -26,7 +22,7 @@ const createSectionedPosters = (
         onPress={() => {
           setCurrentShowId(id);
           r.setCurrentShowType();
-          setSelectedFooterItem(" ");
+          updateLocation("Show");
         }}
       >
         <Image
@@ -52,7 +48,7 @@ const createSectionedPosters = (
 export const SearchPage = ({
   setCurrentShowId,
   setCurrentShowType,
-  setSelectedFooterItem,
+  updateLocation,
 }) => {
   const [searchQuery, setSearchQuery] = useState("Search...");
   const [movieResults, setMovieResults] = useState([]);
@@ -109,11 +105,7 @@ export const SearchPage = ({
         />
       </View>
       <View style={styles.searchResults}>
-        {createSectionedPosters(
-          results,
-          setCurrentShowId,
-          setSelectedFooterItem
-        )}
+        {createSectionedPosters(results, setCurrentShowId, updateLocation)}
       </View>
     </KeyboardAvoidingView>
   );

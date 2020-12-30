@@ -4,23 +4,25 @@ import React from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 
 export const NavigationMenu = ({
-  selectedItem,
-  setSelectedItem,
   showSuggestionType,
   setShowSuggestionType,
   setRandomId,
   setTopId,
   setCurrentShowId,
   setCurrentShowType,
-  clearFooterItem,
+  isCurrentScreen,
+  updateLocation,
 }) => {
   const onTv = () => {
     setRandomId(_.random(1, 60));
     setTopId(_.random(1, 22));
     setCurrentShowId(0);
     setCurrentShowType("");
-    clearFooterItem();
-    setSelectedItem("TV Shows");
+    if (_.isEqual(showSuggestionType, "Random")) {
+      updateLocation("TvRandom");
+    } else {
+      updateLocation("TvTop");
+    }
   };
 
   const onMovie = () => {
@@ -28,20 +30,22 @@ export const NavigationMenu = ({
     setTopId(_.random(1, 22));
     setCurrentShowId(0);
     setCurrentShowType("");
-    clearFooterItem();
-    setSelectedItem("Movies");
+    if (_.isEqual(showSuggestionType, "Random")) {
+      updateLocation("MovieRandom");
+    } else {
+      updateLocation("MovieTop");
+    }
   };
 
   const Favorites = () => {
-    clearFooterItem();
     setCurrentShowId(0);
     setCurrentShowType("");
-    setSelectedItem("Favorites");
+    updateLocation("Favorites");
   };
 
   return (
     <View style={styles.navigationMenuSection}>
-      {selectedItem === "" && (
+      {isCurrentScreen("Suggestions") && (
         <View style={styles.navigationMenu}>
           <Text style={styles.menuItem} onPress={onTv}>
             TV Shows
@@ -54,7 +58,7 @@ export const NavigationMenu = ({
           </Text>
         </View>
       )}
-      {selectedItem === "Movies" && (
+      {(isCurrentScreen("MovieRandom") || isCurrentScreen("MovieTop")) && (
         <View style={styles.postSelectedMenu}>
           <Text style={styles.selectedMenuItem}>Movies >> </Text>
           <Picker
@@ -62,8 +66,10 @@ export const NavigationMenu = ({
             onValueChange={(value) => {
               if (_.isEqual(value, "Random")) {
                 setRandomId(_.random(1, 389));
+                updateLocation("MovieRandom");
               } else {
                 setTopId(_.random(1, 22));
+                updateLocation("MovieTop");
               }
               setShowSuggestionType(value);
             }}
@@ -74,7 +80,7 @@ export const NavigationMenu = ({
           </Picker>
         </View>
       )}
-      {selectedItem === "TV Shows" && (
+      {(isCurrentScreen("TvRandom") || isCurrentScreen("TvTop")) && (
         <View style={styles.postSelectedMenu}>
           <Text style={styles.selectedMenuItem}>TV Shows >> </Text>
           <Picker
@@ -82,8 +88,10 @@ export const NavigationMenu = ({
             onValueChange={(value) => {
               if (_.isEqual(value, "Random")) {
                 setRandomId(_.random(1, 60));
+                updateLocation("TvRandom");
               } else {
                 setTopId(_.random(1, 22));
+                updateLocation("TvTop");
               }
               setShowSuggestionType(value);
             }}
@@ -94,7 +102,7 @@ export const NavigationMenu = ({
           </Picker>
         </View>
       )}
-      {selectedItem === "Favorites" && (
+      {isCurrentScreen("Favorites") && (
         <View style={styles.postSelectedMenu}>
           <Text style={styles.selectedMenuItem}>Favorites</Text>
         </View>

@@ -9,24 +9,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import React from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 
-export const Footer = ({
-  selectedFooterItem,
-  setSelectedFooterItem,
-  setSelectedHeaderItem,
-  goToHome,
-  setGoToLoginPage,
-}) => {
-  const isHome = selectedFooterItem === "HOME";
-  const isSearch = selectedFooterItem === "SEARCH";
-  const isNowPlaying = selectedFooterItem === "PLAYING";
-  const isWatchList = selectedFooterItem === "WATCHLIST";
-  const isMore = selectedFooterItem === "MORE";
+export const Footer = ({ isCurrentScreen, updateLocation }) => {
+  const isHome = isCurrentScreen("Suggestions");
+  const isSearch = isCurrentScreen("Search");
+  const isNowPlaying = isCurrentScreen("NowPlaying");
+  const isWatchList = isCurrentScreen("WatchList");
+  const isMore = isCurrentScreen("Menu");
 
-  const onHome = () => {
-    goToHome();
-    setGoToLoginPage(false);
-    setSelectedFooterItem("HOME");
-  };
+  const onHome = () => updateLocation("Suggestions");
+  const onSearch = () => updateLocation("Search");
+  const onNowPlaying = () => updateLocation("NowPlaying");
+  const onWatchlist = () => updateLocation("WatchList");
+  const onMenu = () => updateLocation("Menu");
 
   return (
     <View style={styles.footer}>
@@ -49,19 +43,11 @@ export const Footer = ({
           icon={faSearch}
           size={25}
           color={isSearch ? "gray" : "white"}
-          onPress={() => {
-            setSelectedHeaderItem("");
-            setSelectedFooterItem("SEARCH");
-            setGoToLoginPage(false);
-          }}
+          onPress={onSearch}
         />
         <Text
           style={isSearch ? styles.selectedIconText : styles.iconText}
-          onPress={() => {
-            setSelectedHeaderItem("");
-            setSelectedFooterItem("SEARCH");
-            setGoToLoginPage(false);
-          }}
+          onPress={onSearch}
         >
           Search
         </Text>
@@ -71,19 +57,11 @@ export const Footer = ({
           icon={faTicketAlt}
           size={30}
           color={isNowPlaying ? "gray" : "#e56363"}
-          onPress={() => {
-            setSelectedHeaderItem("");
-            setSelectedFooterItem("PLAYING");
-            setGoToLoginPage(false);
-          }}
+          onPress={onNowPlaying}
         />
         <Text
           style={isNowPlaying ? styles.selectedIconText : styles.iconText}
-          onPress={() => {
-            setSelectedHeaderItem("");
-            setSelectedFooterItem("PLAYING");
-            setGoToLoginPage(false);
-          }}
+          onPress={onNowPlaying}
         >
           Now Playing
         </Text>
@@ -93,19 +71,11 @@ export const Footer = ({
           icon={faBookmark}
           size={25}
           color={isWatchList ? "gray" : "#7cfc00"}
-          onPress={() => {
-            setSelectedHeaderItem("");
-            setSelectedFooterItem("WATCHLIST");
-            setGoToLoginPage(false);
-          }}
+          onPress={onWatchlist}
         />
         <Text
           style={isWatchList ? styles.selectedIconText : styles.iconText}
-          onPress={() => {
-            setSelectedHeaderItem("");
-            setSelectedFooterItem("WATCHLIST");
-            setGoToLoginPage(false);
-          }}
+          onPress={onWatchlist}
         >
           Watchlist
         </Text>
@@ -115,19 +85,11 @@ export const Footer = ({
           icon={faBars}
           size={26}
           color={isMore ? "gray" : "#ffefd5"}
-          onPress={() => {
-            setSelectedHeaderItem("");
-            setSelectedFooterItem("MORE");
-            setGoToLoginPage(false);
-          }}
+          onPress={onMenu}
         />
         <Text
           style={isMore ? styles.selectedIconText : styles.iconText}
-          onPress={() => {
-            setSelectedHeaderItem("");
-            setSelectedFooterItem("MORE");
-            setGoToLoginPage(false);
-          }}
+          onPress={onMenu}
         >
           More
         </Text>
