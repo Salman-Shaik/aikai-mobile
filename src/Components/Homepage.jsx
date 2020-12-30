@@ -1,11 +1,11 @@
+import _ from "lodash";
 import React, { useState } from "react";
-import { Dimensions, ScrollView, StyleSheet } from "react-native";
+import { BackHandler, Dimensions, ScrollView, StyleSheet } from "react-native";
 import { Favorites } from "./Favorites";
 import { Footer } from "./Footer";
 import { Header } from "./Header/Header";
 import { Main } from "./Main";
 import { Suggestions } from "./Suggestions";
-import _ from "lodash";
 
 export const Homepage = () => {
   const [showSuggestionType, setShowSuggestionType] = useState("Random");
@@ -25,11 +25,34 @@ export const Homepage = () => {
     history.push(route);
     setScreenHistory(history);
     setCurrentScreen(route);
+    console.log(history)
   };
 
   const isCurrentScreen = (route) => _.isEqual(currentScreen, route);
 
   const isCurrentScreenAny = (routes) => routes.some(isCurrentScreen);
+
+  const gotoPreviousScreen = () => {
+    const history = screenHistory;
+    history.pop();
+    if (_.isEmpty(history)) {
+      if (!isCurrentScreen("Suggestions")) {
+        setCurrentScreen("Suggestions");
+        return true;
+      }
+      return false;
+    }
+    setScreenHistory(history);
+    setCurrentScreen(_.last(history));
+    return true;
+  };
+
+  BackHandler.addEventListener("hardwareBackPress", () => {
+    if (!gotoPreviousScreen()) {
+      BackHandler.exitApp();
+    }
+    return true;
+  });
 
   const isHeaderCondition = isCurrentScreenAny([
     "Suggestions",
