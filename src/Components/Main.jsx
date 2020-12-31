@@ -11,6 +11,7 @@ import { Suggestions } from "./Suggestions";
 import { AccountDetails } from "./User/AccountDetails";
 import { LoginPage } from "./User/LoginPage";
 import { RegistrationPage } from "./User/RegistrationPage";
+import { UpdatePassword } from "./User/UpdatePassword";
 import { WatchList } from "./WatchList";
 
 export const Main = ({
@@ -44,6 +45,9 @@ export const Main = ({
       )}
       {isCurrentScreen("Account") && (
         <AccountDetails updateLocation={updateLocation} />
+      )}
+      {isCurrentScreen("ChangePassword") && (
+        <UpdatePassword updateLocation={updateLocation} />
       )}
       {isCurrentScreen("Show") && (
         <Show

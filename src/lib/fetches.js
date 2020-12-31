@@ -360,3 +360,32 @@ export const fetchDetails = (
       .catch((e) => new TypeError(e));
   });
 };
+
+export const updatePassword = (
+  oldPassword,
+  newPassword,
+  updateLocation,
+  setError,
+  setSuccess
+) => {
+  AsyncStorage.getItem("user-key").then((value) => {
+    fetch(`${USER_API}/update_password?user=${value}`, {
+      method: "put",
+      body: JSON.stringify({ oldPassword, newPassword }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          setSuccess(true);
+          setError(false);
+          updateLocation("Menu");
+        } else {
+          setSuccess(false);
+          setError(true);
+        }
+      })
+      .catch((e) => new TypeError(e));
+  });
+};
