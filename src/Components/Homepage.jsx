@@ -25,7 +25,6 @@ export const Homepage = () => {
     history.push(route);
     setScreenHistory(history);
     setCurrentScreen(route);
-    console.log(history)
   };
 
   const isCurrentScreen = (route) => _.isEqual(currentScreen, route);

@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LinearGradient } from "expo-linear-gradient";
 import _ from "lodash";
 import React, { useState } from "react";
 
@@ -43,6 +44,8 @@ export const LoginPage = ({ setIsUserLoggedIn, updateLocation }) => {
       setError(true);
     }
   };
+
+  const gotoRegister = () => updateLocation("Register");
 
   const onUsernameChange = (text) => {
     if (_.isEmpty(text)) {
@@ -101,9 +104,23 @@ export const LoginPage = ({ setIsUserLoggedIn, updateLocation }) => {
           blurOnSubmit
         />
       </View>
-      <TouchableOpacity onPress={onLogin} style={styles.loginButton}>
-        <Text style={styles.loginText}>Login</Text>
-      </TouchableOpacity>
+      <LinearGradient
+        colors={["#72ffb6", "#5ef4a2", "#4ae88e", "#33dd79", "#10d164"]}
+        style={styles.loginButton}
+      >
+        <TouchableOpacity onPress={onLogin}>
+          <Text style={styles.loginText}>Login</Text>
+        </TouchableOpacity>
+      </LinearGradient>
+      <Text style={styles.orText}>------------- OR -------------</Text>
+      <LinearGradient
+        colors={["#f9e866", "#fada51", "#fbcc3b", "#fdbe23", "#ffae00"]}
+        style={styles.loginButton}
+      >
+        <TouchableOpacity onPress={gotoRegister}>
+          <Text style={styles.loginText}>Sign Up</Text>
+        </TouchableOpacity>
+      </LinearGradient>
     </KeyboardAvoidingView>
   );
 };
@@ -138,7 +155,7 @@ const styles = StyleSheet.create({
   loginButton: {
     width: (deviceWidth * 90) / 100,
     padding: 10,
-    backgroundColor: "#72ffb6",
+    // backgroundColor: "#72ffb6",
     marginTop: 40,
     borderRadius: 8,
   },
@@ -180,6 +197,13 @@ const styles = StyleSheet.create({
   },
   userInput: {
     width: (deviceWidth * 90) / 100,
+    marginTop: 40,
+  },
+  orText: {
+    width: (deviceWidth * 90) / 100,
+    fontSize: 20,
+    color: "#89999d",
+    textAlign: "center",
     marginTop: 40,
   },
 });

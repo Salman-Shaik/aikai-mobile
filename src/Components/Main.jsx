@@ -9,6 +9,7 @@ import { RandomAndTopShow } from "./Show/RandomAndTopShow";
 import { Show } from "./Show/Show";
 import { Suggestions } from "./Suggestions";
 import { LoginPage } from "./User/LoginPage";
+import { RegistrationPage } from "./User/RegistrationPage";
 import { WatchList } from "./WatchList";
 
 export const Main = ({
@@ -36,6 +37,9 @@ export const Main = ({
           setIsUserLoggedIn={setIsUserLoggedIn}
           updateLocation={updateLocation}
         />
+      )}
+      {isCurrentScreen("Register") && (
+        <RegistrationPage updateLocation={updateLocation} />
       )}
       {isCurrentScreen("Show") && (
         <Show

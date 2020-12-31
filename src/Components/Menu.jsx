@@ -15,7 +15,6 @@ export const Menu = ({ isUserLoggedIn, updateLocation, setIsUserLoggedIn }) => {
   const [fullName, setFullName] = useState("?");
 
   useEffect(() => {
-    console.log(isUserLoggedIn);
     if (isUserLoggedIn) fetchUserFullName(setFullName);
   }, []);
 
