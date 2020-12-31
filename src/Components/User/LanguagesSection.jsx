@@ -1,6 +1,6 @@
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dimensions,
   Image,
@@ -10,14 +10,23 @@ import {
   View,
 } from "react-native";
 
-const LanguageBlock = ({ keyword, source, isSelected, updateLanguages }) => {
-  const [selected, setSelected] = useState(isSelected(keyword));
-
+const LanguageBlock = ({
+  keyword,
+  source,
+  isSelected,
+  updateLanguages,
+  editFlag,
+}) => {
+  const [selected, setSelected] = useState(false);
+  useEffect(() => {
+    setSelected(isSelected(keyword) || false);
+  });
   const onPress = () => {
-    updateLanguages(keyword);
-    setSelected(!selected);
+    if (!!editFlag) {
+      updateLanguages(keyword);
+      setSelected(!selected);
+    }
   };
-
   return (
     <Pressable
       style={selected ? styles.selectedLanguageBlock : styles.languageBlock}

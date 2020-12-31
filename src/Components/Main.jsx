@@ -8,6 +8,7 @@ import { SearchPage } from "./SearchPage";
 import { RandomAndTopShow } from "./Show/RandomAndTopShow";
 import { Show } from "./Show/Show";
 import { Suggestions } from "./Suggestions";
+import { AccountDetails } from "./User/AccountDetails";
 import { LoginPage } from "./User/LoginPage";
 import { RegistrationPage } from "./User/RegistrationPage";
 import { WatchList } from "./WatchList";
@@ -40,6 +41,9 @@ export const Main = ({
       )}
       {isCurrentScreen("Register") && (
         <RegistrationPage updateLocation={updateLocation} />
+      )}
+      {isCurrentScreen("Account") && (
+        <AccountDetails updateLocation={updateLocation} />
       )}
       {isCurrentScreen("Show") && (
         <Show

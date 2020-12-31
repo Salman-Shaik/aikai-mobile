@@ -38,7 +38,7 @@ export const fetchImageFromShow = (id, type, index, setShow, setRefreshing) => {
   fetchShow(id, type)
     .then((rj) => {
       const posterPath = rj["poster_path"];
-      setShow({id, type, posterPath});
+      setShow({ id, type, posterPath });
       if (index === 9) {
         setRefreshing(false);
       }
@@ -93,7 +93,7 @@ export const login = (
   updateLocation,
   storeData
 ) => {
-  const body = {username, password};
+  const body = { username, password };
   const loginHandler = (token) => {
     if (!token) {
       setSuccess(false);
@@ -149,8 +149,8 @@ export const removeFavorite = (id, callback) => {
   AsyncStorage.getItem("user-key").then((value) => {
     fetch(`${USER_API}/favorite?user=${value}`, {
       method: "delete",
-      body: JSON.stringify({id}),
-      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ id }),
+      headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
         if (res.status === 200) {
@@ -165,8 +165,8 @@ export const removeFromWatchList = (id, callback) => {
   AsyncStorage.getItem("user-key").then((value) => {
     fetch(`${USER_API}/watch?user=${value}`, {
       method: "delete",
-      body: JSON.stringify({id}),
-      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ id }),
+      headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
         if (res.status === 200) {
@@ -181,8 +181,8 @@ export const setWatched = (id, callback) => {
   AsyncStorage.getItem("user-key").then((value) => {
     fetch(`${USER_API}/watched?user=${value}`, {
       method: "put",
-      body: JSON.stringify({id}),
-      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ id }),
+      headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
         if (res.status === 200) {
@@ -197,8 +197,8 @@ export const addToWatchlist = (id, title, posterPath, setIsSaved) => {
   AsyncStorage.getItem("user-key").then((value) => {
     fetch(`${USER_API}/watch?user=${value}`, {
       method: "put",
-      body: JSON.stringify({id, title, posterPath}),
-      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ id, title, posterPath }),
+      headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
         if (res.status === 200) {
@@ -213,8 +213,8 @@ export const addToFavorites = (id, title, posterPath, setIsFavorite) => {
   AsyncStorage.getItem("user-key").then((value) => {
     fetch(`${USER_API}/favorite?user=${value}`, {
       method: "put",
-      body: JSON.stringify({id, title, posterPath}),
-      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ id, title, posterPath }),
+      headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
         if (res.status === 200) {
@@ -291,12 +291,7 @@ export const fetchAiringTVShows = (setAiringTvShows) => {
     .catch((e) => new TypeError(e));
 };
 
-export const registerUser = (
-  body,
-  setError,
-  setSuccess,
-  updateLocation
-) => {
+export const registerUser = (body, setError, setSuccess, updateLocation) => {
   fetch(`${USER_API}/register`, {
     method: "post",
     body: JSON.stringify(body),
@@ -317,4 +312,51 @@ export const registerUser = (
       }
     })
     .catch((e) => new TypeError(e));
+};
+
+export const updateUser = (body, setError, setSuccess, updateLocation) => {
+  AsyncStorage.getItem("user-key").then((value) => {
+    fetch(`${USER_API}/details?user=${value}`, {
+      method: "put",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          setSuccess(true);
+          setError(false);
+          updateLocation("Menu");
+          setTimeout(() => {
+            updateLocation("Account");
+          }, 1);
+        } else {
+          setSuccess(false);
+          setError(true);
+        }
+      })
+      .catch((e) => new TypeError(e));
+  });
+};
+
+export const fetchDetails = (
+  updateName,
+  updateAge,
+  setExplicitFlag,
+  setLanguages
+) => {
+  AsyncStorage.getItem("user-key").then((value) => {
+    fetch(`${USER_API}/user_details?user=${value}`)
+      .then((res) => res.text())
+      .then((d) => JSON.parse(d))
+      .then((details) => {
+        const { languages, age, name, explicitFlag } = details;
+        updateAge(age.toString());
+        setExplicitFlag(explicitFlag);
+        setLanguages(languages);
+        updateName(name);
+      })
+      .catch((e) => new TypeError(e));
+  });
 };

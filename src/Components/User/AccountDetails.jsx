@@ -1,6 +1,7 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Dimensions,
@@ -13,32 +14,38 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { registerUser } from "../../lib/fetches";
+import { fetchDetails, updateUser } from "../../lib/fetches";
 import { LanguagesSection } from "./LanguagesSection";
 
-export const RegistrationPage = ({ updateLocation }) => {
+import base64 from "base-64";
+
+export const AccountDetails = ({ updateLocation }) => {
   const [name, updateName] = useState("");
   const [username, updateUserName] = useState("");
-  const [password, updatePassword] = useState("");
   const [age, updateAge] = useState("0");
   const [explicitFlag, setExplicitFlag] = useState(false);
   const [languages, setLanguages] = useState([]);
+  const [edit, setEdit] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    AsyncStorage.getItem("user-key").then((value) => {
+      updateUserName(base64.decode(value));
+    });
+    fetchDetails(updateName, updateAge, setExplicitFlag, setLanguages);
+  }, []);
 
   const isCredentialsValid = () => {
     return (
       !_.isUndefined(username) &&
-      !_.isUndefined(password) &&
       !_.isUndefined(name) &&
       !_.isUndefined(age) &&
       !_.isEmpty(username) &&
-      !_.isEmpty(password) &&
       !_.isEmpty(name) &&
       !_.isEmpty(age)
     );
   };
-
   const onCredentialChange = (text, updateMethod) => {
     if (_.isEmpty(text)) {
       setError(true);
@@ -47,11 +54,7 @@ export const RegistrationPage = ({ updateLocation }) => {
     }
     updateMethod(text);
   };
-
   const onNameChange = (text) => onCredentialChange(text, updateName);
-  const onUsernameChange = (text) => onCredentialChange(text, updateUserName);
-  const onPasswordChange = (text) => onCredentialChange(text, updatePassword);
-
   const toggleSwitch = (value) => setExplicitFlag(value);
 
   const onAgeChange = (text) => {
@@ -76,25 +79,39 @@ export const RegistrationPage = ({ updateLocation }) => {
 
   const isSelected = (language) => languages.includes(language);
 
-  const onRegister = () => {
-    if (isCredentialsValid()) {
-      const body = { name, username, password, age, explicitFlag, languages };
-      registerUser(body, setError, setSuccess, updateLocation);
-    } else {
-      setError(true);
+  const onUpdate = () => {
+    if (edit) {
+      if (isCredentialsValid()) {
+        const body = { name, username, age, explicitFlag, languages };
+        updateUser(body, setError, setSuccess, updateLocation);
+      } else {
+        setError(true);
+      }
     }
   };
 
   return (
-    <KeyboardAvoidingView style={styles.registrationPage}>
-      <ScrollView contentContainerStyle={styles.registrationPageDetails}>
-        <Text style={styles.header}>Create Account</Text>
+    <KeyboardAvoidingView style={styles.accountDetails}>
+      <ScrollView contentContainerStyle={styles.accountDetailsPage}>
+        <Text style={styles.header}>Account Details</Text>
+        <View style={styles.editFlag}>
+          <Text style={styles.explicitLabel}>Edit: </Text>
+          <Switch
+            trackColor={{ false: "#ffefd5", true: "#ffefd5" }}
+            thumbColor={edit ? "#4CE990" : "#5b5a5a"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={(value) => setEdit(value)}
+            value={edit}
+            style={styles.switch}
+          />
+        </View>
         <View style={styles.userInput}>
           <Text style={!error ? styles.label : styles.errorLabel}>
             Full Name
           </Text>
           <TextInput
             value={name}
+            editable={edit}
             style={
               !error
                 ? !success
@@ -113,6 +130,7 @@ export const RegistrationPage = ({ updateLocation }) => {
               Age
             </Text>
             <TextInput
+              editable={edit}
               value={age}
               style={
                 !error
@@ -141,6 +159,7 @@ export const RegistrationPage = ({ updateLocation }) => {
         <View style={styles.userInput}>
           <Text style={!error ? styles.label : styles.errorLabel}>Email</Text>
           <TextInput
+            editable={false}
             value={username}
             style={
               !error
@@ -149,48 +168,20 @@ export const RegistrationPage = ({ updateLocation }) => {
                   : styles.successCredentials
                 : styles.errorCredentials
             }
-            onChangeText={onUsernameChange}
-            blurOnSubmit
-          />
-        </View>
-        <View style={styles.userInput}>
-          <Text style={!error ? styles.label : styles.errorLabel}>
-            Password
-          </Text>
-          <TextInput
-            label="Password"
-            value={password}
-            secureTextEntry={true}
-            style={
-              !error
-                ? !success
-                  ? styles.credentials
-                  : styles.successCredentials
-                : styles.errorCredentials
-            }
-            onChangeText={onPasswordChange}
             blurOnSubmit
           />
         </View>
         <LanguagesSection
           isSelected={isSelected}
           updateLanguages={updateLanguages}
+          editFlag={edit}
         />
         <LinearGradient
           colors={["#f9e866", "#fada51", "#fbcc3b", "#fdbe23", "#ffae00"]}
-          style={styles.registrationButton}
+          style={styles.updateButton}
         >
-          <TouchableOpacity onPress={onRegister}>
-            <Text style={styles.registerText}>Sign Up</Text>
-          </TouchableOpacity>
-        </LinearGradient>
-        <Text style={styles.orText}>------------- OR -------------</Text>
-        <LinearGradient
-          colors={["#72ffb6", "#5ef4a2", "#4ae88e", "#33dd79", "#10d164"]}
-          style={styles.registrationButton}
-        >
-          <TouchableOpacity onPress={() => updateLocation("Login")}>
-            <Text style={styles.registerText}>Login</Text>
+          <TouchableOpacity onPress={onUpdate}>
+            <Text style={styles.updateText}>Update</Text>
           </TouchableOpacity>
         </LinearGradient>
         <Text>A.I.K.A.I</Text>
@@ -203,14 +194,14 @@ const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
-  registrationPage: {
+  accountDetails: {
     width: deviceWidth,
     height: (deviceHeight * 95.5) / 100,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
-  registrationPageDetails: {
+  accountDetailsPage: {
     width: deviceWidth,
     display: "flex",
     flexDirection: "column",
@@ -272,13 +263,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#e3eeff",
   },
-  registrationButton: {
+  updateButton: {
     width: (deviceWidth * 90) / 100,
     padding: 10,
     marginTop: 40,
     borderRadius: 8,
   },
-  registerText: {
+  updateText: {
     fontSize: 25,
     color: "#222222",
     fontWeight: "bold",
@@ -338,6 +329,14 @@ const styles = StyleSheet.create({
   explicitFlag: {
     marginTop: 29,
     width: (deviceWidth * 70) / 100,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  editFlag: {
+    marginTop: 29,
+    width: (deviceWidth * 25) / 100,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-evenly",
