@@ -175,6 +175,7 @@ export const RegistrationPage = ({ updateLocation }) => {
         <LanguagesSection
           isSelected={isSelected}
           updateLanguages={updateLanguages}
+          editFlag={true}
         />
         <LinearGradient
           colors={["#f9e866", "#fada51", "#fbcc3b", "#fdbe23", "#ffae00"]}

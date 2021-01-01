@@ -120,7 +120,6 @@ export const AccountDetails = ({ updateLocation }) => {
                 : styles.errorCredentials
             }
             onChangeText={onNameChange}
-            autoFocus
             blurOnSubmit
           />
         </View>

@@ -27,6 +27,7 @@ export const Menu = ({ isUserLoggedIn, updateLocation, setIsUserLoggedIn }) => {
   const onLogin = () => updateLocation("Login");
   const onAccount = () => updateLocation("Account");
   const onUpdatePassword = () => updateLocation("ChangePassword");
+  const onWatchHistory = () => updateLocation("WatchHistory");
 
   return (
     <View style={styles.menu}>
@@ -52,8 +53,14 @@ export const Menu = ({ isUserLoggedIn, updateLocation, setIsUserLoggedIn }) => {
         )}
       </View>
       <View style={styles.referenceBlock}></View>
-      <TouchableOpacity style={styles.button} disabled={!isUserLoggedIn}>
-        <Text style={styles.buttonText}>Watch History</Text>
+      <TouchableOpacity
+        style={styles.button}
+        disabled={!isUserLoggedIn}
+        onPress={onWatchHistory}
+      >
+        <Text style={styles.buttonText} onPress={onWatchHistory}>
+          Watch History
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}

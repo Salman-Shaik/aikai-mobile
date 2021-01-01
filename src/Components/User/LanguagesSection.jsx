@@ -22,7 +22,7 @@ const LanguageBlock = ({
     setSelected(isSelected(keyword) || false);
   });
   const onPress = () => {
-    if (!!editFlag) {
+    if (editFlag) {
       updateLanguages(keyword);
       setSelected(!selected);
     }

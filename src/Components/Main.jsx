@@ -12,6 +12,7 @@ import { AccountDetails } from "./User/AccountDetails";
 import { LoginPage } from "./User/LoginPage";
 import { RegistrationPage } from "./User/RegistrationPage";
 import { UpdatePassword } from "./User/UpdatePassword";
+import { WatchHistory } from "./WatchHistory";
 import { WatchList } from "./WatchList";
 
 export const Main = ({
@@ -118,6 +119,12 @@ export const Main = ({
       )}
       {isCurrentScreen("WatchList") && (
         <WatchList
+          updateLocation={updateLocation}
+          isUserLoggedIn={isUserLoggedIn}
+        />
+      )}
+      {isCurrentScreen("WatchHistory") && (
+        <WatchHistory
           updateLocation={updateLocation}
           isUserLoggedIn={isUserLoggedIn}
         />

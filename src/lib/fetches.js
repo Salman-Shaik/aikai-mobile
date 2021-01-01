@@ -145,6 +145,18 @@ export const fetchWatchList = (setWatchList) => {
   });
 };
 
+export const fetchWatchHistory = (updateWatchedList) => {
+  AsyncStorage.getItem("user-key").then((value) => {
+    fetch(`${USER_API}/watchlist?user=${value}`)
+      .then((res) => res.text())
+      .then((data) => JSON.parse(data))
+      .then((w) => w.filter((s) => !!s.watched))
+      .then((w) => {
+        updateWatchedList(w);
+      });
+  });
+};
+
 export const removeFavorite = (id, callback) => {
   AsyncStorage.getItem("user-key").then((value) => {
     fetch(`${USER_API}/favorite?user=${value}`, {
