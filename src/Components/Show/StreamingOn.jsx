@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  Image,
-  Pressable,
-  Text,
-  View,
-  StyleSheet,
-  Dimensions,
-} from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
+import { streamingOnStyles as styles } from "../../Stylesheets/Styles";
 
 export const StreamingOn = ({
   isNetflix,
@@ -44,40 +38,3 @@ export const StreamingOn = ({
     </View>
   );
 };
-const deviceWidth = Dimensions.get("window").width;
-
-const styles = StyleSheet.create({
-  header: {
-    fontWeight: "bold",
-    fontSize: 20,
-    color: "#ffefd5",
-  },
-  streaming: {
-    marginTop: 10,
-    width: (deviceWidth * 96) / 100,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "center",
-  },
-  netflix: {
-    marginTop: 10,
-    marginLeft: 10,
-    width: 42,
-    height: 40,
-  },
-  disney: {
-    marginTop: 10,
-    marginLeft: 10,
-    width: 42,
-    height: 40,
-    borderRadius: 50,
-  },
-  prime: {
-    marginTop: 10,
-    marginLeft: 10,
-    width: 42,
-    height: 40,
-    borderRadius: 50,
-  },
-});

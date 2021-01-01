@@ -1,21 +1,13 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
-import {
-  Dimensions,
-  RefreshControl,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { RefreshControl, Text, View } from "react-native";
 import { list } from "../data/editorsChoice.json";
 import { fetchImageFromShow } from "../lib/fetches";
 import { Poster } from "./Poster";
+import { suggestionsStyles as styles } from "../Stylesheets/Styles";
 
-const wait = (timeout) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, timeout);
-  });
-};
+const wait = (timeout) =>
+  new Promise((resolve) => setTimeout(resolve, timeout));
 
 const createSectionedPosters = (
   shows,
@@ -104,38 +96,3 @@ export const Suggestions = ({
     </View>
   );
 };
-
-const deviceWidth = Dimensions.get("window").width;
-const deviceHeight = Dimensions.get("window").height;
-
-const styles = StyleSheet.create({
-  suggestions: {
-    width: deviceWidth,
-    height: (deviceHeight * 83) / 100,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  header: {
-    width: (deviceWidth * 92) / 100,
-    fontSize: 28,
-    fontWeight: "bold",
-    color: "#ffefd5",
-    marginTop: 10,
-  },
-  suggestedShows: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    width: deviceWidth,
-    height: (deviceHeight * 80) / 100,
-  },
-  imageSection: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-evenly",
-    width: (deviceWidth * 44) / 100,
-    height: (deviceHeight * 78) / 100,
-  },
-});

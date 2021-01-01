@@ -2,14 +2,10 @@ import {
   faBookmark as faUnSaved,
   faHeart as faHeartReg,
 } from "@fortawesome/free-regular-svg-icons";
-import {
-  faBookmark,
-  faHeart,
-  faShareAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBookmark, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import React, { useEffect, useState } from "react";
-import { Dimensions, StyleSheet, View, Pressable } from "react-native";
+import { View, Pressable } from "react-native";
 import {
   addToFavorites,
   addToWatchlist,
@@ -17,6 +13,7 @@ import {
   checkIsSaved,
   removeFavorite,
 } from "../../lib/fetches";
+import { userShowActionStyles as styles } from "../../Stylesheets/Styles";
 
 export const UserShowActions = ({ id, title, posterPath }) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -52,18 +49,3 @@ export const UserShowActions = ({ id, title, posterPath }) => {
     </View>
   );
 };
-
-const deviceWidth = Dimensions.get("window").width;
-
-const styles = StyleSheet.create({
-  userActions: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
-    width: (deviceWidth * 72) / 100,
-    padding: 5,
-    marginTop: 15,
-    marginBottom: 8,
-  },
-});

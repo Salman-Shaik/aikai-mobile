@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Image, Pressable, StyleSheet } from "react-native";
+import React from "react";
+import { Image, Pressable } from "react-native";
+import { posterStyles as styles } from "../Stylesheets/Styles";
 
 export const Poster = ({ posterPath, onClick }) => {
   return (
@@ -12,11 +13,3 @@ export const Poster = ({ posterPath, onClick }) => {
     </Pressable>
   );
 };
-
-const styles = StyleSheet.create({
-  poster: {
-    width: 182,
-    height: 273,
-    borderRadius: 5,
-  },
-});

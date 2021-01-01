@@ -2,15 +2,15 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import React, { useState } from "react";
 import {
-  Dimensions,
   Image,
   KeyboardAvoidingView,
   Pressable,
-  StyleSheet,
   TextInput,
   View,
 } from "react-native";
 import { searchShow } from "../lib/fetches";
+
+import { searchPageStyles as styles } from "../Stylesheets/Styles";
 
 const createSectionedPosters = (results, setCurrentShowId, updateLocation) => {
   const mapOfImages = results.map((r) => {
@@ -110,60 +110,3 @@ export const SearchPage = ({
     </KeyboardAvoidingView>
   );
 };
-
-const deviceWidth = Dimensions.get("window").width;
-const deviceHeight = Dimensions.get("window").height;
-
-const styles = StyleSheet.create({
-  searchPage: {
-    width: deviceWidth,
-    height: (deviceHeight * 95.5) / 100,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
-  },
-  searchBar: {
-    width: (deviceWidth * 96) / 100,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "#ffefd5",
-    borderRadius: 10,
-    padding: 8,
-    backgroundColor: "#4a4949",
-    marginTop: 40,
-  },
-  searchQuery: {
-    width: (deviceWidth * 80) / 100,
-    fontSize: 20,
-    marginLeft: 10,
-    color: "#ffffff",
-    padding: 2,
-  },
-  searchResults: {
-    width: (deviceWidth * 96) / 100,
-    height: (deviceHeight * 88) / 100,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    paddingTop: 20,
-  },
-  image: {
-    borderRadius: 8,
-    width: 108,
-    height: 160,
-  },
-  sectionedImages: {
-    width: (deviceWidth * 96) / 100,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    paddingTop: 6,
-    paddingBottom: 6,
-  },
-});

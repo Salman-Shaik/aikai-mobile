@@ -2,11 +2,9 @@ import { faBookmark, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import React, { useEffect, useState } from "react";
 import {
-  Dimensions,
   ImageBackground,
   Pressable,
   ScrollView,
-  StyleSheet,
   Text,
   View,
 } from "react-native";
@@ -15,6 +13,7 @@ import {
   removeFromWatchList,
   setWatched,
 } from "../lib/fetches";
+import { watchListStyles as styles } from "../Stylesheets/Styles";
 
 const Poster = ({ id, imagePath, onRemove, onWatched }) => {
   return (
@@ -103,65 +102,3 @@ export const WatchList = ({ updateLocation, isUserLoggedIn }) => {
     </View>
   );
 };
-
-const deviceWidth = Dimensions.get("window").width;
-const deviceHeight = Dimensions.get("window").height;
-
-const styles = StyleSheet.create({
-  watchlist: {
-    width: deviceWidth,
-    height: (deviceHeight * 95.5) / 100,
-  },
-  header: {
-    marginTop: 35,
-    marginLeft: 15,
-    height: (deviceHeight * 6) / 100,
-    backgroundColor: "rgba(29,29,29,0.3)",
-    fontSize: 22,
-    color: "#ffefd5",
-    fontWeight: "bold",
-  },
-  watchlistSections: {
-    width: deviceWidth,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-start",
-  },
-  sectionedImages: {
-    width: deviceWidth,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    paddingTop: 6,
-    paddingBottom: 6,
-  },
-  iconContainer: {
-    height: 70,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "space-between",
-    alignSelf: "flex-end",
-    backgroundColor: "rgba(34,34,34,0.1)",
-    borderTopLeftRadius: 6,
-    borderBottomLeftRadius: 6,
-    paddingTop: 6,
-    paddingBottom: 6,
-    paddingLeft: 2,
-    paddingRight: 2,
-  },
-  posterContainer: {
-    display: "flex",
-    flexDirection: "row",
-    width: 120,
-    height: 180,
-  },
-  background: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "flex-start",
-    width: 120,
-    height: 180,
-  },
-});

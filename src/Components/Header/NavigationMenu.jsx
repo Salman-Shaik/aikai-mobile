@@ -1,7 +1,8 @@
 import { Picker } from "@react-native-picker/picker";
 import _ from "lodash";
 import React from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import { navigationMenuStyles as styles } from "../../Stylesheets/Styles";
 
 export const NavigationMenu = ({
   showSuggestionType,
@@ -110,46 +111,3 @@ export const NavigationMenu = ({
     </View>
   );
 };
-
-const deviceWidth = Dimensions.get("window").width;
-const deviceHeight = Dimensions.get("window").height;
-const styles = StyleSheet.create({
-  navigationMenuSection: {
-    width: deviceWidth * (80 / 100),
-    height: deviceHeight * (10 / 100),
-    display: "flex",
-    flexDirection: "row",
-    marginEnd: 16,
-  },
-  navigationMenu: {
-    width: deviceWidth * (80 / 100),
-    height: deviceHeight * (10 / 100),
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-  },
-  menuItem: {
-    fontSize: 17,
-    color: "#ffefd5",
-  },
-  postSelectedMenu: {
-    width: deviceWidth * (80 / 100),
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    marginLeft: 34,
-  },
-  selectedMenuItem: {
-    fontSize: 17,
-    color: "#ffefd5",
-    fontWeight: "bold",
-  },
-  picker: {
-    width: 150,
-    height: 40,
-    color: "#ffefd5",
-    backgroundColor: "#262626",
-  },
-});

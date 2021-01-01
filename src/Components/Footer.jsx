@@ -7,7 +7,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import React from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import { footerStyles as styles } from "../Stylesheets/Styles";
 
 export const Footer = ({ isCurrentScreen, updateLocation }) => {
   const isHome = isCurrentScreen("Suggestions");
@@ -97,36 +98,3 @@ export const Footer = ({ isCurrentScreen, updateLocation }) => {
     </View>
   );
 };
-
-const deviceWidth = Dimensions.get("window").width;
-const deviceHeight = Dimensions.get("window").height;
-
-const styles = StyleSheet.create({
-  footer: {
-    width: deviceWidth,
-    height: (deviceHeight * 7.7) / 100,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
-    backgroundColor: "#1d1d1d",
-  },
-  iconView: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  selectedIconText: {
-    fontSize: 10,
-    color: "grey",
-    marginTop: 3,
-    fontWeight: "bold",
-    backgroundColor: "#222222",
-  },
-  iconText: {
-    fontSize: 10,
-    color: "#f8f8ff",
-    marginTop: 3,
-  },
-});

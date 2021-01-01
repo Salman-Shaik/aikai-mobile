@@ -1,14 +1,8 @@
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import React, { useEffect, useState } from "react";
-import {
-  Dimensions,
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
+import { languageSectionStyles as styles } from "../../Stylesheets/Styles";
 
 const LanguageBlock = ({
   keyword,
@@ -88,73 +82,3 @@ export const LanguagesSection = (props) => {
     </View>
   );
 };
-
-const deviceWidth = Dimensions.get("window").width;
-const deviceHeight = Dimensions.get("window").height;
-
-const styles = StyleSheet.create({
-  languages: {
-    width: (deviceWidth * 90) / 100,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    marginTop: 20,
-  },
-  doubleLanguageBlock: {
-    width: (deviceWidth * 85) / 100,
-    height: (deviceHeight * 26) / 100,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  languageBlock: {
-    width: (deviceWidth * 37) / 100,
-    height: (deviceHeight * 24) / 100,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around",
-    alignItems: "center",
-    borderRadius: 10,
-    paddingTop: 10,
-    backgroundColor: "#4a4949",
-  },
-  selectedLanguageBlock: {
-    width: (deviceWidth * 37) / 100,
-    height: (deviceHeight * 24) / 100,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around",
-    alignItems: "center",
-    borderRadius: 10,
-    paddingTop: 10,
-    backgroundColor: "#28674b",
-  },
-  language: {
-    width: 100,
-    height: 100,
-    borderRadius: 20,
-  },
-  languageText: {
-    width: (deviceWidth * 40) / 100,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#e3eeff",
-    textAlign: "center",
-  },
-  title: {
-    width: (deviceWidth * 90) / 100,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#e3eeff",
-    marginBottom: 10,
-  },
-  selectedLanguageText: {
-    width: (deviceWidth * 40) / 100,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#4CE990",
-    textAlign: "center",
-  },
-});

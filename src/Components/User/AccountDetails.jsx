@@ -4,10 +4,8 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
 import {
-  Dimensions,
   KeyboardAvoidingView,
   ScrollView,
-  StyleSheet,
   Switch,
   Text,
   TextInput,
@@ -16,6 +14,7 @@ import {
 } from "react-native";
 import { fetchDetails, updateUser } from "../../lib/fetches";
 import { LanguagesSection } from "./LanguagesSection";
+import { accountDetailsStyles as styles } from "../../Stylesheets/Styles";
 
 import base64 from "base-64";
 
@@ -188,167 +187,3 @@ export const AccountDetails = ({ updateLocation }) => {
     </KeyboardAvoidingView>
   );
 };
-
-const deviceWidth = Dimensions.get("window").width;
-const deviceHeight = Dimensions.get("window").height;
-
-const styles = StyleSheet.create({
-  accountDetails: {
-    width: deviceWidth,
-    height: (deviceHeight * 95.5) / 100,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  accountDetailsPage: {
-    width: deviceWidth,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  header: {
-    fontSize: 60,
-    marginLeft: 20,
-    marginTop: 20,
-    color: "#e3eeff",
-    fontWeight: "bold",
-  },
-  credentials: {
-    width: (deviceWidth * 90) / 100,
-    fontSize: 25,
-    color: "#ffffff",
-    padding: 12,
-    borderRadius: 8,
-    backgroundColor: "#4a4949",
-    marginTop: 5,
-  },
-  age: {
-    width: (deviceWidth * 20) / 100,
-    fontSize: 25,
-    color: "#ffffff",
-    padding: 12,
-    borderRadius: 8,
-    backgroundColor: "#4a4949",
-    marginTop: 5,
-  },
-  errorAge: {
-    width: (deviceWidth * 20) / 100,
-    fontSize: 25,
-    padding: 12,
-    borderRadius: 8,
-    color: "#ff0000",
-    backgroundColor: "#fadbdb",
-    marginTop: 5,
-  },
-  ageErrorLabel: {
-    width: (deviceWidth * 20) / 100,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#fd7f7f",
-  },
-  successAge: {
-    width: (deviceWidth * 20) / 100,
-    fontSize: 25,
-    padding: 12,
-    borderRadius: 8,
-    color: "#32cd32",
-    backgroundColor: "#defade",
-    marginTop: 5,
-  },
-  ageLabel: {
-    width: (deviceWidth * 30) / 100,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#e3eeff",
-  },
-  updateButton: {
-    width: (deviceWidth * 90) / 100,
-    padding: 10,
-    marginTop: 40,
-    borderRadius: 8,
-  },
-  updateText: {
-    fontSize: 25,
-    color: "#222222",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  errorCredentials: {
-    width: (deviceWidth * 90) / 100,
-    fontSize: 25,
-    padding: 12,
-    borderRadius: 8,
-    color: "#ff0000",
-    backgroundColor: "#fadbdb",
-    marginTop: 5,
-  },
-  errorLabel: {
-    width: (deviceWidth * 90) / 100,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#fd7f7f",
-  },
-  successCredentials: {
-    width: (deviceWidth * 90) / 100,
-    fontSize: 25,
-    padding: 12,
-    borderRadius: 8,
-    color: "#32cd32",
-    backgroundColor: "#defade",
-    marginTop: 5,
-  },
-  label: {
-    width: (deviceWidth * 90) / 100,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#e3eeff",
-  },
-  explicitLabel: {
-    width: (deviceWidth * 49) / 100,
-    fontSize: 25,
-    fontWeight: "bold",
-    color: "#e3eeff",
-  },
-  userInput: {
-    width: (deviceWidth * 90) / 100,
-    marginTop: 40,
-  },
-  ageInput: {
-    width: (deviceWidth * 20) / 100,
-  },
-  ageAndFlag: {
-    width: (deviceWidth * 90) / 100,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: 20,
-  },
-  explicitFlag: {
-    marginTop: 29,
-    width: (deviceWidth * 70) / 100,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-  },
-  editFlag: {
-    marginTop: 29,
-    width: (deviceWidth * 25) / 100,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-  },
-  orText: {
-    width: (deviceWidth * 90) / 100,
-    fontSize: 20,
-    color: "#89999d",
-    textAlign: "center",
-    marginTop: 40,
-  },
-  switch: {
-    transform: [{ scaleX: 1.4 }, { scaleY: 1.4 }],
-  },
-});

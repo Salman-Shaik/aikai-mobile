@@ -1,12 +1,10 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import {
-  Dimensions,
   Image,
   Linking,
   Pressable,
   ScrollView,
-  StyleSheet,
   Text,
   View,
 } from "react-native";
@@ -15,6 +13,7 @@ import { fetchOtherShow } from "../../lib/fetches";
 import AnimatedCircularProgress from "../Misc/AnimatedCircularProgress";
 import { StreamingOn } from "./StreamingOn";
 import { UserShowActions } from "./UserShowActions";
+import { showDetailsStyles as styles } from "../../Stylesheets/Styles";
 
 export const getGenreNames = (info, showType) => {
   const genre = !!info.genres && info.genres.map((g) => g.name);
@@ -182,123 +181,3 @@ export const ShowDetails = ({
     </ScrollView>
   );
 };
-
-const deviceWidth = Dimensions.get("window").width;
-
-const styles = StyleSheet.create({
-  showDetails: {
-    flexGrow: 1,
-    width: deviceWidth,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
-  },
-  firstBlock: {
-    width: (deviceWidth * 98) / 100,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "flex-start",
-    justifyContent: "space-evenly",
-  },
-  ratingAndMisc: {
-    width: (deviceWidth * 100) / 100,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    backgroundColor: "#151515",
-    padding: 5,
-    marginTop: 15,
-    marginBottom: 8,
-  },
-  poster: {
-    width: 230,
-    height: 350,
-    borderRadius: 5,
-  },
-  rating: {
-    color: "#ffffff",
-    fontSize: 18,
-  },
-  title: {
-    fontSize: 27,
-    fontWeight: "bold",
-    color: "#e3eeff",
-    textAlign: "center",
-    marginTop: 8,
-  },
-  genre: {
-    marginTop: 8,
-    fontSize: 13,
-    color: "#ffefd5",
-  },
-  language: {
-    fontSize: 18,
-    color: "#ffefd5",
-  },
-  description: {
-    width: (deviceWidth * 96) / 100,
-    marginTop: 10,
-    fontSize: 15,
-    color: "#ffefd5",
-    textAlign: "left",
-  },
-  secondBlock: {
-    width: (deviceWidth * 96) / 100,
-    marginTop: 10,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-  },
-  languageAndGenre: {
-    width: (deviceWidth * 70) / 100,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "space-between",
-  },
-  overviewHeader: {
-    fontWeight: "bold",
-    fontSize: 20,
-    color: "#ffefd5",
-  },
-  extras: {
-    width: (deviceWidth * 96) / 100,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "space-evenly",
-    marginTop: 10,
-  },
-  recommendations: {
-    marginTop: 10,
-    width: (deviceWidth * 96) / 100,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  similar: {
-    marginTop: 10,
-    width: (deviceWidth * 96) / 100,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingBottom: 10,
-  },
-  image: {
-    borderRadius: 5,
-    width: 120,
-    height: 180,
-  },
-  userActions: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
-    width: (deviceWidth * 74) / 100,
-    padding: 5,
-  },
-});

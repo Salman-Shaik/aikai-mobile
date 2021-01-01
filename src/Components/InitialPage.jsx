@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, View, Image } from "react-native";
-
+import { View, Image } from "react-native";
+import { initialPageStyles as styles } from "../Stylesheets/Styles";
 export const InitialPage = () => {
   return (
     <View style={styles.header}>
@@ -11,16 +11,3 @@ export const InitialPage = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  header: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    marginTop: 2,
-  },
-  logoText: {
-    height: 70,
-    width: 230,
-  },
-});

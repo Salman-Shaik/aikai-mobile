@@ -1,6 +1,7 @@
 import React from "react";
-import { Dimensions, Image, StyleSheet, View, Pressable } from "react-native";
+import { Image, View, Pressable } from "react-native";
 import { NavigationMenu } from "./NavigationMenu";
+import { headerStyles as styles } from "../../Stylesheets/Styles";
 
 export const Header = ({
   showSuggestionType,
@@ -33,25 +34,3 @@ export const Header = ({
     </View>
   );
 };
-
-const deviceWidth = Dimensions.get("window").width;
-const deviceHeight = Dimensions.get("window").height;
-
-const styles = StyleSheet.create({
-  header: {
-    width: deviceWidth,
-    height: (deviceHeight * 10) / 100,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    marginTop: 24,
-    backgroundColor: "rgba(29,29,29,0.3)",
-    marginLeft: -15,
-  },
-  logo: {
-    height: 110,
-    width: 110,
-    alignSelf: "center",
-  },
-});

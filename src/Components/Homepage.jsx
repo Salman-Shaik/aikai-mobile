@@ -1,6 +1,7 @@
 import _ from "lodash";
 import React, { useState } from "react";
-import { BackHandler, Dimensions, ScrollView, StyleSheet } from "react-native";
+import { BackHandler, ScrollView } from "react-native";
+import { homepageStyles as styles } from "../Stylesheets/Styles";
 import { Favorites } from "./Favorites";
 import { Footer } from "./Footer";
 import { Header } from "./Header/Header";
@@ -93,18 +94,3 @@ export const Homepage = () => {
     </ScrollView>
   );
 };
-
-const deviceWidth = Dimensions.get("window").width;
-const deviceHeight = Dimensions.get("window").height;
-
-const styles = StyleSheet.create({
-  homepage: {
-    flex: 1,
-    height: deviceHeight * 1.04,
-    width: deviceWidth,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "space-around",
-  },
-});

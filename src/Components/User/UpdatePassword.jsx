@@ -3,15 +3,14 @@ import _ from "lodash";
 import React, { useState } from "react";
 
 import {
-  Dimensions,
   KeyboardAvoidingView,
-  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 import { updatePassword } from "../../lib/fetches";
+import { updatePasswordStyles as styles } from "../../Stylesheets/Styles";
 
 export const UpdatePassword = ({ updateLocation }) => {
   const [oldPassword, setOldPassword] = useState("");
@@ -108,78 +107,3 @@ export const UpdatePassword = ({ updateLocation }) => {
     </KeyboardAvoidingView>
   );
 };
-
-const deviceWidth = Dimensions.get("window").width;
-const deviceHeight = Dimensions.get("window").height;
-
-const styles = StyleSheet.create({
-  updatePassword: {
-    width: deviceWidth,
-    height: (deviceHeight * 95.5) / 100,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  header: {
-    fontSize: 60,
-    marginLeft: 20,
-    color: "#e3eeff",
-    fontWeight: "bold",
-  },
-  credentials: {
-    width: (deviceWidth * 90) / 100,
-    fontSize: 25,
-    color: "#ffffff",
-    padding: 12,
-    borderRadius: 8,
-    backgroundColor: "#4a4949",
-    marginTop: 5,
-  },
-  updateButton: {
-    width: (deviceWidth * 90) / 100,
-    padding: 10,
-    marginTop: 40,
-    borderRadius: 8,
-  },
-  updateText: {
-    fontSize: 25,
-    color: "#222222",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  errorCredentials: {
-    width: (deviceWidth * 90) / 100,
-    fontSize: 25,
-    padding: 12,
-    borderRadius: 8,
-    color: "#ff0000",
-    backgroundColor: "#fadbdb",
-    marginTop: 5,
-  },
-  errorLabel: {
-    width: (deviceWidth * 90) / 100,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#fd7f7f",
-  },
-  successCredentials: {
-    width: (deviceWidth * 90) / 100,
-    fontSize: 25,
-    padding: 12,
-    borderRadius: 8,
-    color: "#32cd32",
-    backgroundColor: "#defade",
-    marginTop: 5,
-  },
-  label: {
-    width: (deviceWidth * 90) / 100,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#e3eeff",
-  },
-  userInput: {
-    width: (deviceWidth * 90) / 100,
-    marginTop: 40,
-  },
-});

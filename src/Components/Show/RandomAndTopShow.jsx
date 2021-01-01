@@ -1,8 +1,9 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { fetchShowAnd } from "../../lib/fetches";
 import { ShowDetails } from "./ShowDetails";
+import { randomAndTopShowStyles as styles } from "../../Stylesheets/Styles";
 
 export const RandomAndTopShow = ({
   id,
@@ -32,16 +33,3 @@ export const RandomAndTopShow = ({
     </View>
   );
 };
-
-const deviceWidth = Dimensions.get("window").width;
-
-const styles = StyleSheet.create({
-  show: {
-    flex: 1,
-    width: deviceWidth,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
-  },
-});

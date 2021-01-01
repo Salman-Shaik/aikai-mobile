@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  Dimensions,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 import { fetchWatchHistory } from "../lib/fetches";
+import { watchHistoryStyles as styles } from "../Stylesheets/Styles";
 
 const Poster = ({ id, imagePath }) => {
   return (
@@ -57,50 +51,3 @@ export const WatchHistory = ({ updateLocation, isUserLoggedIn }) => {
     </View>
   );
 };
-
-const deviceWidth = Dimensions.get("window").width;
-const deviceHeight = Dimensions.get("window").height;
-
-const styles = StyleSheet.create({
-  watchHistory: {
-    width: deviceWidth,
-    height: (deviceHeight * 95.5) / 100,
-  },
-  header: {
-    marginTop: 35,
-    marginLeft: 15,
-    height: (deviceHeight * 6) / 100,
-    backgroundColor: "rgba(29,29,29,0.3)",
-    fontSize: 22,
-    color: "#ffefd5",
-    fontWeight: "bold",
-  },
-  watchlistSections: {
-    width: deviceWidth,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-start",
-  },
-  sectionedImages: {
-    width: deviceWidth,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    paddingTop: 6,
-    paddingBottom: 6,
-  },
-  posterContainer: {
-    display: "flex",
-    flexDirection: "row",
-    width: 120,
-    height: 180,
-  },
-  background: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "flex-start",
-    width: 120,
-    height: 180,
-  },
-});
