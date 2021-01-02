@@ -412,10 +412,7 @@ export const fetchSubscription = (setSubscription) => {
   });
 };
 
-export const updateSubscription = (
-  subscription,
-  updateLocation
-) => {
+export const updateSubscription = (subscription, updateLocation) => {
   AsyncStorage.getItem("user-key").then((value) => {
     fetch(`${USER_API}/subscription?user=${value}`, {
       method: "put",
@@ -425,7 +422,7 @@ export const updateSubscription = (
       },
     })
       .then((res) => {
-          updateLocation("Menu");
+        updateLocation("Menu");
       })
       .catch((e) => new TypeError(e));
   });

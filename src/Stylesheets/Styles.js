@@ -1265,7 +1265,7 @@ export const subscriptionStyles = StyleSheet.create({
     color: "#e3eeff",
     fontWeight: "bold",
   },
-  selectedSubscriptionType:{
+  selectedSubscriptionType: {
     fontSize: 30,
     marginLeft: -35,
     color: "#90fabc",
