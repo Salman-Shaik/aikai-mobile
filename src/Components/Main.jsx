@@ -7,6 +7,7 @@ import { NowPlaying } from "./NowPlaying";
 import { SearchPage } from "./SearchPage";
 import { RandomAndTopShow } from "./Show/RandomAndTopShow";
 import { Show } from "./Show/Show";
+import { Subscription } from "./Subscription";
 import { Suggestions } from "./Suggestions";
 import { AccountDetails } from "./User/AccountDetails";
 import { LoginPage } from "./User/LoginPage";
@@ -119,6 +120,12 @@ export const Main = ({
       )}
       {isCurrentScreen("WatchList") && (
         <WatchList
+          updateLocation={updateLocation}
+          isUserLoggedIn={isUserLoggedIn}
+        />
+      )}
+      {isCurrentScreen("Subscription") && (
+        <Subscription
           updateLocation={updateLocation}
           isUserLoggedIn={isUserLoggedIn}
         />

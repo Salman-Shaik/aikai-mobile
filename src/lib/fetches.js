@@ -401,3 +401,32 @@ export const updatePassword = (
       .catch((e) => new TypeError(e));
   });
 };
+
+export const fetchSubscription = (setSubscription) => {
+  AsyncStorage.getItem("user-key").then((value) => {
+    fetch(`${USER_API}/subscription?user=${value}`)
+      .then((res) => res.text())
+      .then((data) => JSON.parse(data))
+      .then((result) => setSubscription(result.subscription))
+      .catch((e) => new TypeError(e));
+  });
+};
+
+export const updateSubscription = (
+  subscription,
+  updateLocation
+) => {
+  AsyncStorage.getItem("user-key").then((value) => {
+    fetch(`${USER_API}/subscription?user=${value}`, {
+      method: "put",
+      body: JSON.stringify({ subscription }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+          updateLocation("Menu");
+      })
+      .catch((e) => new TypeError(e));
+  });
+};
