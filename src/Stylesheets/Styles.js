@@ -48,23 +48,19 @@ export const menuStyles = StyleSheet.create({
     alignItems: "center",
   },
   profileAvatar: {
+    width: (deviceWidth * 25) / 100,
+    height: (deviceHeight * 11.85) / 100,
     display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-end",
     alignItems: "center",
-    justifyContent: "center",
-    borderColor: "rgb(140,140,140)",
-    borderStyle: "solid",
-    borderWidth: 3,
-    borderRadius: 50,
-    paddingLeft: 30,
-    paddingRight: 30,
-    paddingTop: 11,
-    paddingBottom: 11,
-    marginLeft: 13,
+    borderRadius:8,
+    backgroundColor: "#4a4949",
+    marginLeft:13
   },
-  profileAvatarText: {
-    fontSize: 40,
-    fontWeight: "bold",
-    color: "#ffefd5",
+  avatarImage:{
+    width: 100,
+    height: 100,
   },
   username: {
     fontSize: 18,
@@ -1025,6 +1021,56 @@ export const languageSectionStyles = StyleSheet.create({
     color: "#4CE990",
     textAlign: "center",
   },
+});
+
+export const userAvatarStyles = StyleSheet.create({
+  userAvatars: {
+    width: (deviceWidth * 90) / 100,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    marginTop: 20,
+  },
+  rowOfAvatars: {
+    width: (deviceWidth * 90) / 100,
+    height: (deviceHeight * 18) / 100,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  avatar: {
+    width: (deviceWidth * 25) / 100,
+    height: (deviceHeight * 11.85) / 100,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    borderRadius:8,
+    backgroundColor: "#4a4949",
+  },
+  selectedAvatar: {
+    width: (deviceWidth * 25) / 100,
+    height: (deviceHeight * 11.85) / 100,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    borderRadius:8,
+    backgroundColor: "#ACF39D",
+  },
+  title: {
+    width: (deviceWidth * 90) / 100,
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#e3eeff",
+    marginBottom: 10,
+  },
+  avatarImage:{
+    width: 100,
+    height: 100,
+  }
 });
 
 export const loginPageStyles = StyleSheet.create({

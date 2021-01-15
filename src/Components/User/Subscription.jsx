@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Pressable, Text, View } from "react-native";
-import { fetchSubscription, updateSubscription } from "../lib/fetches";
-import { subscriptionStyles as styles } from "../Stylesheets/Styles";
+import { fetchSubscription, updateSubscription } from "../../lib/fetches";
+import { subscriptionStyles as styles } from "../../Stylesheets/Styles";
 
 export const Subscription = ({ isUserLoggedIn, updateLocation }) => {
   const [subscription, setSubscription] = useState("FREE");

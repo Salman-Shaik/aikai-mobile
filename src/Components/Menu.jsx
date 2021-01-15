@@ -1,16 +1,19 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LinearGradient } from "expo-linear-gradient";
-import _ from "lodash";
-import React, { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { fetchUserFullName } from "../lib/fetches";
-import { menuStyles as styles } from "../Stylesheets/Styles";
+import {LinearGradient} from "expo-linear-gradient";
+import React, {useEffect, useState} from "react";
+import {Image, Text, TouchableOpacity, View} from "react-native";
+import {fetchUserFullName} from "../lib/fetches";
+import {menuStyles as styles} from "../Stylesheets/Styles";
 
-export const Menu = ({ isUserLoggedIn, updateLocation, setIsUserLoggedIn }) => {
+export const Menu = ({isUserLoggedIn, updateLocation, setIsUserLoggedIn}) => {
   const [fullName, setFullName] = useState("?");
+  const [selectedAvatar, setSelectedAvatar] = useState("");
 
   useEffect(() => {
     if (isUserLoggedIn) fetchUserFullName(setFullName);
+    AsyncStorage.getItem("avatar").then(value => {
+      !!value && setSelectedAvatar(value);
+    });
   }, []);
 
   const onLogout = async () => {
@@ -33,9 +36,15 @@ export const Menu = ({ isUserLoggedIn, updateLocation, setIsUserLoggedIn }) => {
           style={styles.profileAvatar}
         >
           {isUserLoggedIn ? (
-            <Text style={styles.profileAvatarText}>
-              {_.capitalize(fullName[0])}
-            </Text>
+            <>
+              {(selectedAvatar === "Man-guy") && <Image source={require("../../public/Man-guy.png")} style={styles.avatarImage}/>}
+              {(selectedAvatar === "Man-beard") && <Image source={require("../../public/Man-beard.png")} style={styles.avatarImage}/>}
+              {(selectedAvatar === "Man-Moustache") && <Image source={require("../../public/Man-Moustache.png")} style={styles.avatarImage}/>}
+              {(selectedAvatar === "Female-hairbun") && <Image source={require("../../public/Female-hairbun.png")} style={styles.avatarImage}/>}
+              {(selectedAvatar === "Female-shorthair") &&
+              <Image source={require("../../public/Female-shorthair.png")} style={styles.avatarImage}/>}
+              {(selectedAvatar === "Female-longhair") && <Image source={require("../../public/Female-longhair.png")} style={styles.avatarImage}/>}
+            </>
           ) : (
             <Text style={styles.profileAvatarText}>?</Text>
           )}

@@ -17,6 +17,7 @@ import { LanguagesSection } from "./LanguagesSection";
 import { accountDetailsStyles as styles } from "../../Stylesheets/Styles";
 
 import base64 from "base-64";
+import {UserAvatars} from "./UserAvatars";
 
 export const AccountDetails = ({ updateLocation }) => {
   const [name, updateName] = useState("");
@@ -144,7 +145,7 @@ export const AccountDetails = ({ updateLocation }) => {
           <View style={styles.explicitFlag}>
             <Text style={styles.explicitLabel}>Explicit Content</Text>
             <Switch
-              disabled={age < 18}
+              disabled={!edit || age < 18}
               trackColor={{ false: "#ffefd5", true: "#ffefd5" }}
               thumbColor={explicitFlag ? "#4CE990" : "#5b5a5a"}
               ios_backgroundColor="#3e3e3e"
@@ -169,6 +170,7 @@ export const AccountDetails = ({ updateLocation }) => {
             blurOnSubmit
           />
         </View>
+        <UserAvatars editFlag={edit}/>
         <LanguagesSection
           isSelected={isSelected}
           updateLanguages={updateLanguages}
