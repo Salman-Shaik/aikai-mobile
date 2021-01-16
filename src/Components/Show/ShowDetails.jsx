@@ -53,7 +53,7 @@ const createExtras = (
       >
         <Image
           key={imagePath}
-          defaultSource={require("../../../public/fallback.jpg")}
+          defaultSource={require("../../../assets/images/fallback.jpg")}
           source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
           style={styles.image}
         />
@@ -111,7 +111,7 @@ export const ShowDetails = ({
     <ScrollView contentContainerStyle={styles.showDetails}>
       <View style={styles.firstBlock}>
         <Image
-          defaultSource={require("../../../public/fallback.jpg")}
+          defaultSource={require("../../../assets/images/fallback.jpg")}
           source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
           key={id}
           style={styles.poster}

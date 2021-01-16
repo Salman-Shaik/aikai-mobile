@@ -18,7 +18,7 @@ export const Header = ({
       <Pressable onPress={() => updateLocation("Suggestions")}>
         <Image
           style={styles.logo}
-          source={require("../../../public/logo.png")}
+          source={require("../../../assets/images/logo.png")}
         />
       </Pressable>
       <NavigationMenu

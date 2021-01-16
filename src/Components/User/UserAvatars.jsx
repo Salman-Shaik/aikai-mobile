@@ -28,19 +28,19 @@ export const UserAvatars = ({editFlag}) => {
   return <View style={styles.userAvatars}>
     <Text style={styles.title}>Choose An Avatar</Text>
     <View style={styles.rowOfAvatars}>
-      {<AvatarBlock keyword="Man-guy" source={require("../../../public/Man-guy.png")}
+      {<AvatarBlock keyword="Man-guy" source={require("../../../assets/images/Man-guy.png")}
                     isSelected={selectedAvatar === "Man-guy"}/>}
-      {<AvatarBlock keyword="Man-Moustache" source={require("../../../public/Man-Moustache.png")}
+      {<AvatarBlock keyword="Man-Moustache" source={require("../../../assets/images/Man-Moustache.png")}
                     isSelected={selectedAvatar === "Man-Moustache"}/>}
-      {<AvatarBlock keyword="Man-beard" source={require("../../../public/Man-beard.png")}
+      {<AvatarBlock keyword="Man-beard" source={require("../../../assets/images/Man-beard.png")}
                     isSelected={selectedAvatar === "Man-beard"}/>}
     </View>
     <View style={styles.rowOfAvatars}>
-      {<AvatarBlock keyword="Female-hairbun" source={require("../../../public/Female-hairbun.png")}
+      {<AvatarBlock keyword="Female-hairbun" source={require("../../../assets/images/Female-hairbun.png")}
                     isSelected={selectedAvatar === "Female-hairbun"}/>}
-      {<AvatarBlock keyword="Female-shorthair" source={require("../../../public/Female-shorthair.png")}
+      {<AvatarBlock keyword="Female-shorthair" source={require("../../../assets/images/Female-shorthair.png")}
                     isSelected={selectedAvatar === "Female-shorthair"}/>}
-      {<AvatarBlock keyword="Female-longhair" source={require("../../../public/Female-longhair.png")}
+      {<AvatarBlock keyword="Female-longhair" source={require("../../../assets/images/Female-longhair.png")}
                     isSelected={selectedAvatar === "Female-longhair"}/>}
     </View>
   </View>

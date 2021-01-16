@@ -6,7 +6,7 @@ export const InitialPage = () => {
     <View style={styles.header}>
       <Image
         style={styles.logoText}
-        source={require("../../public/logo_text.png")}
+        source={require("../../assets/images/logo_text.png")}
       />
     </View>
   );

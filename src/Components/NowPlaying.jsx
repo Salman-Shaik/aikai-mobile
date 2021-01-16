@@ -24,7 +24,7 @@ const createPosters = (
         }}
       >
         <Image
-          defaultSource={require("../../public/fallback.jpg")}
+          defaultSource={require("../../assets/images/fallback.jpg")}
           source={uri}
           style={styles.nowPlayingPoster}
           alt={title}

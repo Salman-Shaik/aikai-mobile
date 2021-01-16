@@ -27,7 +27,7 @@ const createSectionedPosters = (results, setCurrentShowId, updateLocation) => {
       >
         <Image
           key={imagePath}
-          defaultSource={require("../../public/fallback.jpg")}
+          defaultSource={require("../../assets/images/fallback.jpg")}
           source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
           style={styles.image}
         />

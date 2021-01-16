@@ -21,6 +21,7 @@ export const initialPageStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     marginTop: 2,
+    fontFamily: "Avenir-Medium"
   },
   logoText: {
     height: 70,
@@ -64,7 +65,7 @@ export const menuStyles = StyleSheet.create({
   },
   username: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     color: "#ffefd5",
     marginLeft: 25,
   },
@@ -85,10 +86,11 @@ export const menuStyles = StyleSheet.create({
     fontSize: 18,
     color: "#ffefd5",
     marginLeft: 15,
+    fontFamily:"Avenir-Regular",
   },
   login: {
     fontSize: 22,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     color: "#1e90ff",
     marginLeft: 25,
   },
@@ -109,7 +111,7 @@ export const nowPlayingStyles = StyleSheet.create({
     width: (deviceWidth * 95) / 100,
     fontSize: 22,
     color: "#ffefd5",
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     textAlign: "left",
   },
   nowPlayingPoster: {
@@ -165,6 +167,7 @@ export const searchPageStyles = StyleSheet.create({
     marginLeft: 10,
     color: "#ffffff",
     padding: 2,
+    fontFamily:"Avenir-Regular",
   },
   searchResults: {
     width: (deviceWidth * 96) / 100,
@@ -203,9 +206,9 @@ export const suggestionsStyles = StyleSheet.create({
   header: {
     width: (deviceWidth * 92) / 100,
     fontSize: 28,
-    fontWeight: "bold",
     color: "#ffefd5",
     marginTop: 10,
+    fontFamily: "Avenir-Medium"
   },
   suggestedShows: {
     display: "flex",
@@ -235,7 +238,7 @@ export const watchHistoryStyles = StyleSheet.create({
     backgroundColor: "rgba(29,29,29,0.3)",
     fontSize: 22,
     color: "#ffefd5",
-    fontWeight: "bold",
+    fontFamily: "Avenir-Medium"
   },
   watchlistSections: {
     width: deviceWidth,
@@ -279,7 +282,7 @@ export const watchListStyles = StyleSheet.create({
     backgroundColor: "rgba(29,29,29,0.3)",
     fontSize: 22,
     color: "#ffefd5",
-    fontWeight: "bold",
+    fontFamily: "Avenir-Medium"
   },
   watchlistSections: {
     width: deviceWidth,
@@ -346,13 +349,14 @@ export const footerStyles = StyleSheet.create({
     fontSize: 10,
     color: "grey",
     marginTop: 3,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     backgroundColor: "#222222",
   },
   iconText: {
     fontSize: 10,
     color: "#f8f8ff",
     marginTop: 3,
+    fontFamily:"Avenir-Regular",
   },
 });
 
@@ -403,6 +407,7 @@ export const headerStyles = StyleSheet.create({
     marginTop: 24,
     backgroundColor: "rgba(29,29,29,0.3)",
     marginLeft: -15,
+    fontFamily: "Avenir-Medium"
   },
   logo: {
     height: 110,
@@ -430,6 +435,7 @@ export const navigationMenuStyles = StyleSheet.create({
   menuItem: {
     fontSize: 17,
     color: "#ffefd5",
+    fontFamily:"Avenir-Regular",
   },
   postSelectedMenu: {
     width: deviceWidth * (80 / 100),
@@ -442,13 +448,15 @@ export const navigationMenuStyles = StyleSheet.create({
   selectedMenuItem: {
     fontSize: 17,
     color: "#ffefd5",
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
   },
   picker: {
     width: 150,
     height: 40,
     color: "#ffefd5",
     backgroundColor: "#262626",
+    fontSize: 17,
+    fontFamily:"Avenir-Regular",
   },
 });
 
@@ -509,10 +517,11 @@ export const showDetailsStyles = StyleSheet.create({
   rating: {
     color: "#ffffff",
     fontSize: 18,
+    fontFamily:"Quicksand-Book",
   },
   title: {
     fontSize: 27,
-    fontWeight: "bold",
+    fontFamily:"Quicksand-Bold",
     color: "#e3eeff",
     textAlign: "center",
     marginTop: 8,
@@ -521,10 +530,12 @@ export const showDetailsStyles = StyleSheet.create({
     marginTop: 8,
     fontSize: 13,
     color: "#ffefd5",
+    fontFamily:"Quicksand-Book",
   },
   language: {
     fontSize: 18,
     color: "#ffefd5",
+    fontFamily:"Quicksand-Book",
   },
   description: {
     width: (deviceWidth * 96) / 100,
@@ -532,6 +543,7 @@ export const showDetailsStyles = StyleSheet.create({
     fontSize: 15,
     color: "#ffefd5",
     textAlign: "left",
+    fontFamily:"Quicksand-Book",
   },
   secondBlock: {
     width: (deviceWidth * 96) / 100,
@@ -549,9 +561,9 @@ export const showDetailsStyles = StyleSheet.create({
     justifyContent: "space-between",
   },
   overviewHeader: {
-    fontWeight: "bold",
     fontSize: 20,
     color: "#ffefd5",
+    fontFamily:"Quicksand-Bold",
   },
   extras: {
     width: (deviceWidth * 96) / 100,
@@ -595,7 +607,7 @@ export const showDetailsStyles = StyleSheet.create({
 
 export const streamingOnStyles = StyleSheet.create({
   header: {
-    fontWeight: "bold",
+    fontFamily: "Avenir-Medium",
     fontSize: 20,
     color: "#ffefd5",
   },
@@ -662,7 +674,7 @@ export const registrationPageStyles = StyleSheet.create({
     marginLeft: 20,
     marginTop: 20,
     color: "#e3eeff",
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
   },
   credentials: {
     width: (deviceWidth * 90) / 100,
@@ -672,6 +684,7 @@ export const registrationPageStyles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#4a4949",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   age: {
     width: (deviceWidth * 20) / 100,
@@ -681,6 +694,7 @@ export const registrationPageStyles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#4a4949",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   errorAge: {
     width: (deviceWidth * 20) / 100,
@@ -690,12 +704,13 @@ export const registrationPageStyles = StyleSheet.create({
     color: "#ff0000",
     backgroundColor: "#fadbdb",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   ageErrorLabel: {
     width: (deviceWidth * 20) / 100,
     fontSize: 20,
-    fontWeight: "bold",
     color: "#fd7f7f",
+    fontFamily:"Avenir-Medium",
   },
   successAge: {
     width: (deviceWidth * 20) / 100,
@@ -705,11 +720,12 @@ export const registrationPageStyles = StyleSheet.create({
     color: "#32cd32",
     backgroundColor: "#defade",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   ageLabel: {
     width: (deviceWidth * 30) / 100,
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     color: "#e3eeff",
   },
   registrationButton: {
@@ -721,7 +737,7 @@ export const registrationPageStyles = StyleSheet.create({
   registerText: {
     fontSize: 25,
     color: "#222222",
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     textAlign: "center",
   },
   errorCredentials: {
@@ -732,11 +748,12 @@ export const registrationPageStyles = StyleSheet.create({
     color: "#ff0000",
     backgroundColor: "#fadbdb",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   errorLabel: {
     width: (deviceWidth * 90) / 100,
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     color: "#fd7f7f",
   },
   successCredentials: {
@@ -747,17 +764,18 @@ export const registrationPageStyles = StyleSheet.create({
     color: "#32cd32",
     backgroundColor: "#defade",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   label: {
     width: (deviceWidth * 90) / 100,
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     color: "#e3eeff",
   },
   explicitLabel: {
-    width: (deviceWidth * 49) / 100,
+    width: (deviceWidth * 20) / 100,
     fontSize: 25,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     color: "#e3eeff",
   },
   userInput: {
@@ -789,6 +807,7 @@ export const registrationPageStyles = StyleSheet.create({
     color: "#89999d",
     textAlign: "center",
     marginTop: 40,
+    fontFamily:"Avenir-Medium",
   },
   switch: {
     transform: [{ scaleX: 1.4 }, { scaleY: 1.4 }],
@@ -815,7 +834,7 @@ export const accountDetailsStyles = StyleSheet.create({
     marginLeft: 20,
     marginTop: 20,
     color: "#e3eeff",
-    fontWeight: "bold",
+    fontFamily: "Avenir-Medium"
   },
   credentials: {
     width: (deviceWidth * 90) / 100,
@@ -825,6 +844,7 @@ export const accountDetailsStyles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#4a4949",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   age: {
     width: (deviceWidth * 20) / 100,
@@ -834,6 +854,7 @@ export const accountDetailsStyles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#4a4949",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   errorAge: {
     width: (deviceWidth * 20) / 100,
@@ -843,12 +864,13 @@ export const accountDetailsStyles = StyleSheet.create({
     color: "#ff0000",
     backgroundColor: "#fadbdb",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   ageErrorLabel: {
     width: (deviceWidth * 20) / 100,
     fontSize: 20,
-    fontWeight: "bold",
     color: "#fd7f7f",
+    fontFamily:"Avenir-Medium",
   },
   successAge: {
     width: (deviceWidth * 20) / 100,
@@ -858,12 +880,13 @@ export const accountDetailsStyles = StyleSheet.create({
     color: "#32cd32",
     backgroundColor: "#defade",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   ageLabel: {
     width: (deviceWidth * 30) / 100,
     fontSize: 20,
-    fontWeight: "bold",
     color: "#e3eeff",
+    fontFamily:"Avenir-Medium",
   },
   updateButton: {
     width: (deviceWidth * 90) / 100,
@@ -874,7 +897,7 @@ export const accountDetailsStyles = StyleSheet.create({
   updateText: {
     fontSize: 25,
     color: "#222222",
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     textAlign: "center",
   },
   errorCredentials: {
@@ -885,11 +908,12 @@ export const accountDetailsStyles = StyleSheet.create({
     color: "#ff0000",
     backgroundColor: "#fadbdb",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   errorLabel: {
     width: (deviceWidth * 90) / 100,
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     color: "#fd7f7f",
   },
   successCredentials: {
@@ -900,17 +924,18 @@ export const accountDetailsStyles = StyleSheet.create({
     color: "#32cd32",
     backgroundColor: "#defade",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   label: {
     width: (deviceWidth * 90) / 100,
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     color: "#e3eeff",
   },
   explicitLabel: {
-    width: (deviceWidth * 49) / 100,
-    fontSize: 25,
-    fontWeight: "bold",
+    width: (deviceWidth * 52) / 100,
+    fontSize: 24,
+    fontFamily:"Avenir-Medium",
     color: "#e3eeff",
   },
   userInput: {
@@ -933,12 +958,12 @@ export const accountDetailsStyles = StyleSheet.create({
     width: (deviceWidth * 70) / 100,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "center",
     alignItems: "center",
   },
   editFlag: {
     marginTop: 29,
-    width: (deviceWidth * 25) / 100,
+    width: (deviceWidth * 1) / 100,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-evenly",
@@ -950,6 +975,7 @@ export const accountDetailsStyles = StyleSheet.create({
     color: "#89999d",
     textAlign: "center",
     marginTop: 40,
+    fontFamily:"Avenir-Medium",
   },
   switch: {
     transform: [{ scaleX: 1.4 }, { scaleY: 1.4 }],
@@ -1003,21 +1029,21 @@ export const languageSectionStyles = StyleSheet.create({
   languageText: {
     width: (deviceWidth * 40) / 100,
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     color: "#e3eeff",
     textAlign: "center",
   },
   title: {
     width: (deviceWidth * 90) / 100,
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     color: "#e3eeff",
     marginBottom: 10,
   },
   selectedLanguageText: {
     width: (deviceWidth * 40) / 100,
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     color: "#4CE990",
     textAlign: "center",
   },
@@ -1033,8 +1059,8 @@ export const userAvatarStyles = StyleSheet.create({
     marginTop: 20,
   },
   rowOfAvatars: {
-    width: (deviceWidth * 90) / 100,
-    height: (deviceHeight * 18) / 100,
+    width: (deviceWidth * 86) / 100,
+    height: (deviceHeight * 14) / 100,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -1063,7 +1089,7 @@ export const userAvatarStyles = StyleSheet.create({
   title: {
     width: (deviceWidth * 90) / 100,
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     color: "#e3eeff",
     marginBottom: 10,
   },
@@ -1086,7 +1112,7 @@ export const loginPageStyles = StyleSheet.create({
     fontSize: 60,
     marginLeft: 20,
     color: "#e3eeff",
-    fontWeight: "bold",
+    fontFamily: "Avenir-Medium"
   },
   credentials: {
     width: (deviceWidth * 90) / 100,
@@ -1096,6 +1122,7 @@ export const loginPageStyles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#4a4949",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   loginButton: {
     width: (deviceWidth * 90) / 100,
@@ -1106,7 +1133,7 @@ export const loginPageStyles = StyleSheet.create({
   loginText: {
     fontSize: 25,
     color: "#222222",
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     textAlign: "center",
   },
   errorCredentials: {
@@ -1117,11 +1144,12 @@ export const loginPageStyles = StyleSheet.create({
     color: "#ff0000",
     backgroundColor: "#fadbdb",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   errorLabel: {
     width: (deviceWidth * 90) / 100,
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     color: "#fd7f7f",
   },
   successCredentials: {
@@ -1132,11 +1160,12 @@ export const loginPageStyles = StyleSheet.create({
     color: "#32cd32",
     backgroundColor: "#defade",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   label: {
     width: (deviceWidth * 90) / 100,
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     color: "#e3eeff",
   },
   userInput: {
@@ -1149,6 +1178,7 @@ export const loginPageStyles = StyleSheet.create({
     color: "#89999d",
     textAlign: "center",
     marginTop: 40,
+    fontFamily:"Avenir-Regular",
   },
 });
 
@@ -1165,7 +1195,7 @@ export const updatePasswordStyles = StyleSheet.create({
     fontSize: 60,
     marginLeft: 20,
     color: "#e3eeff",
-    fontWeight: "bold",
+    fontFamily: "Avenir-Medium"
   },
   credentials: {
     width: (deviceWidth * 90) / 100,
@@ -1175,6 +1205,7 @@ export const updatePasswordStyles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#4a4949",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   updateButton: {
     width: (deviceWidth * 90) / 100,
@@ -1185,7 +1216,7 @@ export const updatePasswordStyles = StyleSheet.create({
   updateText: {
     fontSize: 25,
     color: "#222222",
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     textAlign: "center",
   },
   errorCredentials: {
@@ -1196,11 +1227,12 @@ export const updatePasswordStyles = StyleSheet.create({
     color: "#ff0000",
     backgroundColor: "#fadbdb",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   errorLabel: {
     width: (deviceWidth * 90) / 100,
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     color: "#fd7f7f",
   },
   successCredentials: {
@@ -1211,11 +1243,12 @@ export const updatePasswordStyles = StyleSheet.create({
     color: "#32cd32",
     backgroundColor: "#defade",
     marginTop: 5,
+    fontFamily:"Avenir-Regular",
   },
   label: {
     width: (deviceWidth * 90) / 100,
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     color: "#e3eeff",
   },
   userInput: {
@@ -1238,7 +1271,7 @@ export const subscriptionStyles = StyleSheet.create({
     width: deviceWidth,
     fontSize: 22,
     color: "#e3eeff",
-    fontWeight: "bold",
+    fontFamily: "Avenir-Medium",
     textAlign: "left",
     marginLeft: 15,
   },
@@ -1258,7 +1291,7 @@ export const subscriptionStyles = StyleSheet.create({
     width: deviceWidth,
     fontSize: 25,
     color: "#ffefd5",
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
     textAlign: "center",
   },
   points: {
@@ -1268,6 +1301,7 @@ export const subscriptionStyles = StyleSheet.create({
     textAlign: "left",
     paddingLeft: 10,
     paddingRight: 10,
+    fontFamily:"Avenir-Regular",
   },
   subscriptionContainer: {
     width: deviceWidth,
@@ -1309,13 +1343,13 @@ export const subscriptionStyles = StyleSheet.create({
     fontSize: 30,
     marginLeft: -35,
     color: "#e3eeff",
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
   },
   selectedSubscriptionType: {
     fontSize: 30,
     marginLeft: -35,
     color: "#90fabc",
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
   },
   subscriptionFeatures: {
     width: (deviceWidth * 79) / 100,
@@ -1324,6 +1358,7 @@ export const subscriptionStyles = StyleSheet.create({
     color: "#ffefd5",
     textAlign: "left",
     fontWeight: "normal",
+    fontFamily:"Avenir-Regular",
   },
   selectedSubscriptionFeatures: {
     width: (deviceWidth * 79) / 100,
@@ -1331,7 +1366,7 @@ export const subscriptionStyles = StyleSheet.create({
     fontSize: 15,
     color: "#4CE990",
     textAlign: "left",
-    fontWeight: "normal",
+    fontFamily:"Avenir-Regular",
   },
   subscriptionPrice: {
     marginLeft: -35,
@@ -1343,7 +1378,7 @@ export const subscriptionStyles = StyleSheet.create({
     padding: 5,
     marginBottom: 5,
     borderRadius: 10,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
   },
   selectedSubscriptionPrice: {
     marginLeft: -35,
@@ -1355,6 +1390,6 @@ export const subscriptionStyles = StyleSheet.create({
     padding: 5,
     marginBottom: 5,
     borderRadius: 10,
-    fontWeight: "bold",
+    fontFamily:"Avenir-Medium",
   },
 });

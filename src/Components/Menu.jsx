@@ -37,13 +37,13 @@ export const Menu = ({isUserLoggedIn, updateLocation, setIsUserLoggedIn}) => {
         >
           {isUserLoggedIn ? (
             <>
-              {(selectedAvatar === "Man-guy") && <Image source={require("../../public/Man-guy.png")} style={styles.avatarImage}/>}
-              {(selectedAvatar === "Man-beard") && <Image source={require("../../public/Man-beard.png")} style={styles.avatarImage}/>}
-              {(selectedAvatar === "Man-Moustache") && <Image source={require("../../public/Man-Moustache.png")} style={styles.avatarImage}/>}
-              {(selectedAvatar === "Female-hairbun") && <Image source={require("../../public/Female-hairbun.png")} style={styles.avatarImage}/>}
+              {(selectedAvatar === "Man-guy") && <Image source={require("../../assets/images/Man-guy.png")} style={styles.avatarImage}/>}
+              {(selectedAvatar === "Man-beard") && <Image source={require("../../assets/images/Man-beard.png")} style={styles.avatarImage}/>}
+              {(selectedAvatar === "Man-Moustache") && <Image source={require("../../assets/images/Man-Moustache.png")} style={styles.avatarImage}/>}
+              {(selectedAvatar === "Female-hairbun") && <Image source={require("../../assets/images/Female-hairbun.png")} style={styles.avatarImage}/>}
               {(selectedAvatar === "Female-shorthair") &&
-              <Image source={require("../../public/Female-shorthair.png")} style={styles.avatarImage}/>}
-              {(selectedAvatar === "Female-longhair") && <Image source={require("../../public/Female-longhair.png")} style={styles.avatarImage}/>}
+              <Image source={require("../../assets/images/Female-shorthair.png")} style={styles.avatarImage}/>}
+              {(selectedAvatar === "Female-longhair") && <Image source={require("../../assets/images/Female-longhair.png")} style={styles.avatarImage}/>}
             </>
           ) : (
             <Text style={styles.profileAvatarText}>?</Text>

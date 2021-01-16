@@ -46,36 +46,36 @@ export const LanguagesSection = (props) => {
       <View style={styles.doubleLanguageBlock}>
         <LanguageBlock
           keyword={"English"}
-          source={require("../../../public/English.png")}
+          source={require("../../../assets/images/English.png")}
           {...props}
         />
         <LanguageBlock
           keyword={"Hindi"}
-          source={require("../../../public/Hindi.png")}
+          source={require("../../../assets/images/Hindi.png")}
           {...props}
         />
       </View>
       <View style={styles.doubleLanguageBlock}>
         <LanguageBlock
           keyword={"Telugu"}
-          source={require("../../../public/Telugu.png")}
+          source={require("../../../assets/images/Telugu.png")}
           {...props}
         />
         <LanguageBlock
           keyword={"Marathi"}
-          source={require("../../../public/Marathi.png")}
+          source={require("../../../assets/images/Marathi.png")}
           {...props}
         />
       </View>
       <View style={styles.doubleLanguageBlock}>
         <LanguageBlock
           keyword={"Tamil"}
-          source={require("../../../public/Tamil.png")}
+          source={require("../../../assets/images/Tamil.png")}
           {...props}
         />
         <LanguageBlock
           keyword={"Malayalam"}
-          source={require("../../../public/Malayalam.png")}
+          source={require("../../../assets/images/Malayalam.png")}
           {...props}
         />
       </View>

@@ -14,7 +14,7 @@ export const StreamingOn = ({
       {isNetflix() && (
         <Pressable onPress={gotoHomepage}>
           <Image
-            source={require("../../../public/Netflix.png")}
+            source={require("../../../assets/images/Netflix.png")}
             style={styles.netflix}
           />
         </Pressable>
@@ -22,7 +22,7 @@ export const StreamingOn = ({
       {isDisneyPlus() && (
         <Pressable onPress={gotoHomepage}>
           <Image
-            source={require("../../../public/Disney.jpg")}
+            source={require("../../../assets/images/Disney.jpg")}
             style={styles.disney}
           />
         </Pressable>
@@ -30,7 +30,7 @@ export const StreamingOn = ({
       {isPrimeVideo() && (
         <Pressable onPress={gotoHomepage}>
           <Image
-            source={require("../../../public/Prime.png")}
+            source={require("../../../assets/images/Prime.png")}
             style={styles.prime}
           />
         </Pressable>

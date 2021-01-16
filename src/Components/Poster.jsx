@@ -8,7 +8,7 @@ export const Poster = ({ posterPath, onClick }) => {
       <Image
         source={{ uri: `https://image.tmdb.org/t/p/original${posterPath}` }}
         style={styles.poster}
-        defaultSource={require("../../public/fallback.jpg")}
+        defaultSource={require("../../assets/images/fallback.jpg")}
       />
     </Pressable>
   );
