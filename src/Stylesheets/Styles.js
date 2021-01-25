@@ -71,8 +71,63 @@ export const menuStyles = StyleSheet.create({
   },
   referenceBlock: {
     width: deviceWidth,
-    height: menuHeight * 0.25,
+    height: menuHeight * 0.2,
     backgroundColor: "#1d1d1d",
+  },
+  button: {
+    width: deviceWidth,
+    height: menuHeight * 0.1,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  usButton:{
+    width: deviceWidth * .45,
+    height: menuHeight * 0.1,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor:"#1d1d1d",
+    borderRadius: 32
+  },
+  usBlock:{
+    width: deviceWidth,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    marginTop: 4
+  },
+  usButtonText:{
+    fontSize: 18,
+    color: "#ffefd5",
+    fontFamily:"Avenir-Regular",
+  },
+  buttonText: {
+    fontSize: 18,
+    color: "#ffefd5",
+    marginLeft: 15,
+    fontFamily:"Avenir-Regular",
+  },
+  login: {
+    fontSize: 22,
+    fontFamily:"Avenir-Medium",
+    color: "#1e90ff",
+    marginLeft: 25,
+  },
+});
+
+export const legalJargonStyles = StyleSheet.create({
+  legalJargon: {
+    width: deviceWidth,
+    height: menuHeight,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginTop: 15,
   },
   button: {
     width: deviceWidth,
@@ -88,12 +143,16 @@ export const menuStyles = StyleSheet.create({
     marginLeft: 15,
     fontFamily:"Avenir-Regular",
   },
-  login: {
+  header:{
+    marginTop: 35,
+    marginLeft: 20,
+    width: deviceWidth,
+    height: (deviceHeight * 6) / 100,
+    backgroundColor: "rgba(29,29,29,0.3)",
     fontSize: 22,
-    fontFamily:"Avenir-Medium",
-    color: "#1e90ff",
-    marginLeft: 25,
-  },
+    color: "#ffefd5",
+    fontFamily: "Avenir-Medium"
+  }
 });
 
 export const nowPlayingStyles = StyleSheet.create({

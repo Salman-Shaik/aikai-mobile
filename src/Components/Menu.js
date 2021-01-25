@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {LinearGradient} from "expo-linear-gradient";
 import React, {useEffect, useState} from "react";
-import {Image, Text, TouchableOpacity, View} from "react-native";
+import {Image, Text, TouchableOpacity, View,Linking} from "react-native";
 import {fetchUserFullName} from "../lib/fetches";
 import {menuStyles as styles} from "../Stylesheets/Styles";
 
@@ -27,7 +27,7 @@ export const Menu = ({isUserLoggedIn, updateLocation, setIsUserLoggedIn}) => {
   const onUpdatePassword = () => updateLocation("ChangePassword");
   const onWatchHistory = () => updateLocation("WatchHistory");
   const onSubscription = () => updateLocation("Subscription");
-
+  const onLegalJargon = () => updateLocation("LegalJargon");
   return (
     <View style={styles.menu}>
       <View style={styles.profileBlock}>
@@ -57,7 +57,6 @@ export const Menu = ({isUserLoggedIn, updateLocation, setIsUserLoggedIn}) => {
           </Text>
         )}
       </View>
-      <View style={styles.referenceBlock}></View>
       <TouchableOpacity
         style={styles.button}
         disabled={!isUserLoggedIn}
@@ -94,6 +93,15 @@ export const Menu = ({isUserLoggedIn, updateLocation, setIsUserLoggedIn}) => {
           Update Password
         </Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        disabled={!isUserLoggedIn}
+        onPress={onUpdatePassword}
+      >
+        <Text style={styles.buttonText} onPress={onLegalJargon}>
+          Legal Jargon
+        </Text>
+      </TouchableOpacity>
       {isUserLoggedIn && (
         <TouchableOpacity style={styles.button} onPress={onLogout}>
           <Text style={styles.buttonText} onPress={onLogout}>
@@ -101,6 +109,18 @@ export const Menu = ({isUserLoggedIn, updateLocation, setIsUserLoggedIn}) => {
           </Text>
         </TouchableOpacity>
       )}
+      <View style={styles.usBlock}>
+        <TouchableOpacity style={styles.usButton} onPress={()=>{}}>
+          <Text style={styles.usButtonText} onPress={()=>{}}>
+            About Us
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.usButton} onPress={()=>{Linking.openURL("mailto:lightmasters.aikai@gmail.com")}}>
+          <Text style={styles.usButtonText} onPress={()=>{Linking.openURL("mailto:lightmasters.aikai@gmail.com")}}>
+            Contact Us
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
