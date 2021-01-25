@@ -1,4 +1,4 @@
-package com.aikaimobile;
+package co.aikai;
 
 import android.os.Bundle;
 

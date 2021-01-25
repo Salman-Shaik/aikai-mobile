@@ -9,7 +9,10 @@
       "**/*"
     ],
     "android": {
-      "package": "org.duh"
+      "package": "co.aikai"
+    },
+    "ios": {
+      "bundleIdentifier": "co.aikai"
     }
   }
 }

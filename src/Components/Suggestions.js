@@ -1,4 +1,3 @@
-import {useFonts} from "expo-font";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { RefreshControl, Text, View } from "react-native";
