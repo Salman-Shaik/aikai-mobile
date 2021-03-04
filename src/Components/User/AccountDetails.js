@@ -17,7 +17,7 @@ import { LanguagesSection } from "./LanguagesSection";
 import { accountDetailsStyles as styles } from "../../Stylesheets/Styles";
 
 import base64 from "base-64";
-import {UserAvatars} from "./UserAvatars";
+import { UserAvatars } from "./UserAvatars";
 
 export const AccountDetails = ({ updateLocation }) => {
   const [name, updateName] = useState("");
@@ -170,7 +170,7 @@ export const AccountDetails = ({ updateLocation }) => {
             blurOnSubmit
           />
         </View>
-        <UserAvatars editFlag={edit}/>
+        <UserAvatars editFlag={edit} />
         <LanguagesSection
           isSelected={isSelected}
           updateLanguages={updateLanguages}

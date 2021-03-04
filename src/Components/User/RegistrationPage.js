@@ -14,7 +14,7 @@ import {
 import { registerUser } from "../../lib/fetches";
 import { LanguagesSection } from "./LanguagesSection";
 import { registrationPageStyles as styles } from "../../Stylesheets/Styles";
-import {UserAvatars} from "./UserAvatars";
+import { UserAvatars } from "./UserAvatars";
 
 export const RegistrationPage = ({ updateLocation }) => {
   const [name, updateName] = useState("");
@@ -172,7 +172,7 @@ export const RegistrationPage = ({ updateLocation }) => {
             blurOnSubmit
           />
         </View>
-        <UserAvatars editFlag={true}/>
+        <UserAvatars editFlag={true} />
         <LanguagesSection
           isSelected={isSelected}
           updateLanguages={updateLanguages}

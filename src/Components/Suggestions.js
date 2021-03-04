@@ -6,7 +6,6 @@ import { fetchImageFromShow } from "../lib/fetches";
 import { Poster } from "./Poster";
 import { suggestionsStyles as styles } from "../Stylesheets/Styles";
 
-
 const wait = (timeout) =>
   new Promise((resolve) => setTimeout(resolve, timeout));
 
@@ -43,7 +42,6 @@ export const Suggestions = ({
   setCurrentShowType,
   updateLocation,
 }) => {
-
   const getFromList = (list) => {
     return _.shuffle(_.shuffle(list)).slice(0, 10);
   };
@@ -97,4 +95,4 @@ export const Suggestions = ({
       )}
     </View>
   );
-}
+};

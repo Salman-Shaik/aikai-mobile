@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
 import { Favorites } from "./Favorites";
-import {LegalJargon} from "./LegalJargon";
+import { LegalJargon } from "./LegalJargon";
 import { Menu } from "./Menu";
 import { NowPlaying } from "./NowPlaying";
 import { SearchPage } from "./SearchPage";
@@ -125,12 +125,6 @@ export const Main = ({
           isUserLoggedIn={isUserLoggedIn}
         />
       )}
-      {isCurrentScreen("Subscription") && (
-        <Subscription
-          updateLocation={updateLocation}
-          isUserLoggedIn={isUserLoggedIn}
-        />
-      )}
       {isCurrentScreen("WatchHistory") && (
         <WatchHistory
           updateLocation={updateLocation}
@@ -144,9 +138,7 @@ export const Main = ({
           updateLocation={updateLocation}
         />
       )}
-      {isCurrentScreen("LegalJargon") && (
-        <LegalJargon/>
-      )}
+      {isCurrentScreen("LegalJargon") && <LegalJargon />}
       {isCurrentScreen("Menu") && (
         <Menu
           isUserLoggedIn={isUserLoggedIn}

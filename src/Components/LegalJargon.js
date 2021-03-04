@@ -1,6 +1,6 @@
 import React from "react";
-import {Linking, Text, TouchableOpacity, View} from "react-native";
-import {legalJargonStyles as styles} from "../Stylesheets/Styles";
+import { Linking, Text, TouchableOpacity, View } from "react-native";
+import { legalJargonStyles as styles } from "../Stylesheets/Styles";
 
 export const LegalJargon = () => {
   const onPrivacyPolicy = () => {
@@ -12,31 +12,24 @@ export const LegalJargon = () => {
       }
     });
   };
-  return <View style={styles.legalJargon}>
-    <Text style={styles.header}>Legal Jargon</Text>
-    <TouchableOpacity
-      style={styles.button}
-      onPress={onPrivacyPolicy}
-    >
-      <Text style={styles.buttonText} onPress={onPrivacyPolicy}>
-        Privacy Policy
-      </Text>
-    </TouchableOpacity>
-    <TouchableOpacity
-      style={styles.button}
-      onPress={onPrivacyPolicy}
-    >
-      <Text style={styles.buttonText} onPress={onPrivacyPolicy}>
-        Terms and Conditions
-      </Text>
-    </TouchableOpacity>
-    <TouchableOpacity
-      style={styles.button}
-      onPress={onPrivacyPolicy}
-    >
-      <Text style={styles.buttonText} onPress={onPrivacyPolicy}>
-        Refund Policy
-      </Text>
-    </TouchableOpacity>
-  </View>
-}
+  return (
+    <View style={styles.legalJargon}>
+      <Text style={styles.header}>Legal Jargon</Text>
+      <TouchableOpacity style={styles.button} onPress={onPrivacyPolicy}>
+        <Text style={styles.buttonText} onPress={onPrivacyPolicy}>
+          Privacy Policy
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={onPrivacyPolicy}>
+        <Text style={styles.buttonText} onPress={onPrivacyPolicy}>
+          Terms and Conditions
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={onPrivacyPolicy}>
+        <Text style={styles.buttonText} onPress={onPrivacyPolicy}>
+          Refund Policy
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
