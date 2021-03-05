@@ -1,13 +1,11 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
-import { RefreshControl, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { list } from "../data/editorsChoice.json";
 import { fetchImageFromShow } from "../lib/fetches";
+import { Spinner } from "./Misc/Spinner/Spinner";
 import { Poster } from "./Poster";
 import { suggestionsStyles as styles } from "../Stylesheets/Styles";
-
-const wait = (timeout) =>
-  new Promise((resolve) => setTimeout(resolve, timeout));
 
 const createSectionedPosters = (
   shows,
@@ -46,7 +44,7 @@ export const Suggestions = ({
     return _.shuffle(_.shuffle(list)).slice(0, 10);
   };
   const [shows, setShows] = useState([]);
-  const [refreshing, setRefreshing] = useState(true);
+  const [loaded, setLoaded] = useState(false);
 
   const appendShows = (show) => {
     const paths = shows;
@@ -58,17 +56,9 @@ export const Suggestions = ({
     const suggestions = getFromList(list);
     const infoMap = suggestions.map(({ id, type }) => ({ id, type }));
     infoMap.forEach(({ id, type }, index) => {
-      fetchImageFromShow(id, type, index, appendShows, setRefreshing);
+      fetchImageFromShow(id, type, index, appendShows, setLoaded);
     });
   };
-
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    wait(2000).then(() => {
-      setShows([]);
-      updateSuggestions();
-    });
-  }, []);
 
   useEffect(() => {
     setShows([]);
@@ -76,14 +66,11 @@ export const Suggestions = ({
   }, []);
 
   return (
-    <View
-      style={styles.suggestions}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    >
+    <View style={styles.suggestions}>
       <Text style={styles.header}>Suggestions</Text>
-      {!refreshing && (
+      {!loaded ? (
+        <Spinner loaded={loaded} />
+      ) : (
         <View style={styles.suggestedShows}>
           {createSectionedPosters(
             shows,

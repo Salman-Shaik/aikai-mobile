@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { ImageBackground, Pressable, ScrollView, View } from "react-native";
 import { fetchFavorites, removeFavorite } from "../lib/fetches";
 import { favoritesStyles as styles } from "../Stylesheets/Styles";
+import { Spinner } from "./Misc/Spinner/Spinner";
 
 const Poster = ({ id, imagePath, onDislike }) => {
   return (
@@ -22,6 +23,7 @@ const Poster = ({ id, imagePath, onDislike }) => {
 
 export const Favorites = ({ updateLocation, isUserLoggedIn }) => {
   const [favorites, setFavorites] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   const onDislike = (id) => {
     setFavorites([]);
@@ -54,7 +56,7 @@ export const Favorites = ({ updateLocation, isUserLoggedIn }) => {
 
   useEffect(() => {
     if (isUserLoggedIn) {
-      fetchFavorites(setFavorites);
+      fetchFavorites(setFavorites, setLoaded);
     } else {
       updateLocation("Login");
     }
@@ -62,7 +64,7 @@ export const Favorites = ({ updateLocation, isUserLoggedIn }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.favorites}>
-      {createSectionedPosters(favorites)}
+      {!loaded ? <Spinner /> : createSectionedPosters(favorites)}
     </ScrollView>
   );
 };

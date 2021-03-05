@@ -3,6 +3,8 @@ import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { fetchAiringTVShows, fetchPlayingMovies } from "../lib/fetches";
 
 import { nowPlayingStyles as styles } from "../Stylesheets/Styles";
+import { Spinner } from "./Misc/Spinner/Spinner";
+
 const createPosters = (
   shows,
   type,
@@ -62,34 +64,41 @@ export const NowPlaying = ({
 }) => {
   const [playingMovies, setPlayingMovies] = useState([]);
   const [airingShows, setAiringShows] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     fetchPlayingMovies(setPlayingMovies);
-    fetchAiringTVShows(setAiringShows);
+    fetchAiringTVShows(setAiringShows, setLoaded);
   }, []);
 
   return (
     <View style={styles.nowPlaying}>
-      <>
-        <Text style={styles.headingText}>Now Playing - Movies</Text>
-        <CurrentShows
-          shows={playingMovies}
-          type="movie"
-          setCurrentShowId={setCurrentShowId}
-          setCurrentShowType={setCurrentShowType}
-          updateLocation={updateLocation}
-        />
-      </>
-      <>
-        <Text style={styles.headingText}>Now Airing - TV Shows</Text>
-        <CurrentShows
-          shows={airingShows}
-          type="tv"
-          setCurrentShowId={setCurrentShowId}
-          setCurrentShowType={setCurrentShowType}
-          updateLocation={updateLocation}
-        />
-      </>
+      {!loaded ? (
+        <Spinner />
+      ) : (
+        <>
+          <>
+            <Text style={styles.headingText}>Now Playing - Movies</Text>
+            <CurrentShows
+              shows={playingMovies}
+              type="movie"
+              setCurrentShowId={setCurrentShowId}
+              setCurrentShowType={setCurrentShowType}
+              updateLocation={updateLocation}
+            />
+          </>
+          <>
+            <Text style={styles.headingText}>Now Airing - TV Shows</Text>
+            <CurrentShows
+              shows={airingShows}
+              type="tv"
+              setCurrentShowId={setCurrentShowId}
+              setCurrentShowType={setCurrentShowType}
+              updateLocation={updateLocation}
+            />
+          </>
+        </>
+      )}
     </View>
   );
 };

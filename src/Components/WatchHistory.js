@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 import { fetchWatchHistory } from "../lib/fetches";
 import { watchHistoryStyles as styles } from "../Stylesheets/Styles";
+import { Spinner } from "./Misc/Spinner/Spinner";
 
 const Poster = ({ id, imagePath }) => {
   return (
@@ -16,6 +17,7 @@ const Poster = ({ id, imagePath }) => {
 
 export const WatchHistory = ({ updateLocation, isUserLoggedIn }) => {
   const [watchedList, updateWatchedList] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   const createSectionedPosters = (results) => {
     const mapOfImages = results.map((r) => {
@@ -36,7 +38,7 @@ export const WatchHistory = ({ updateLocation, isUserLoggedIn }) => {
 
   useEffect(() => {
     if (isUserLoggedIn) {
-      fetchWatchHistory(updateWatchedList);
+      fetchWatchHistory(updateWatchedList, setLoaded);
     } else {
       updateLocation("Login");
     }
@@ -44,10 +46,16 @@ export const WatchHistory = ({ updateLocation, isUserLoggedIn }) => {
 
   return (
     <View style={styles.watchHistory}>
-      <Text style={styles.header}>Watch History</Text>
-      <ScrollView contentContainerStyle={styles.watchlistSections}>
-        {createSectionedPosters(watchedList)}
-      </ScrollView>
+      {!loaded ? (
+        <Spinner />
+      ) : (
+        <>
+          <Text style={styles.header}>Watch History</Text>
+          <ScrollView contentContainerStyle={styles.watchlistSections}>
+            {createSectionedPosters(watchedList)}
+          </ScrollView>
+        </>
+      )}
     </View>
   );
 };

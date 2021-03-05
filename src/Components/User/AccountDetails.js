@@ -1,4 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import base64 from "base-64";
 import { LinearGradient } from "expo-linear-gradient";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
@@ -13,10 +15,9 @@ import {
   View,
 } from "react-native";
 import { fetchDetails, updateUser } from "../../lib/fetches";
-import { LanguagesSection } from "./LanguagesSection";
 import { accountDetailsStyles as styles } from "../../Stylesheets/Styles";
-
-import base64 from "base-64";
+import { Spinner } from "../Misc/Spinner/Spinner";
+import { LanguagesSection } from "./LanguagesSection";
 import { UserAvatars } from "./UserAvatars";
 
 export const AccountDetails = ({ updateLocation }) => {
@@ -28,12 +29,19 @@ export const AccountDetails = ({ updateLocation }) => {
   const [edit, setEdit] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     AsyncStorage.getItem("user-key").then((value) => {
       updateUserName(base64.decode(value));
     });
-    fetchDetails(updateName, updateAge, setExplicitFlag, setLanguages);
+    fetchDetails(
+      updateName,
+      updateAge,
+      setExplicitFlag,
+      setLanguages,
+      setLoaded
+    );
   }, []);
 
   const isCredentialsValid = () => {
@@ -92,100 +100,104 @@ export const AccountDetails = ({ updateLocation }) => {
 
   return (
     <KeyboardAvoidingView style={styles.accountDetails}>
-      <ScrollView contentContainerStyle={styles.accountDetailsPage}>
-        <Text style={styles.header}>Account Details</Text>
-        <View style={styles.editFlag}>
-          <Text style={styles.explicitLabel}>Edit: </Text>
-          <Switch
-            trackColor={{ false: "#ffefd5", true: "#ffefd5" }}
-            thumbColor={edit ? "#4CE990" : "#5b5a5a"}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={(value) => setEdit(value)}
-            value={edit}
-            style={styles.switch}
-          />
-        </View>
-        <View style={styles.userInput}>
-          <Text style={!error ? styles.label : styles.errorLabel}>
-            Full Name
-          </Text>
-          <TextInput
-            value={name}
-            editable={edit}
-            style={
-              !error
-                ? !success
-                  ? styles.credentials
-                  : styles.successCredentials
-                : styles.errorCredentials
-            }
-            onChangeText={onNameChange}
-            blurOnSubmit
-          />
-        </View>
-        <View style={styles.ageAndFlag}>
-          <View style={styles.ageInput}>
-            <Text style={!error ? styles.ageLabel : styles.ageErrorLabel}>
-              Age
-            </Text>
-            <TextInput
-              editable={edit}
-              value={age}
-              style={
-                !error
-                  ? !success
-                    ? styles.age
-                    : styles.successAge
-                  : styles.errorAge
-              }
-              onChangeText={onAgeChange}
-              blurOnSubmit
-            />
-          </View>
-          <View style={styles.explicitFlag}>
-            <Text style={styles.explicitLabel}>Explicit Content</Text>
+      {!loaded ? (
+        <Spinner />
+      ) : (
+        <ScrollView contentContainerStyle={styles.accountDetailsPage}>
+          <Text style={styles.header}>Account Details</Text>
+          <View style={styles.editFlag}>
+            <Text style={styles.explicitLabel}>Edit: </Text>
             <Switch
-              disabled={!edit || age < 18}
               trackColor={{ false: "#ffefd5", true: "#ffefd5" }}
-              thumbColor={explicitFlag ? "#4CE990" : "#5b5a5a"}
+              thumbColor={edit ? "#4CE990" : "#5b5a5a"}
               ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={explicitFlag}
+              onValueChange={(value) => setEdit(value)}
+              value={edit}
               style={styles.switch}
             />
           </View>
-        </View>
-        <View style={styles.userInput}>
-          <Text style={!error ? styles.label : styles.errorLabel}>Email</Text>
-          <TextInput
-            editable={false}
-            value={username}
-            style={
-              !error
-                ? !success
-                  ? styles.credentials
-                  : styles.successCredentials
-                : styles.errorCredentials
-            }
-            blurOnSubmit
+          <View style={styles.userInput}>
+            <Text style={!error ? styles.label : styles.errorLabel}>
+              Full Name
+            </Text>
+            <TextInput
+              value={name}
+              editable={edit}
+              style={
+                !error
+                  ? !success
+                    ? styles.credentials
+                    : styles.successCredentials
+                  : styles.errorCredentials
+              }
+              onChangeText={onNameChange}
+              blurOnSubmit
+            />
+          </View>
+          <View style={styles.ageAndFlag}>
+            <View style={styles.ageInput}>
+              <Text style={!error ? styles.ageLabel : styles.ageErrorLabel}>
+                Age
+              </Text>
+              <TextInput
+                editable={edit}
+                value={age}
+                style={
+                  !error
+                    ? !success
+                      ? styles.age
+                      : styles.successAge
+                    : styles.errorAge
+                }
+                onChangeText={onAgeChange}
+                blurOnSubmit
+              />
+            </View>
+            <View style={styles.explicitFlag}>
+              <Text style={styles.explicitLabel}>Explicit Content</Text>
+              <Switch
+                disabled={!edit || age < 18}
+                trackColor={{ false: "#ffefd5", true: "#ffefd5" }}
+                thumbColor={explicitFlag ? "#4CE990" : "#5b5a5a"}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={toggleSwitch}
+                value={explicitFlag}
+                style={styles.switch}
+              />
+            </View>
+          </View>
+          <View style={styles.userInput}>
+            <Text style={!error ? styles.label : styles.errorLabel}>Email</Text>
+            <TextInput
+              editable={false}
+              value={username}
+              style={
+                !error
+                  ? !success
+                    ? styles.credentials
+                    : styles.successCredentials
+                  : styles.errorCredentials
+              }
+              blurOnSubmit
+            />
+          </View>
+          <UserAvatars editFlag={edit} />
+          <LanguagesSection
+            isSelected={isSelected}
+            updateLanguages={updateLanguages}
+            editFlag={edit}
           />
-        </View>
-        <UserAvatars editFlag={edit} />
-        <LanguagesSection
-          isSelected={isSelected}
-          updateLanguages={updateLanguages}
-          editFlag={edit}
-        />
-        <LinearGradient
-          colors={["#f9e866", "#fada51", "#fbcc3b", "#fdbe23", "#ffae00"]}
-          style={styles.updateButton}
-        >
-          <TouchableOpacity onPress={onUpdate}>
-            <Text style={styles.updateText}>Update</Text>
-          </TouchableOpacity>
-        </LinearGradient>
-        <Text>A.I.K.A.I</Text>
-      </ScrollView>
+          <LinearGradient
+            colors={["#f9e866", "#fada51", "#fbcc3b", "#fdbe23", "#ffae00"]}
+            style={styles.updateButton}
+          >
+            <TouchableOpacity onPress={onUpdate}>
+              <Text style={styles.updateText}>Update</Text>
+            </TouchableOpacity>
+          </LinearGradient>
+          <Text>A.I.K.A.I</Text>
+        </ScrollView>
+      )}
     </KeyboardAvoidingView>
   );
 };

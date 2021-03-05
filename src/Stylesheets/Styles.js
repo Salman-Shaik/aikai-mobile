@@ -1452,3 +1452,10 @@ export const subscriptionStyles = StyleSheet.create({
     fontFamily: "Avenir-Medium",
   },
 });
+
+export const loaderStyles = StyleSheet.create({
+  loader: {
+    width: 200,
+    height: 200,
+  },
+});

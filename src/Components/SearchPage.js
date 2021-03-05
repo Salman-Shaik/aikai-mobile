@@ -11,6 +11,7 @@ import {
 import { searchShow } from "../lib/fetches";
 
 import { searchPageStyles as styles } from "../Stylesheets/Styles";
+import { Spinner } from "./Misc/Spinner/Spinner";
 
 const createSectionedPosters = (results, setCurrentShowId, updateLocation) => {
   const mapOfImages = results.map((r) => {
@@ -53,6 +54,7 @@ export const SearchPage = ({
   const [searchQuery, setSearchQuery] = useState("Search...");
   const [movieResults, setMovieResults] = useState([]);
   const [tvResults, setTvResults] = useState([]);
+  const [loaded, setLoaded] = useState(true);
 
   const onChange = (text) => {
     const placeholder = "Search...";
@@ -65,8 +67,15 @@ export const SearchPage = ({
 
   const onSearch = () => {
     if (!searchQuery.includes("Search...")) {
+      setLoaded(false);
       searchShow(setMovieResults, searchQuery, "movie", setCurrentShowType);
-      searchShow(setTvResults, searchQuery, "tv", setCurrentShowType);
+      searchShow(
+        setTvResults,
+        searchQuery,
+        "tv",
+        setCurrentShowType,
+        setLoaded
+      );
     }
   };
 
@@ -104,9 +113,13 @@ export const SearchPage = ({
           enablesReturnKeyAutomatically
         />
       </View>
-      <View style={styles.searchResults}>
-        {createSectionedPosters(results, setCurrentShowId, updateLocation)}
-      </View>
+      {!loaded ? (
+        <Spinner />
+      ) : (
+        <View style={styles.searchResults}>
+          {createSectionedPosters(results, setCurrentShowId, updateLocation)}
+        </View>
+      )}
     </KeyboardAvoidingView>
   );
 };

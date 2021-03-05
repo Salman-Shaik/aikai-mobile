@@ -14,6 +14,7 @@ import {
   setWatched,
 } from "../lib/fetches";
 import { watchListStyles as styles } from "../Stylesheets/Styles";
+import { Spinner } from "./Misc/Spinner/Spinner";
 
 const Poster = ({ id, imagePath, onRemove, onWatched }) => {
   return (
@@ -49,6 +50,7 @@ const Poster = ({ id, imagePath, onRemove, onWatched }) => {
 
 export const WatchList = ({ updateLocation, isUserLoggedIn }) => {
   const [watchList, setWatchList] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   const onRemove = (id) => {
     setWatchList([]);
@@ -87,7 +89,7 @@ export const WatchList = ({ updateLocation, isUserLoggedIn }) => {
 
   useEffect(() => {
     if (isUserLoggedIn) {
-      fetchWatchList(setWatchList);
+      fetchWatchList(setWatchList, setLoaded);
     } else {
       updateLocation("Login");
     }
@@ -95,10 +97,16 @@ export const WatchList = ({ updateLocation, isUserLoggedIn }) => {
 
   return (
     <View style={styles.watchlist}>
-      <Text style={styles.header}>WatchList</Text>
-      <ScrollView contentContainerStyle={styles.watchlistSections}>
-        {createSectionedPosters(watchList)}
-      </ScrollView>
+      {!loaded ? (
+        <Spinner />
+      ) : (
+        <>
+          <Text style={styles.header}>WatchList</Text>
+          <ScrollView contentContainerStyle={styles.watchlistSections}>
+            {createSectionedPosters(watchList)}
+          </ScrollView>
+        </>
+      )}
     </View>
   );
 };

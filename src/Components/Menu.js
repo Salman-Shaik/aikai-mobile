@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useState } from "react";
-import { Image, Text, TouchableOpacity, View, Linking } from "react-native";
+import { Image, Linking, Text, TouchableOpacity, View } from "react-native";
 import { fetchUserFullName } from "../lib/fetches";
 import { menuStyles as styles } from "../Stylesheets/Styles";
 
@@ -28,7 +28,7 @@ export const Menu = ({ isUserLoggedIn, updateLocation, setIsUserLoggedIn }) => {
   const onWatchHistory = () => updateLocation("WatchHistory");
   const onLegalJargon = () => updateLocation("LegalJargon");
 
-  const MenuButton = ({ disabled, onPress, Text }) => {
+  const MenuButton = ({ disabled, onPress, text }) => {
     return (
       <TouchableOpacity
         style={styles.button}
@@ -36,10 +36,14 @@ export const Menu = ({ isUserLoggedIn, updateLocation, setIsUserLoggedIn }) => {
         onPress={onPress}
       >
         <Text style={styles.buttonText} onPress={onPress}>
-          {Text}
+          {text}
         </Text>
       </TouchableOpacity>
     );
+  };
+
+  const Avatar = ({ source }) => {
+    return <Image source={source} style={styles.avatarImage} />;
   };
 
   return (
@@ -52,39 +56,29 @@ export const Menu = ({ isUserLoggedIn, updateLocation, setIsUserLoggedIn }) => {
           {isUserLoggedIn ? (
             <>
               {selectedAvatar === "Man-guy" && (
-                <Image
-                  source={require("../../assets/images/Man-guy.png")}
-                  style={styles.avatarImage}
-                />
+                <Avatar source={require("../../assets/images/Man-guy.png")} />
               )}
               {selectedAvatar === "Man-beard" && (
-                <Image
-                  source={require("../../assets/images/Man-beard.png")}
-                  style={styles.avatarImage}
-                />
+                <Avatar source={require("../../assets/images/Man-beard.png")} />
               )}
               {selectedAvatar === "Man-Moustache" && (
-                <Image
+                <Avatar
                   source={require("../../assets/images/Man-Moustache.png")}
-                  style={styles.avatarImage}
                 />
               )}
               {selectedAvatar === "Female-hairbun" && (
-                <Image
+                <Avatar
                   source={require("../../assets/images/Female-hairbun.png")}
-                  style={styles.avatarImage}
                 />
               )}
               {selectedAvatar === "Female-shorthair" && (
-                <Image
+                <Avatar
                   source={require("../../assets/images/Female-shorthair.png")}
-                  style={styles.avatarImage}
                 />
               )}
               {selectedAvatar === "Female-longhair" && (
-                <Image
+                <Avatar
                   source={require("../../assets/images/Female-longhair.png")}
-                  style={styles.avatarImage}
                 />
               )}
             </>
@@ -103,25 +97,25 @@ export const Menu = ({ isUserLoggedIn, updateLocation, setIsUserLoggedIn }) => {
       <MenuButton
         disabled={!isUserLoggedIn}
         onPress={onWatchHistory}
-        Text="Watch History"
+        text="Watch History"
       />
       <MenuButton
         disabled={!isUserLoggedIn}
         onPress={onAccount}
-        Text="Account"
+        text="Account"
       />
       <MenuButton
         disabled={!isUserLoggedIn}
         onPress={onUpdatePassword}
-        Text="Update Password"
+        text="Update Password"
       />
       <MenuButton
         disabled={false}
         onPress={onLegalJargon}
-        Text="Legal Jargon"
+        text="Legal Jargon"
       />
       {isUserLoggedIn && (
-        <MenuButton disabled={false} onPress={onLogout} Text="Logout" />
+        <MenuButton disabled={false} onPress={onLogout} text="Logout" />
       )}
       <View style={styles.usBlock}>
         <TouchableOpacity style={styles.usButton} onPress={() => {}}>

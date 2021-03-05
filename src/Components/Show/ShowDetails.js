@@ -11,6 +11,7 @@ import {
 import { genres } from "../../data/genres.json";
 import { fetchOtherShow } from "../../lib/fetches";
 import AnimatedCircularProgress from "../Misc/AnimatedCircularProgress";
+import { Spinner } from "../Misc/Spinner/Spinner";
 import { StreamingOn } from "./StreamingOn";
 import { UserShowActions } from "./UserShowActions";
 import { showDetailsStyles as styles } from "../../Stylesheets/Styles";
@@ -82,10 +83,11 @@ export const ShowDetails = ({
 
   const [recommendations, setRecommendations] = useState([]);
   const [similar, setSimilar] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     fetchOtherShow(type, id, "recommendations", setRecommendations);
-    fetchOtherShow(type, id, "similar", setSimilar);
+    fetchOtherShow(type, id, "similar", setSimilar, setLoaded);
   }, []);
 
   const isNetflix = () =>
@@ -109,75 +111,83 @@ export const ShowDetails = ({
 
   return (
     <ScrollView contentContainerStyle={styles.showDetails}>
-      <View style={styles.firstBlock}>
-        <Image
-          defaultSource={require("../../../assets/images/fallback.jpg")}
-          source={{ uri: `https://image.tmdb.org/t/p/original${imagePath}` }}
-          key={id}
-          style={styles.poster}
-        />
-      </View>
-      <Text style={styles.title}>{`${title} (${year})`}</Text>
-      <UserShowActions id={id} title={title} posterPath={imagePath} />
-      <View style={styles.ratingAndMisc}>
-        <AnimatedCircularProgress
-          size={70}
-          width={6}
-          fill={rating * 10}
-          tintColor="#f85149"
-          duration={1000}
-          rotation={0}
-          lineCap={"round"}
-          padding={5}
-          backgroundColor="#8c1844"
-        >
-          {() => <Text style={styles.rating}>{`${rating * 10}%`}</Text>}
-        </AnimatedCircularProgress>
-        <View style={styles.languageAndGenre}>
-          <Text
-            style={styles.language}
-          >{`Language :  ${language.toUpperCase()}`}</Text>
-          <Text style={styles.genre}>{genre}</Text>
-        </View>
-      </View>
-      <View style={styles.secondBlock}>
-        <Text style={styles.overviewHeader}>Overview</Text>
-        <Text style={styles.description}>{description}</Text>
-        {(isNetflix() || isPrimeVideo() || isDisneyPlus()) && (
-          <StreamingOn
-            isNetflix={isNetflix}
-            isDisneyPlus={isDisneyPlus}
-            isPrimeVideo={isPrimeVideo}
-            gotoHomepage={gotoHomepage}
-          />
-        )}
-        <View style={styles.extras}>
-          <Text style={styles.overviewHeader}>Recommendations</Text>
-          <View style={styles.recommendations}>
-            {!_.isEmpty(recommendations) &&
-              createExtras(
-                recommendations,
-                setCurrentShowId,
-                setCurrentShowType,
-                updateLocation,
-                type
-              )}
+      {!loaded ? (
+        <Spinner />
+      ) : (
+        <>
+          <View style={styles.firstBlock}>
+            <Image
+              defaultSource={require("../../../assets/images/fallback.jpg")}
+              source={{
+                uri: `https://image.tmdb.org/t/p/original${imagePath}`,
+              }}
+              key={id}
+              style={styles.poster}
+            />
           </View>
-        </View>
-        <View style={styles.extras}>
-          <Text style={styles.overviewHeader}>Similar</Text>
-          <View style={styles.similar}>
-            {!_.isEmpty(similar) &&
-              createExtras(
-                similar,
-                setCurrentShowId,
-                setCurrentShowType,
-                updateLocation,
-                type
-              )}
+          <Text style={styles.title}>{`${title} (${year})`}</Text>
+          <UserShowActions id={id} title={title} posterPath={imagePath} />
+          <View style={styles.ratingAndMisc}>
+            <AnimatedCircularProgress
+              size={70}
+              width={6}
+              fill={rating * 10}
+              tintColor="#f85149"
+              duration={1000}
+              rotation={0}
+              lineCap={"round"}
+              padding={5}
+              backgroundColor="#8c1844"
+            >
+              {() => <Text style={styles.rating}>{`${rating * 10}%`}</Text>}
+            </AnimatedCircularProgress>
+            <View style={styles.languageAndGenre}>
+              <Text
+                style={styles.language}
+              >{`Language :  ${language.toUpperCase()}`}</Text>
+              <Text style={styles.genre}>{genre}</Text>
+            </View>
           </View>
-        </View>
-      </View>
+          <View style={styles.secondBlock}>
+            <Text style={styles.overviewHeader}>Overview</Text>
+            <Text style={styles.description}>{description}</Text>
+            {(isNetflix() || isPrimeVideo() || isDisneyPlus()) && (
+              <StreamingOn
+                isNetflix={isNetflix}
+                isDisneyPlus={isDisneyPlus}
+                isPrimeVideo={isPrimeVideo}
+                gotoHomepage={gotoHomepage}
+              />
+            )}
+            <View style={styles.extras}>
+              <Text style={styles.overviewHeader}>Recommendations</Text>
+              <View style={styles.recommendations}>
+                {!_.isEmpty(recommendations) &&
+                  createExtras(
+                    recommendations,
+                    setCurrentShowId,
+                    setCurrentShowType,
+                    updateLocation,
+                    type
+                  )}
+              </View>
+            </View>
+            <View style={styles.extras}>
+              <Text style={styles.overviewHeader}>Similar</Text>
+              <View style={styles.similar}>
+                {!_.isEmpty(similar) &&
+                  createExtras(
+                    similar,
+                    setCurrentShowId,
+                    setCurrentShowType,
+                    updateLocation,
+                    type
+                  )}
+              </View>
+            </View>
+          </View>
+        </>
+      )}
     </ScrollView>
   );
 };

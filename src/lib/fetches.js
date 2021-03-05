@@ -12,8 +12,11 @@ const fetchShow = (id, type) => {
     .then((d) => JSON.parse(d));
 };
 
-export const fetchShowWith = (id, type, setter) => {
-  fetchShow(id, type).then((show) => setter(show));
+export const fetchShowWith = (id, type, setter, setLoaded) => {
+  fetchShow(id, type).then((show) => {
+    setter(show);
+    setLoaded(true);
+  });
 };
 
 const getRandomItem = (list) => {
@@ -21,32 +24,38 @@ const getRandomItem = (list) => {
   return shuffledArr[0];
 };
 
-export const fetchShowAnd = (setter, pageNumber, type) => {
+export const fetchShowAnd = (setter, pageNumber, type, setLoaded) => {
   const url = `${API_HOST}/${type}/top_rated?api_key=${TMDB_API_KEY}&language=en-IN&page=${pageNumber}`;
   fetch(url)
     .then((res) => res.text())
     .then((data) => JSON.parse(data).results)
     .then((res) => getRandomItem(res))
     .then((i) => {
-      console.log(i);
-      return setter(i);
+      setter(i);
+      setLoaded(true);
     })
     .catch((e) => new TypeError(e));
 };
 
-export const fetchImageFromShow = (id, type, index, setShow, setRefreshing) => {
+export const fetchImageFromShow = (id, type, index, setShow, setLoaded) => {
   fetchShow(id, type)
     .then((rj) => {
       const posterPath = rj["poster_path"];
       setShow({ id, type, posterPath });
       if (index === 9) {
-        setRefreshing(false);
+        setLoaded(true);
       }
     })
     .catch((e) => new TypeError(e));
 };
 
-export const searchShow = (setResults, query, type, setCurrentShowType) => {
+export const searchShow = (
+  setResults,
+  query,
+  type,
+  setCurrentShowType,
+  setLoaded
+) => {
   const url = `${API_HOST}/search/${type}?api_key=${TMDB_API_KEY}&query=${query}`;
   fetch(url)
     .then((r) => r.text())
@@ -59,6 +68,7 @@ export const searchShow = (setResults, query, type, setCurrentShowType) => {
         return t;
       });
       setResults(temp);
+      !!setLoaded && setLoaded(true);
     })
     .catch((e) => new TypeError(e));
 };
@@ -67,7 +77,8 @@ export const fetchOtherShow = (
   currentShowType,
   showId,
   keyword,
-  setOtherShows
+  setOtherShows,
+  setLoaded
 ) => {
   const url = `${API_HOST}/${currentShowType}/${showId}/${keyword}?api_key=${TMDB_API_KEY}&language=en-IN&page=1`;
   fetch(url)
@@ -80,6 +91,7 @@ export const fetchOtherShow = (
     .then((res) => res.slice(0, 3))
     .then((ff) => {
       setOtherShows(ff);
+      !!setLoaded && setLoaded(true);
     })
     .catch((e) => new TypeError(e));
 };
@@ -122,18 +134,19 @@ export const login = (
     .catch((e) => new TypeError(e));
 };
 
-export const fetchFavorites = (setFavorites) => {
+export const fetchFavorites = (setFavorites, setLoaded) => {
   AsyncStorage.getItem("user-key").then((value) => {
     fetch(`${USER_API}/favorites?user=${value}`)
       .then((res) => res.text())
       .then((data) => JSON.parse(data))
       .then((f) => {
         setFavorites(f);
+        setLoaded(true);
       });
   });
 };
 
-export const fetchWatchList = (setWatchList) => {
+export const fetchWatchList = (setWatchList, setLoaded) => {
   AsyncStorage.getItem("user-key").then((value) => {
     fetch(`${USER_API}/watchlist?user=${value}`)
       .then((res) => res.text())
@@ -141,11 +154,12 @@ export const fetchWatchList = (setWatchList) => {
       .then((w) => w.filter((s) => !s.watched))
       .then((w) => {
         setWatchList(w);
+        setLoaded(true);
       });
   });
 };
 
-export const fetchWatchHistory = (updateWatchedList) => {
+export const fetchWatchHistory = (updateWatchedList, setLoaded) => {
   AsyncStorage.getItem("user-key").then((value) => {
     fetch(`${USER_API}/watchlist?user=${value}`)
       .then((res) => res.text())
@@ -153,6 +167,7 @@ export const fetchWatchHistory = (updateWatchedList) => {
       .then((w) => w.filter((s) => !!s.watched))
       .then((w) => {
         updateWatchedList(w);
+        setLoaded(true);
       });
   });
 };
@@ -294,12 +309,15 @@ export const fetchPlayingMovies = (setPlayingMovies) => {
     .catch((e) => new TypeError(e));
 };
 
-export const fetchAiringTVShows = (setAiringTvShows) => {
+export const fetchAiringTVShows = (setAiringTvShows, setLoaded) => {
   const tvUrl = `${API_HOST}/tv/on_the_air?api_key=${TMDB_API_KEY}&language=en-IN`;
   fetch(tvUrl)
     .then((r) => r.text())
     .then((data) => JSON.parse(data))
-    .then((json) => airingShowsFilter(json, setAiringTvShows))
+    .then((json) => {
+      airingShowsFilter(json, setAiringTvShows);
+      setLoaded(true);
+    })
     .catch((e) => new TypeError(e));
 };
 
@@ -356,7 +374,8 @@ export const fetchDetails = (
   updateName,
   updateAge,
   setExplicitFlag,
-  setLanguages
+  setLanguages,
+  setLoaded
 ) => {
   AsyncStorage.getItem("user-key").then((value) => {
     fetch(`${USER_API}/user_details?user=${value}`)
@@ -368,6 +387,7 @@ export const fetchDetails = (
         setExplicitFlag(explicitFlag);
         setLanguages(languages);
         updateName(name);
+        setLoaded(true);
       })
       .catch((e) => new TypeError(e));
   });
