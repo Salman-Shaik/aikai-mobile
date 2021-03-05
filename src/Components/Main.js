@@ -8,7 +8,6 @@ import { NowPlaying } from "./NowPlaying";
 import { SearchPage } from "./SearchPage";
 import { RandomAndTopShow } from "./Show/RandomAndTopShow";
 import { Show } from "./Show/Show";
-import { Subscription } from "./User/Subscription";
 import { Suggestions } from "./Suggestions";
 import { AccountDetails } from "./User/AccountDetails";
 import { LoginPage } from "./User/LoginPage";
