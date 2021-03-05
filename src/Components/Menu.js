@@ -109,36 +109,36 @@ export const Menu = ({ isUserLoggedIn, updateLocation, setIsUserLoggedIn }) => {
         onPress={onUpdatePassword}
         text="Update Password"
       />
-      <MenuButton
-        disabled={false}
-        onPress={onLegalJargon}
-        text="Legal Jargon"
-      />
+      {/*<MenuButton*/}
+      {/*  disabled={false}*/}
+      {/*  onPress={onLegalJargon}*/}
+      {/*  text="Legal Jargon"*/}
+      {/*/>*/}
       {isUserLoggedIn && (
         <MenuButton disabled={false} onPress={onLogout} text="Logout" />
       )}
-      <View style={styles.usBlock}>
-        <TouchableOpacity style={styles.usButton} onPress={() => {}}>
-          <Text style={styles.usButtonText} onPress={() => {}}>
-            About Us
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.usButton}
-          onPress={() => {
-            Linking.openURL("mailto:lightmasters.aikai@gmail.com");
-          }}
-        >
-          <Text
-            style={styles.usButtonText}
-            onPress={() => {
-              Linking.openURL("mailto:lightmasters.aikai@gmail.com");
-            }}
-          >
-            Contact Us
-          </Text>
-        </TouchableOpacity>
-      </View>
+      {/*<View style={styles.usBlock}>*/}
+      {/*  <TouchableOpacity style={styles.usButton} onPress={() => {}}>*/}
+      {/*    <Text style={styles.usButtonText} onPress={() => {}}>*/}
+      {/*      About Us*/}
+      {/*    </Text>*/}
+      {/*  </TouchableOpacity>*/}
+      {/*  <TouchableOpacity*/}
+      {/*    style={styles.usButton}*/}
+      {/*    onPress={() => {*/}
+      {/*      Linking.openURL("mailto:lightmasters.aikai@gmail.com");*/}
+      {/*    }}*/}
+      {/*  >*/}
+      {/*    <Text*/}
+      {/*      style={styles.usButtonText}*/}
+      {/*      onPress={() => {*/}
+      {/*        Linking.openURL("mailto:lightmasters.aikai@gmail.com");*/}
+      {/*      }}*/}
+      {/*    >*/}
+      {/*      Contact Us*/}
+      {/*    </Text>*/}
+      {/*  </TouchableOpacity>*/}
+      {/*</View>*/}
     </View>
   );
 };
