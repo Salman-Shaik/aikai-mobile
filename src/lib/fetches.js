@@ -82,9 +82,7 @@ export const fetchOtherShow = (
 ) => {
   const url = `${API_HOST}/${currentShowType}/${showId}/${keyword}?api_key=${TMDB_API_KEY}&language=en-IN&page=1`;
   fetch(url)
-    .then((r) => {
-      return r.text();
-    })
+    .then((r) => r.text())
     .then((d) => {
       return JSON.parse(d).results;
     })

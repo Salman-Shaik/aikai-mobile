@@ -594,6 +594,14 @@ export const showDetailsStyles = StyleSheet.create({
     color: "#ffefd5",
     fontFamily: "Quicksand-Book",
   },
+  note: {
+    fontSize: 14,
+    color: "#ffefd5",
+    fontFamily: "Quicksand-Bold",
+    fontWeight: "bold",
+    fontStyle: "italic",
+    marginLeft: 4,
+  },
   description: {
     width: (deviceWidth * 96) / 100,
     marginTop: 10,

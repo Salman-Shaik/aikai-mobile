@@ -162,27 +162,33 @@ export const ShowDetails = ({
             <View style={styles.extras}>
               <Text style={styles.overviewHeader}>Recommendations</Text>
               <View style={styles.recommendations}>
-                {!_.isEmpty(recommendations) &&
+                {_.isEmpty(recommendations) ? (
+                  <Text style={styles.note}>No recommendations found</Text>
+                ) : (
                   createExtras(
                     recommendations,
                     setCurrentShowId,
                     setCurrentShowType,
                     updateLocation,
                     type
-                  )}
+                  )
+                )}
               </View>
             </View>
             <View style={styles.extras}>
               <Text style={styles.overviewHeader}>Similar</Text>
               <View style={styles.similar}>
-                {!_.isEmpty(similar) &&
+                {_.isEmpty(similar) ? (
+                  <Text style={styles.note}>No similar shows found</Text>
+                ) : (
                   createExtras(
                     similar,
                     setCurrentShowId,
                     setCurrentShowType,
                     updateLocation,
                     type
-                  )}
+                  )
+                )}
               </View>
             </View>
           </View>
