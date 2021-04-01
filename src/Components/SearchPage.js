@@ -1,16 +1,13 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import React, { useState } from "react";
-import {
-  Image,
-  KeyboardAvoidingView,
-  Pressable,
-  TextInput,
-  View,
-} from "react-native";
+import { Image, Pressable, Text, TextInput, View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import { searchShow } from "../lib/fetches";
-
-import { searchPageStyles as styles } from "../Stylesheets/Styles";
+import {
+  noResultStyles,
+  searchPageStyles as styles,
+} from "../Stylesheets/Styles";
 import { Spinner } from "./Misc/Spinner/Spinner";
 
 const createSectionedPosters = (results, setCurrentShowId, updateLocation) => {
@@ -58,6 +55,8 @@ export const SearchPage = ({
 
   const onChange = (text) => {
     const placeholder = "Search...";
+    setMovieResults([]);
+    setTvResults([]);
     if (text.includes(placeholder)) {
       setSearchQuery(text.replace(placeholder, ""));
     } else {
@@ -68,14 +67,11 @@ export const SearchPage = ({
   const onSearch = () => {
     if (!searchQuery.includes("Search...")) {
       setLoaded(false);
+      const callback = () => {
+        setLoaded(true);
+      };
       searchShow(setMovieResults, searchQuery, "movie", setCurrentShowType);
-      searchShow(
-        setTvResults,
-        searchQuery,
-        "tv",
-        setCurrentShowType,
-        setLoaded
-      );
+      searchShow(setTvResults, searchQuery, "tv", setCurrentShowType, callback);
     }
   };
 
@@ -92,7 +88,7 @@ export const SearchPage = ({
   });
 
   return (
-    <KeyboardAvoidingView style={styles.searchPage} behavior={"padding"}>
+    <KeyboardAwareScrollView contentContainerStyle={styles.searchPage}>
       <View style={styles.searchBar}>
         <FontAwesomeIcon
           icon={faSearch}
@@ -117,9 +113,12 @@ export const SearchPage = ({
         <Spinner />
       ) : (
         <View style={styles.searchResults}>
+          <Text
+            style={noResultStyles.noResults}
+          >{`${results.length} results found for ${searchQuery}`}</Text>
           {createSectionedPosters(results, setCurrentShowId, updateLocation)}
         </View>
       )}
-    </KeyboardAvoidingView>
+    </KeyboardAwareScrollView>
   );
 };

@@ -54,7 +54,7 @@ export const searchShow = (
   query,
   type,
   setCurrentShowType,
-  setLoaded
+  callback
 ) => {
   const url = `${API_HOST}/search/${type}?api_key=${TMDB_API_KEY}&query=${query}`;
   fetch(url)
@@ -68,7 +68,7 @@ export const searchShow = (
         return t;
       });
       setResults(temp);
-      !!setLoaded && setLoaded(true);
+      !!callback && callback();
     })
     .catch((e) => new TypeError(e));
 };

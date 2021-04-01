@@ -158,15 +158,15 @@ export const legalJargonStyles = StyleSheet.create({
 export const nowPlayingStyles = StyleSheet.create({
   nowPlaying: {
     width: deviceWidth,
-    height: (deviceHeight * 90.5) / 100,
+    height: (deviceHeight * 89) / 100,
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: "center",
     marginTop: 45,
   },
   headingText: {
-    height: (deviceHeight * 6) / 100,
+    height: (deviceHeight * 5) / 100,
     width: (deviceWidth * 95) / 100,
     fontSize: 22,
     color: "#ffefd5",
@@ -174,15 +174,15 @@ export const nowPlayingStyles = StyleSheet.create({
     textAlign: "left",
   },
   nowPlayingPoster: {
-    width: 182,
-    height: 273,
-    borderRadius: 4,
-    margin: 5,
+    width: 175,
+    height: 260,
+    borderRadius: 5,
+    margin: 2,
   },
   nowPlayingShowBlock: {
     flex: 1,
-    height: (deviceHeight * 38) / 100,
-    width: (deviceWidth * 95) / 100,
+    height: (deviceHeight * 36) / 100,
+    width: (deviceWidth * 93) / 100,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -192,8 +192,8 @@ export const nowPlayingStyles = StyleSheet.create({
 
 export const posterStyles = StyleSheet.create({
   poster: {
-    width: 182,
-    height: 273,
+    width: 175,
+    height: 260,
     borderRadius: 5,
   },
 });
@@ -201,7 +201,6 @@ export const posterStyles = StyleSheet.create({
 export const searchPageStyles = StyleSheet.create({
   searchPage: {
     width: deviceWidth,
-    height: (deviceHeight * 95.5) / 100,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -230,7 +229,6 @@ export const searchPageStyles = StyleSheet.create({
   },
   searchResults: {
     width: (deviceWidth * 96) / 100,
-    height: (deviceHeight * 88) / 100,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -266,7 +264,7 @@ export const suggestionsStyles = StyleSheet.create({
     width: (deviceWidth * 92) / 100,
     fontSize: 28,
     color: "#ffefd5",
-    marginTop: 10,
+    marginTop: 14,
     fontFamily: "Avenir-Medium",
   },
   suggestedShows: {
@@ -281,7 +279,7 @@ export const suggestionsStyles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-evenly",
     width: (deviceWidth * 44) / 100,
-    height: (deviceHeight * 78) / 100,
+    height: (deviceHeight * 75) / 100,
   },
 });
 
@@ -1457,5 +1455,16 @@ export const loaderStyles = StyleSheet.create({
   loader: {
     width: 200,
     height: 200,
+  },
+});
+
+export const noResultStyles = StyleSheet.create({
+  noResults: {
+    fontSize: 18,
+    marginTop: 2,
+    color: "#ffefd5",
+    fontFamily: "Quicksand-Bold",
+    fontWeight: "bold",
+    fontStyle: "italic",
   },
 });

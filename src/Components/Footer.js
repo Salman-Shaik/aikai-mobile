@@ -2,8 +2,8 @@ import {
   faBars,
   faBookmark,
   faHome,
+  faPlay,
   faSearch,
-  faTicketAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import React from "react";
@@ -23,78 +23,64 @@ export const Footer = ({ isCurrentScreen, updateLocation }) => {
   const onWatchlist = () => updateLocation("WatchList");
   const onMenu = () => updateLocation("Menu");
 
+  const Icon = ({ icon, iconSize, color, onPress, textStyle, text }) => {
+    return (
+      <View style={styles.iconView}>
+        <FontAwesomeIcon
+          icon={icon}
+          size={iconSize}
+          color={color}
+          onPress={onPress}
+        />
+        <Text style={textStyle} onPress={onPress}>
+          {text}
+        </Text>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.footer}>
-      <View style={styles.iconView}>
-        <FontAwesomeIcon
-          icon={faHome}
-          size={27}
-          color={isHome ? "gray" : "#ffefd5"}
-          onPress={onHome}
-        />
-        <Text
-          style={isHome ? styles.selectedIconText : styles.iconText}
-          onPress={onHome}
-        >
-          Home
-        </Text>
-      </View>
-      <View style={styles.iconView}>
-        <FontAwesomeIcon
-          icon={faSearch}
-          size={25}
-          color={isSearch ? "gray" : "white"}
-          onPress={onSearch}
-        />
-        <Text
-          style={isSearch ? styles.selectedIconText : styles.iconText}
-          onPress={onSearch}
-        >
-          Search
-        </Text>
-      </View>
-      <View style={styles.iconView}>
-        <FontAwesomeIcon
-          icon={faTicketAlt}
-          size={30}
-          color={isNowPlaying ? "gray" : "#e56363"}
-          onPress={onNowPlaying}
-        />
-        <Text
-          style={isNowPlaying ? styles.selectedIconText : styles.iconText}
-          onPress={onNowPlaying}
-        >
-          Now Playing
-        </Text>
-      </View>
-      <View style={styles.iconView}>
-        <FontAwesomeIcon
-          icon={faBookmark}
-          size={25}
-          color={isWatchList ? "gray" : "#7cfc00"}
-          onPress={onWatchlist}
-        />
-        <Text
-          style={isWatchList ? styles.selectedIconText : styles.iconText}
-          onPress={onWatchlist}
-        >
-          Watchlist
-        </Text>
-      </View>
-      <View style={styles.iconView}>
-        <FontAwesomeIcon
-          icon={faBars}
-          size={26}
-          color={isMore ? "gray" : "#ffefd5"}
-          onPress={onMenu}
-        />
-        <Text
-          style={isMore ? styles.selectedIconText : styles.iconText}
-          onPress={onMenu}
-        >
-          More
-        </Text>
-      </View>
+      <Icon
+        icon={faHome}
+        iconSize={27}
+        color={isHome ? "gray" : "#ffefd5"}
+        onPress={onHome}
+        textStyle={isHome ? styles.selectedIconText : styles.iconText}
+        text={"Home"}
+      />
+      <Icon
+        icon={faSearch}
+        iconSize={25}
+        color={isSearch ? "gray" : "white"}
+        onPress={onSearch}
+        textStyle={isSearch ? styles.selectedIconText : styles.iconText}
+        text={"Search"}
+      />
+      <Icon
+        icon={faPlay}
+        iconSize={25}
+        color={isNowPlaying ? "gray" : "#e56363"}
+        onPress={onNowPlaying}
+        textStyle={isNowPlaying ? styles.selectedIconText : styles.iconText}
+        text={"Now Playing"}
+      />
+      <Icon
+        icon={faBookmark}
+        iconSize={25}
+        color={isWatchList ? "gray" : "#7cfc00"}
+        onPress={onWatchlist}
+        textStyle={isWatchList ? styles.selectedIconText : styles.iconText}
+        text={"Watchlist"}
+      />
+      <Icon
+        icon={faBars}
+        iconSize={26}
+        color={isMore ? "gray" : "#ffefd5"}
+        onPress={onMenu}
+        textStyle={isMore ? styles.selectedIconText : styles.iconText}
+        text={"More"}
+      />
     </View>
   );
 };
