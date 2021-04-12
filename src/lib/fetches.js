@@ -109,6 +109,7 @@ export const login = (
     if (!token) {
       setSuccess(false);
       setError(true);
+      setLoaded(true);
     } else {
       setError(false);
       setSuccess(true);
@@ -129,9 +130,17 @@ export const login = (
     body: JSON.stringify(body),
   })
     .then((res) => res.text())
-    .then((d) => JSON.parse(d).user)
+    .then((d) => {
+      const obj = JSON.parse(d);
+      return obj.user;
+    })
     .then(loginHandler)
-    .catch((e) => new TypeError(e));
+    .catch((e) => {
+      setSuccess(false);
+      setError(true);
+      setLoaded(true);
+      return new TypeError(e);
+    });
 };
 
 export const fetchFavorites = (setFavorites, setLoaded) => {
@@ -346,9 +355,15 @@ export const registerUser = (
       } else {
         setSuccess(false);
         setError(true);
+        setLoaded(true);
       }
     })
-    .catch((e) => new TypeError(e));
+    .catch((e) => {
+      setSuccess(false);
+      setError(true);
+      setLoaded(true);
+      return new TypeError(e);
+    });
 };
 
 export const updateUser = (body, setError, setSuccess, updateLocation) => {

@@ -1,12 +1,11 @@
-import React, { useEffect} from "react";
-import { StyleSheet, View,StatusBar } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, View, StatusBar } from "react-native";
 import { Homepage } from "./Components/Homepage";
-import SplashScreen from 'react-native-splash-screen'
+import SplashScreen from "react-native-splash-screen";
 export default function App() {
-
   useEffect(() => {
     setTimeout(() => {
-      SplashScreen.hide()
+      SplashScreen.hide();
     }, 3000);
   }, []);
 
