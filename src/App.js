@@ -1,22 +1,19 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useEffect} from "react";
+import { StyleSheet, View,StatusBar } from "react-native";
 import { Homepage } from "./Components/Homepage";
-import { InitialPage } from "./Components/InitialPage";
-
+import SplashScreen from 'react-native-splash-screen'
 export default function App() {
-  let [showLogo, setShowLogo] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
-      setShowLogo(false);
+      SplashScreen.hide()
     }, 3000);
   }, []);
 
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
-      {showLogo ? <InitialPage /> : <Homepage />}
+      <StatusBar barStyle="dark-content" />
+      <Homepage />
     </View>
   );
 }

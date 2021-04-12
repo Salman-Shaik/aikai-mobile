@@ -100,6 +100,7 @@ export const login = (
   setError,
   setSuccess,
   setIsUserLoggedIn,
+  setLoaded,
   updateLocation,
   storeData
 ) => {
@@ -112,6 +113,7 @@ export const login = (
       setError(false);
       setSuccess(true);
       storeData("user-key", token).then(() => {
+        setLoaded(true);
         setIsUserLoggedIn(true);
         updateLocation("Suggestions");
       });
@@ -319,7 +321,13 @@ export const fetchAiringTVShows = (setAiringTvShows, setLoaded) => {
     .catch((e) => new TypeError(e));
 };
 
-export const registerUser = (body, setError, setSuccess, updateLocation) => {
+export const registerUser = (
+  body,
+  setError,
+  setSuccess,
+  setLoaded,
+  updateLocation
+) => {
   fetch(`${USER_API}/register`, {
     method: "post",
     body: JSON.stringify(body),
@@ -331,6 +339,7 @@ export const registerUser = (body, setError, setSuccess, updateLocation) => {
       if (res.status === 200) {
         setSuccess(true);
         setError(false);
+        setLoaded(true);
         setTimeout(() => {
           updateLocation("Login");
         }, 300);
